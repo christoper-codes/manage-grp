@@ -9,7 +9,7 @@ namespace manage_grp.Server.Dominian.Interfaces
         State GetById(int id);
         State Save(State state);
         State Update(int id, State state);
-        State Delete(int id);
+        State Delete(State state);
 
         // Custom methods for the repository interface
     }

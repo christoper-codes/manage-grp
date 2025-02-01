@@ -1,6 +1,7 @@
 ﻿using manage_grp.Server.Models;
 using manage_grp.Server.Context;
 using manage_grp.Server.Dominian.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace manage_grp.Server.Dominian.Repositories
 {
@@ -32,25 +33,18 @@ namespace manage_grp.Server.Dominian.Repositories
 
         public State Update(int id, State state)
         {
-            var existingState = _context.States.Find(id);
-            if (existingState != null)
-            {
-                _context.Entry(existingState).CurrentValues.SetValues(state);
-                _context.Entry(existingState).Property(x => x.CreatedAt).IsModified = false;
-                _context.SaveChanges();
-            }
+            _context.Entry(state).CurrentValues.SetValues(state);
+            _context.Entry(state).Property(x => x.Id).IsModified = false;
+            _context.Entry(state).Property(x => x.CreatedAt).IsModified = false;
+            _context.SaveChanges();
 
-            return existingState;
+            return state;
         }
 
-        public State Delete(int id)
+        public State Delete(State state)
         {
-            var state = _context.States.Find(id);
-            if (state != null)
-            {
-                _context.States.Remove(state);
-                _context.SaveChanges();
-            }
+            _context.States.Remove(state);
+            _context.SaveChanges();
 
             return state;
         }

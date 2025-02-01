@@ -73,7 +73,7 @@ namespace manage_grp.Server.Dominian.Services
                 {
                     throw new Exception("Estado no encontrado");
                 }
-                _stateRepository.Delete(id);
+                _stateRepository.Delete(state);
                 return state;
             }
             catch

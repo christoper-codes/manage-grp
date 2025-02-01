@@ -72,7 +72,13 @@ namespace manage_grp.Server.Dominian.Services
         {
             try
             {
-                return _municipalityRepository.Delete(id);
+                var municipality = _municipalityRepository.GetById(id);
+                if(municipality == null)
+                {
+                    throw new Exception("Municipio no encontrado");
+                }
+
+                return _municipalityRepository.Delete(municipality);
             }
             catch
             {

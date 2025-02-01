@@ -1,0 +1,6 @@
+@manage_grp.Server_HostAddress = http://localhost:5253
+
+GET {{manage_grp.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

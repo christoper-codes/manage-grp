@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "Nuevo perfil",
+    "Projects": [
+      {
+        "Path": "manage-grp.Server\\manage-grp.Server.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

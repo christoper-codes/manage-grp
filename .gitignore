@@ -1,1 +1,25 @@
 .vs/manage-grp/
+manage-grp.sln
+manage-grp.slnLaunch.user
+
+# Ignore .vs folder
+.vs/
+
+# Ignore .NET build results
+manage-grp.Server/bin/
+manage-grp.Server/obj/
+
+# Ignore solution user-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore Logs
+*.log
+
+# Ignore node_modules for Vue client
+manage-grp.client/node_modules/
+
+# Ignore build directories
+manage-grp.client/dist/

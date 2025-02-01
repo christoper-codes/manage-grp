@@ -9,7 +9,7 @@ namespace manage_grp.Server.Dominian.Interfaces
         Municipality GetById(int id);
         Municipality Save(Municipality municipality);
         Municipality Update(int id, Municipality municipality);
-        Municipality Delete(int id);
+        Municipality Delete(Municipality municipality);
 
         // Custom methods for the repository interface
     }

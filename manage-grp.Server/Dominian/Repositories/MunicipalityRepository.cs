@@ -32,25 +32,19 @@ namespace manage_grp.Server.Dominian.Repositories
 
         public Municipality Update(int id, Municipality municipality)
         {
-            var existingmunicipality = _context.Municipalities.Find(id);
-            if (existingmunicipality != null)
-            {
-                _context.Entry(existingmunicipality).CurrentValues.SetValues(municipality);
-                _context.Entry(existingmunicipality).Property(x => x.CreatedAt).IsModified = false;
-                _context.SaveChanges();
-            }
 
-            return existingmunicipality;
+            _context.Entry(municipality).CurrentValues.SetValues(municipality);
+            _context.Entry(municipality).Property(x => x.CreatedAt).IsModified = false;
+            _context.SaveChanges();
+
+            return municipality;
         }
 
-        public Municipality Delete(int id)
+        public Municipality Delete(Municipality municipality)
         {
-            var municipality = _context.Municipalities.Find(id);
-            if (municipality != null)
-            {
-                _context.Municipalities.Remove(municipality);
-                _context.SaveChanges();
-            }
+            
+            _context.Municipalities.Remove(municipality);
+            _context.SaveChanges();
 
             return municipality;
         }

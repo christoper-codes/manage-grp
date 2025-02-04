@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router';
 </script>
 
 <template>
-    <div class="bg-darkgray">
+    <div class="tw-bg-gradient-to-r tw-from-primary tw-to-secondary">
         <v-container class="max-width-1218 py-0">
             <div class="space-p-96">
                 <v-row>
@@ -13,7 +13,7 @@ import { RouterLink } from 'vue-router';
                             <img
                                 src="@/assets/images/front-pages/background/white-logo.svg"
                                 alt="widget"
-                                class=""
+                                class="tw-w-52"
                             />
                         </div>
                         <div class="d-flex flex-column ga-4">
@@ -21,7 +21,7 @@ import { RouterLink } from 'vue-router';
                                 <RouterLink
                                     :to="item.link"
                                     target="_blank"
-                                    class="text-white text-14 opacity-50 font-weight-regular hover-primary text-decoration-none"
+                                    class="text-white text-14 font-weight-regular hover-primary text-decoration-none"
                                 >
                                     {{ item.menu }}
                                 </RouterLink>
@@ -29,13 +29,13 @@ import { RouterLink } from 'vue-router';
                         </div>
                     </v-col>
                     <v-col cols="12" lg="3" sm="6">
-                        <h5 class="text-17 mb-sm-8 mb-6">Features</h5>
+                        <h5 class="text-17 mb-sm-8 mb-6 tw-text-white">Features</h5>
                         <div class="d-flex flex-column ga-4">
                             <div v-for="item in FooterMenu2" :key="item.menu">
                                 <RouterLink
                                     :to="item.link"
                                     target="_blank"
-                                    class="text-white text-14 opacity-50 font-weight-regular hover-primary text-decoration-none"
+                                    class="text-white text-14 font-weight-regular hover-primary text-decoration-none"
                                 >
                                     {{ item.menu }}
                                 </RouterLink>
@@ -43,21 +43,21 @@ import { RouterLink } from 'vue-router';
                         </div>
                     </v-col>
                     <v-col cols="12" lg="3" sm="6">
-                        <h5 class="text-17 mb-sm-8 mb-6">Resources</h5>
+                        <h5 class="text-17 mb-sm-8 mb-6 tw-text-white">Resources</h5>
                         <div class="d-flex flex-column ga-4">
                             <div v-for="item in FooterMenu3" :key="item.menu">
                                 <RouterLink
                                     :to="item.link"
                                     target="_blank"
-                                    class="text-white text-14 opacity-50 font-weight-regular hover-primary text-decoration-none"
+                                    class="text-white text-14 font-weight-regular hover-primary text-decoration-none"
                                 >
                                     {{ item.menu }}
                                 </RouterLink>
                             </div>
                         </div>
                     </v-col>
-                    <v-col cols="12" lg="3" sm="6">
-                        <h5 class="text-17 mb-sm-8 mb-6">Follow us</h5>
+                    <v-col cols="12" lg="3" sm="6" class="">
+                        <h5 class="text-17 mb-sm-8 mb-6 tw-text-white">Follow us</h5>
                         <div class="d-flex ga-5 social-icon">
                             <a href="/" target="_blank" class="link-btn">
                                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -112,9 +112,9 @@ import { RouterLink } from 'vue-router';
             <div class="py-sm-10 py-6">
                 <div class="d-sm-flex justify-space-between">
                     <div class="d-flex ga-2  justify-sm-start justify-center">
-                        <img src="@/assets/images/front-pages/background/white-icon-logo.svg" height="24" class="mx-2" alt="logo" />
+                        <img src="@/assets/images/front-pages/background/white-icon-logo.svg" class="mx-2 tw-w-10" alt="logo" />
                         <span class="
-                        text-white text-15 opacity-50">All rights reserved by MatDash.</span>   
+                        text-white text-15">All rights reserved by MatDash.</span>
                     </div>
                     <p class="text-white text-15  d-flex align-center justify-sm-end justify-center pt-sm-0 pt-2">
                         <span class="opacity-50">Produced by</span>

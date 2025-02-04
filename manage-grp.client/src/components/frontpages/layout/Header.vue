@@ -24,7 +24,7 @@ function handleScroll() {
 </script>
 <template>
     <div>
-        <div class="bg-background">
+        <div class="bg-light">
             <!-- -----------------------------------------------
                     Start Header
                     ----------------------------------------------- -->
@@ -32,9 +32,9 @@ function handleScroll() {
                 <v-container class="py-0 max-width-1218">
                     <v-toolbar class="d-flex align-center">
                         <!-- Logo -->
-                       
+
                         <div >
-                            <Logo />
+                            <Logo class="tw-w-40"/>
                         </div>
 
                         <!-- Desktop view Navigation -->
@@ -42,7 +42,7 @@ function handleScroll() {
                             <Navigations />
                         </div>
                         <div class="d-flex ms-xl-0 ms-auto">
-                            <v-btn class="custom-hover-primary bg-darkgray me-lg-0 me-3 d-md-flex d-none text-white px-6 transform-none" size="large" flat href="/auth/login2"  target="_blank"
+                            <v-btn class="custom-hover-primary bg-primary me-lg-0 me-3 d-md-flex d-none text-white px-6 transform-none" size="large" flat href="/auth/login2"
                                 ><span class="text-white">Log in</span></v-btn
                             >
                             <v-btn variant="text" class="hidden-lg-and-up" icon @click.stop="appsdrawer = !appsdrawer">

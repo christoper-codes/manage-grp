@@ -10,6 +10,11 @@
         "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
     },
     "dependencies": {
+        "@fullcalendar/core": "6.1.10",
+        "@fullcalendar/daygrid": "6.1.10",
+        "@fullcalendar/interaction": "6.1.10",
+        "@fullcalendar/timegrid": "6.1.10",
+        "@fullcalendar/vue3": "6.1.10",
         "@iconify/vue": "4.1.1",
         "@tiptap/extension-text-style": "^2.8.0",
         "@tiptap/pm": "2.7.4",
@@ -44,12 +49,7 @@
         "vue3-print-nb": "0.1.4",
         "vuedraggable": "2.24.3",
         "vuetify": "3.7.1",
-        "yup": "1.4.0",
-        "@fullcalendar/core": "6.1.10",
-        "@fullcalendar/daygrid": "6.1.10",
-        "@fullcalendar/interaction": "6.1.10",
-        "@fullcalendar/timegrid": "6.1.10",
-        "@fullcalendar/vue3": "6.1.10"
+        "yup": "1.4.0"
     },
     "devDependencies": {
         "@mdi/font": "7.4.47",
@@ -67,11 +67,12 @@
         "prettier": "3.2.5",
         "sass": "1.70.0",
         "sass-loader": "14.1.0",
+        "tailwindcss": "^3.4.17",
         "typescript": "^5.3.3",
         "vite": "5.4.8",
+        "vite-plugin-vue-devtools": "^7.7.0",
         "vue-cli-plugin-vuetify": "2.5.8",
         "vue-tsc": "^2.1.6",
-        "vuetify-loader": "1.9.2",
-        "vite-plugin-vue-devtools": "^7.7.0"
+        "vuetify-loader": "1.9.2"
     }
 }

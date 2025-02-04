@@ -58,9 +58,9 @@ const isActive = (href: string) => route.path === href;
                     ]"
                 >
                     {{ item.menu }}
-                    <v-chip v-if="item.badge" class="font-weight-semibold h-23" color="primary" size="small" label> New </v-chip>
+                    <v-chip v-if="item.badge" class="font-weight-semibold h-23" color="secondary" size="small" label> New </v-chip>
                 </RouterLink>
-               
+
             </div>
         </div>
 

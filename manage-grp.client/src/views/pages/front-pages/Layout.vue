@@ -6,7 +6,7 @@ import Header from '@/components/frontpages/layout/Header.vue';
 </script>
 <template>
     <div class="front-wraper bg-surface">
-      <AnnounceBar/>  
+      <AnnounceBar/>
       <Header />
       <main>
         <slot></slot> <!-- This slot will be replaced with page-specific content -->

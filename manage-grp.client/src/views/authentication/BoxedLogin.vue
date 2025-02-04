@@ -8,7 +8,7 @@ import { AuthCuroselData } from '@/_mockApis/components/pages/auth';
 /* Login form */
 </script>
 <template>
-    <div class="authentication auth-bg">
+    <div class="authentication tw-bg-gradient-to-r tw-from-primary tw-to-secondary">
         <v-container class="pa-3 auth-login">
             <v-row class="h-100vh d-flex justify-center align-center">
                 <v-col cols="12" class="d-flex align-center">

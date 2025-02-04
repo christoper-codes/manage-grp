@@ -10,7 +10,7 @@
                                 ><RocketIcon size="18" class="text-secondary" /> Kick start your project with</span
                             >
                             <h1 class="bannerTitle pt-5 font-weight-bold" data-aos="fade-up" data-aos-duration="500">
-                                Enhance <span class="text-primary">Developer's Productivity</span> with a MatDash
+                                Enhance <span class="tw-bg-gradient-to-r tw-from-primary tw-to-secondary tw-text-transparent tw-bg-clip-text">Developer's Productivity</span> with a MatDash
                             </h1>
                             <p class="pt-8 pb-6 text-h5 textPrimary font-weight-regular" data-aos="fade-up" data-aos-duration="800">
                                 MatDash comes with light & dark color skins, well designed dashboards, applications and pages.

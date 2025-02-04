@@ -10,6 +10,9 @@ manage-grp.slnLaunch.user
 manage-grp.Server/bin/
 manage-grp.Server/obj/
 
+manage-grp.client/bin/
+manage-grp.client/obj/
+
 # Ignore solution user-specific files
 *.user
 *.suo

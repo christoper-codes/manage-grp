@@ -8,7 +8,8 @@ const AuthRoutes = {
         {
             name: 'Landing Page',
             path: '/',
-            component: () => import('@/views/pages/landingpage/index.vue')
+            /* component: () => import('@/views/pages/landingpage/index.vue') */
+            component: () => import('@/views/pages/front-pages/Landingpage.vue')
         },
         {
             name: 'FrontPage',

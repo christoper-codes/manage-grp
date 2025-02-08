@@ -2,9 +2,9 @@
 import mock from './mockAdapter';
 
 import type { notificationType, profileType, languageType, appsLinkType,searchType } from '@/types/HeaderTypes'
-// 
+//
 // Notification
-// 
+//
 const notifications:notificationType[] = [
     {
         avatar: 'widget-3-line-duotone',
@@ -50,9 +50,9 @@ const notifications:notificationType[] = [
     },
 ];
 
-// 
-// Profile 
-// 
+//
+// Profile
+//
 const profileDD: profileType[] = [
     {
         title: 'My Profile',
@@ -79,26 +79,22 @@ const profileDD: profileType[] = [
         href: '/auth/login2',
         badge:false
     },
-   
+
 ];
 
-// 
+//
 // Language
-// 
-import flag1 from '@/assets/images/flag/icon-flag-en.svg';
-import flag2 from '@/assets/images/flag/icon-flag-fr.svg';
-import flag3 from '@/assets/images/flag/icon-flag-ro.svg';
-import flag4 from '@/assets/images/flag/icon-flag-zh.svg';
+//
+import flag1 from '@/assets/images/flag/icon-flag-es.webp';
+import flag2 from '@/assets/images/flag/icon-flag-en.webp';
 const languageDD: languageType[] = [
-    { title: 'English', subtext: 'UK', value: 'en', avatar: flag1 },
-    { title: 'français', subtext: 'French', value: 'fr', avatar: flag2 },
-    { title: 'عربي', subtext: 'Arbic', value: 'ro', avatar: flag3 },
-    { title: '中国人', subtext: 'Chinese', value: 'zh', avatar: flag4 }
+    { title: 'Español', subtext: 'MX', value: 'es', avatar: flag1 },
+    { title: 'English', subtext: 'UK', value: 'en', avatar: flag2 },
 ];
 
-// 
+//
 // AppsLink
-// 
+//
 const appsLink: appsLinkType[] = [
     {
         avatar: 'chat-line-bold-duotone',
@@ -121,7 +117,7 @@ const appsLink: appsLinkType[] = [
         subtext: 'learn more information',
         href: '/ecommerce/products'
     },
-   
+
     {
         avatar: 'calendar-minimalistic-bold-duotone',
         color:'primary',
@@ -160,9 +156,9 @@ const appsLink: appsLinkType[] = [
 ];
 
 
-// 
+//
 // Search Data
-// 
+//
 const searchSugg: searchType[] = [
     {
         title: 'Modern',

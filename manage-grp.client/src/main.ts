@@ -25,8 +25,12 @@ import VueScrollTo from 'vue-scrollto';
 //LightBox
 import VueEasyLightbox from 'vue-easy-lightbox';
 
+import Toast from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+
 const i18n = createI18n({
-    locale: 'en',
+    legacy: false,
+    locale: 'es',
     messages: messages,
     silentTranslationWarn: true,
     silentFallbackWarn: true

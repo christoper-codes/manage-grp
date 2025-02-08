@@ -21,7 +21,7 @@
         "@tiptap/starter-kit": "2.7.4",
         "@tiptap/vue-3": "2.7.4",
         "@types/aos": "3.0.7",
-        "aos": "2.3.4",
+        "aos": "^2.3.4",
         "apexcharts": "3.45.2",
         "axios": "1.6.7",
         "axios-mock-adapter": "1.22.0",
@@ -47,6 +47,7 @@
         "vue3-carousel": "0.3.1",
         "vue3-perfect-scrollbar": "1.6.1",
         "vue3-print-nb": "0.1.4",
+        "vue3-toastify": "^0.2.8",
         "vuedraggable": "2.24.3",
         "vuetify": "3.7.1",
         "yup": "1.4.0"

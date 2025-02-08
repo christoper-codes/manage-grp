@@ -62,7 +62,7 @@ const getCart = computed(() => {
             <Logo />
         </div>
 
-  
+
         <ThemeToggler />
 
         <!-- ---------------------------------------------- -->

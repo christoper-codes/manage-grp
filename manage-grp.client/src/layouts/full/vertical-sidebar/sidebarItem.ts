@@ -267,9 +267,9 @@ const sidebarItem: menu[] = [
                 icon: 'transmission-line-duotone',
                 to: '/pages/treeview'
             },
-            
-            
-           
+
+
+
         ]
     },
     {
@@ -346,7 +346,7 @@ const sidebarItem: menu[] = [
                         title: 'Time Picker',
                         to: '/forms/form-elements/time-picker'
                     },
-                    
+
                     {
                         title: 'Stepper',
                         to: '/forms/form-elements/stepper'

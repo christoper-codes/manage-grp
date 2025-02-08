@@ -1,0 +1,6 @@
+{
+    "SUCCESS_MESSAGE": "¡Éxito en el proceso!",
+    "ERROR_MESSAGE": "¡Error en el proceso!",
+    "WARNING_MESSAGE": "¡Advertencia en el proceso!",
+    "INFO_MESSAGE": "¡Información en el proceso!"
+}

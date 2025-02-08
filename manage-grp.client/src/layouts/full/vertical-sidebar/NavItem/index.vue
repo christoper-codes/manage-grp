@@ -35,6 +35,6 @@ const props = defineProps({ item: Object, level: Number });
                 {{ item.chip }}
             </v-chip>
         </template>
-        
+
     </v-list-item>
 </template>

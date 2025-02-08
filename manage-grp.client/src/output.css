@@ -554,12 +554,73 @@ video {
   display: none;
 }
 
+.tw-absolute {
+  position: absolute;
+}
+
+.tw-relative {
+  position: relative;
+}
+
+.tw-inset-0 {
+  inset: 0px;
+}
+
+.tw-z-10 {
+  z-index: 10;
+}
+
+.tw-mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.\!tw-mt-5 {
+  margin-top: 1.25rem !important;
+}
+
+.tw-mt-5 {
+  margin-top: 1.25rem;
+}
+
+.tw-inline-block {
+  display: inline-block;
+}
+
+.tw-flex {
+  display: flex;
+}
+
+.tw-hidden {
+  display: none;
+}
+
+.tw-h-5 {
+  height: 1.25rem;
+}
+
 .tw-h-auto {
   height: auto;
 }
 
+.tw-h-full {
+  height: 100%;
+}
+
+.tw-min-h-60 {
+  min-height: 15rem;
+}
+
+.tw-w-1\/5 {
+  width: 20%;
+}
+
 .tw-w-10 {
   width: 2.5rem;
+}
+
+.tw-w-12 {
+  width: 3rem;
 }
 
 .tw-w-20 {
@@ -570,6 +631,10 @@ video {
   width: 10rem;
 }
 
+.tw-w-5 {
+  width: 1.25rem;
+}
+
 .tw-w-52 {
   width: 13rem;
 }
@@ -578,13 +643,83 @@ video {
   width: auto;
 }
 
+.tw-w-full {
+  width: 100%;
+}
+
+@keyframes tw-pulse {
+  50% {
+    opacity: .5;
+  }
+}
+
+.tw-animate-pulse {
+  animation: tw-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.tw-flex-col {
+  flex-direction: column;
+}
+
+.tw-items-center {
+  align-items: center;
+}
+
+.tw-justify-center {
+  justify-content: center;
+}
+
+.tw-justify-between {
+  justify-content: space-between;
+}
+
+.tw-gap-7 {
+  gap: 1.75rem;
+}
+
+.tw-rounded-3xl {
+  border-radius: 1.5rem;
+}
+
+.tw-rounded-full {
+  border-radius: 9999px;
+}
+
+.tw-border-2 {
+  border-width: 2px;
+}
+
+.\!tw-bg-gray-200 {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1)) !important;
+}
+
+.tw-bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
+}
+
+.tw-bg-black\/10 {
+  background-color: rgb(0 0 0 / 0.1);
+}
+
 .tw-bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
+.\!tw-bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops)) !important;
+}
+
 .tw-bg-gradient-to-r {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+
+.\!tw-from-primary {
+  --tw-gradient-from: rgb(var(--v-theme-primary)) var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: rgb(var(--v-theme-primary) / 0) var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
 }
 
 .tw-from-primary {
@@ -593,13 +728,51 @@ video {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
+.\!tw-to-secondary {
+  --tw-gradient-to: rgb(var(--v-theme-secondary)) var(--tw-gradient-to-position) !important;
+}
+
 .tw-to-secondary {
   --tw-gradient-to: rgb(var(--v-theme-secondary)) var(--tw-gradient-to-position);
+}
+
+.tw-bg-cover {
+  background-size: cover;
 }
 
 .tw-bg-clip-text {
   -webkit-background-clip: text;
           background-clip: text;
+}
+
+.tw-bg-center {
+  background-position: center;
+}
+
+.\!tw-p-14 {
+  padding: 3.5rem !important;
+}
+
+.tw-p-16 {
+  padding: 4rem;
+}
+
+.tw-text-center {
+  text-align: center;
+}
+
+.tw-text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.tw-text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.tw-font-bold {
+  font-weight: 700;
 }
 
 .\!tw-text-white {
@@ -616,4 +789,24 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
+.tw-opacity-20 {
+  opacity: 0.2;
+}
+
+.tw-backdrop-blur-md {
+  --tw-backdrop-blur: blur(12px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+
 /*Landing page css*/
+
+@media (min-width: 1024px) {
+  .lg\:tw-block {
+    display: block;
+  }
+
+  .lg\:tw-hidden {
+    display: none;
+  }
+}

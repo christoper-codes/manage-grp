@@ -3,5 +3,6 @@
     "SIGNIN_FIELD": "Sign in",
     "REMEMBER_ME_FIELD": "Remember me",
     "USER_NAME_FIELD": "Username",
+    "EMAIL_FIELD": "Email",
     "PASSWORD_FIELD": "Password"
 }

@@ -1,37 +1,30 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useAuthStore } from '@/stores/auth';
-import { Form } from 'vee-validate';
+import { ref, type Ref } from 'vue';
+import { Form, useField, useForm } from 'vee-validate';
+import { loginSchema } from '@/validation/auth/login-schema';
 import { useI18n } from 'vue-i18n';
-import { toast } from 'vue3-toastify'
+import { useAuthStore } from '@/stores/auth/auth';
 
+// i18n translation
 const { t } = useI18n();
-/*Social icons*/
-import google from '@/assets/images/svgs/google-icon.svg';
-import facebook from '@/assets/images/svgs/facebook-icon.svg';
-const show = ref(false);
 
-const checkbox = ref(false);
-const valid = ref(false);
-const show1 = ref(false);
-const password = ref('admin123');
-const username = ref('info@wrappixel.com');
-const passwordRules = ref([
-    (v: string) => !!v || t('REQUIRED'),
-    (v: string) => (v && v.length >= 8) || t('FIELD_LESS_THAN', { count: 8 })
-]);
-const emailRules = ref([(v: string) => !!v || t('REQUIRED'), (v: string) => /.+@.+\..+/.test(v) || t('INVALID_EMAIL')]);
+// Form validation
+const { handleSubmit } = useForm({
+  validationSchema: loginSchema(t),
+  initialValues: {
+    remember: false,
+  },
+})
+const email = useField('email');
+const password = useField('password');
+const remember = useField('remember');
+const loading: Ref<boolean> = ref(false);
+const show: Ref<boolean> = ref(false);
+const auth = useAuthStore();
 
-function validate(values: any) {
-    const authStore = useAuthStore();
-    return authStore.login(username.value, password.value).catch((error) => {
-      toast(t(error), {
-          "theme": "auto",
-          "type": "error",
-          "dangerouslyHTMLString": true
-      });
-    });
-}
+const submit = handleSubmit((values: Record<string, any>) => {
+    auth.login(values, loading);
+});
 </script>
 
 <template>
@@ -42,19 +35,19 @@ function validate(values: any) {
             </span>
         </div>
     </div>
-    <Form @submit="validate" v-slot="{ errors, isSubmitting }" class="mt-5">
-        <v-label class="font-weight-semibold pb-2 ">{{ $t('USER_NAME_FIELD') }}</v-label>
+    <Form class="mt-5">
+        <v-label class="font-weight-semibold pb-2 ">{{ $t('EMAIL_FIELD') }}</v-label>
         <VTextField
-            v-model="username"
-            :rules="emailRules"
+            v-model="email.value.value"
+            :error-messages="email.errorMessage.value"
             class="mb-8"
             required
             hide-details="auto"
         ></VTextField>
         <v-label class="font-weight-semibold pb-2 ">{{ $t('PASSWORD_FIELD') }}</v-label>
         <VTextField
-            v-model="password"
-            :rules="passwordRules"
+            v-model="password.value.value"
+            :error-messages="password.errorMessage.value"
             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
             :type="show ? 'text' : 'password'"
             @click:append="show = !show"
@@ -64,8 +57,8 @@ function validate(values: any) {
             class="pwdInput"
         ></VTextField>
         <div class="d-flex flex-wrap align-center my-3 ml-n2">
-            <v-checkbox class="pe-2" v-model="checkbox" hide-details color="primary">
-                <template v-slot:label class="font-weight-medium">{{ $t('REMEMBER_ME_FIELD') }}</template>
+            <v-checkbox class="pe-2" v-model="remember.value.value" hide-details color="primary">
+                <template v-slot:label>{{ $t('REMEMBER_ME_FIELD') }}</template>
             </v-checkbox>
             <div class="ml-sm-auto">
                 <RouterLink to="" class="text-primary text-decoration-none font-weight-medium"
@@ -73,6 +66,8 @@ function validate(values: any) {
                 >
             </div>
         </div>
-        <v-btn size="large" :loading="isSubmitting" class="!tw-bg-gradient-to-r !tw-from-primary !tw-to-secondary !tw-text-white" :disabled="valid" block type="submit" flat>{{ $t('SIGNIN_FIELD') }}</v-btn>
+        <v-btn @click="submit" :loading="loading" :disabled="loading" size="large" block type="submit"  class="!tw-bg-gradient-to-r !tw-from-primary !tw-to-secondary !tw-text-white">
+            <Icon icon="mdi:account" class="tw-text-xl !tw-w-1/2 tw-mr-1" /> {{ $t('SIGNIN_FIELD') }}
+        </v-btn>
     </Form>
 </template>

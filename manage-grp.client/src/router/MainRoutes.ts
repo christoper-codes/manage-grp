@@ -7,7 +7,7 @@ const MainRoutes = {
     component: () => import('@/layouts/full/FullLayout.vue'),
     children: [
         {
-            name: 'Dashboard1',
+            name: 'dashboard',
             path: '/dashboards/dashboard1',
             component: () => import('@/views/dashboards/dashboard1/index.vue')
         },
@@ -237,7 +237,7 @@ const MainRoutes = {
             path: '/forms/form-elements/time-picker',
             component: () => import('@/views/forms/form-elements/VTimePicker.vue')
         },
-       
+
         {
             name: 'Stepper',
             path: '/forms/form-elements/stepper',

@@ -9,6 +9,7 @@ import VueApexCharts from 'vue3-apexcharts';
 import VueTablerIcons from 'vue-tabler-icons';
 import { fakeBackend } from '@/utils/helpers/fake-backend';
 import 'vue3-carousel/dist/carousel.css';
+import { Icon } from '@iconify/vue';
 //Mock Api data
 import './_mockApis';
 
@@ -25,12 +26,16 @@ import VueScrollTo from 'vue-scrollto';
 //LightBox
 import VueEasyLightbox from 'vue-easy-lightbox';
 
+// toast
 import Toast from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
+// set preferred language
+const preferredLanguage = localStorage.getItem('preferredLanguage');
+console.log(preferredLanguage);
 const i18n = createI18n({
     legacy: false,
-    locale: 'es',
+    locale: preferredLanguage || 'es',
     messages: messages,
     silentTranslationWarn: true,
     silentFallbackWarn: true
@@ -54,3 +59,5 @@ app.use(VueScrollTo, {
     duration: 1000,
     easing: "ease",
 })
+
+app.component('Icon', Icon);

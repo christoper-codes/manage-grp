@@ -3,8 +3,6 @@ import LogoIcon from '@/layouts/full/logo/LogoIcon.vue';
 import LoginForm from '@/components/auth/LoginForm.vue';
 import brandAuthLogin from '@/assets/images/auth/brand-auth-login.jpeg';
 import LanguageDD from '@/layouts/full/vertical-header/LanguageDD.vue';
-import { AuthCuroselData } from '@/_mockApis/components/pages/auth';
-
 </script>
 
 <template>
@@ -36,25 +34,12 @@ import { AuthCuroselData } from '@/_mockApis/components/pages/auth';
             <v-col class="tw-relative !tw-p-14 tw-flex tw-items-center tw-justify-center tw-w-full tw-min-h-60 tw-bg-center tw-bg-cover" :style="{ backgroundImage: `url(${brandAuthLogin})` }">
               <div class="tw-absolute tw-inset-0 tw-bg-black tw-opacity-20"></div>
               <div data-aos="fade-left" data-aos-duration="2000" class="tw-mx-auto tw-w-full tw-h-full tw-p-16 tw-gap-7 tw-flex tw-justify-center tw-flex-col tw-text-white tw-z-10 tw-bg-black/10 tw-backdrop-blur-md tw-rounded-3xl">
-                <div class="lg:tw-hidden">
-                  <h2 class="tw-text-xl tw-font-bold tw-text-center">{{ $t('LOGIN_WELCOME') }}</h2>
-                </div>
-                <div class="tw-hidden lg:tw-block">
-                    <v-carousel
-                    :continuous="false"
-                    :show-arrows="false"
-                    cycle
-                    height="210"
-                    hide-delimiter-background
-                  >
-                    <v-carousel-item v-for="item in AuthCuroselData" :key="item.title">
-                      <h2 class="tw-text-3xl tw-font-bold">{{ $t('LOGIN_WELCOME') }}</h2>
-                      <p class="tw-text-md tw-mt-5">{{ $t('LOGIN_WELCOME_DESC') }}</p>
-                      <v-btn to="/" class="!tw-mt-5 !tw-bg-gradient-to-r !tw-from-primary !tw-to-secondary !tw-text-white tw-w-1/5">
+                <div class="tw-flex tw-flex-col tw-gap-6">
+                      <h2 class="tw-text-lg lg:tw-text-3xl">{{ $t('LOGIN_WELCOME') }}</h2>
+                      <p class="tw-text-md">{{ $t('LOGIN_WELCOME_DESC') }}</p>
+                      <v-btn to="/" class="!tw-bg-gradient-to-r !tw-from-primary !tw-to-secondary !tw-text-white tw-w-1/5">
                         {{ $t('LEARN_MORE_FIELD') }}
                       </v-btn>
-                    </v-carousel-item>
-                  </v-carousel>
                 </div>
               </div>
           </v-col>

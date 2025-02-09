@@ -7,9 +7,9 @@ import { toast } from 'vue3-toastify'
 import { useI18n } from 'vue-i18n';
 
 const { t, locale } = useI18n();
-
-const changeLanguage = (lan) => {
-  locale.value = lan.value;
+const changeLanguage = (lan: string) => {
+  locale.value = lan;
+  localStorage.setItem('preferredLanguage', lan);
    toast(t('SUCCESS_MESSAGE'), {
         "theme": "auto",
         "type": "success",
@@ -38,7 +38,7 @@ const changeLanguage = (lan) => {
                     color="primary"
                     :active="$i18n.locale == item.value"
                     class="d-flex align-center"
-                    @click="changeLanguage(item)"
+                    @click="changeLanguage(item.value)"
                 >
                     <template v-slot:prepend>
                         <v-avatar size="22">

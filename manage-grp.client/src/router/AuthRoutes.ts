@@ -6,10 +6,11 @@ const AuthRoutes = {
     },
     children: [
         {
-            name: 'Landing Page',
-            path: '/',
             /* component: () => import('@/views/pages/landingpage/index.vue') */
-            component: () => import('@/views/pages/front-pages/Landingpage.vue')
+            /* component: () => import('@/views/pages/front-pages/Landingpage.vue') */
+            name: 'login',
+            path: '/',
+            component: () => import('@/views/authentication/SideLogin.vue')
         },
         {
             name: 'FrontPage',
@@ -47,8 +48,8 @@ const AuthRoutes = {
             component: () => import('@/views/pages/front-pages/BlogDetails.vue')
         },
         {
-            name: 'Side Login',
-            path: '/auth/login',
+            name: 'loginn',
+            path: '/auth/loginn',
             component: () => import('@/views/authentication/SideLogin.vue')
         },
         {

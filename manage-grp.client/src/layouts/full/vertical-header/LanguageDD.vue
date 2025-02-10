@@ -23,7 +23,7 @@ const changeLanguage = (lan: string) => {
     <!-- ---------------------------------------------- -->
     <v-menu open-on-hover open-on-click>
         <template v-slot:activator="{ props }">
-            <v-btn icon class="custom-hover-primary !tw-bg-gray-200 tw-animate-pulse" size="small" variant="text" color="primary" v-bind="props">
+            <v-btn icon class="custom-hover-primary !tw-bg-background" size="small" variant="text" color="primary" v-bind="props">
                 <v-avatar size="20">
                     <img v-if="$i18n.locale === 'es'" :src="flag1" :alt="$i18n.locale" width="22" height="22" class="obj-cover" />
                     <img v-if="$i18n.locale === 'en'" :src="flag2" :alt="$i18n.locale" width="22" height="22" class="obj-cover" />

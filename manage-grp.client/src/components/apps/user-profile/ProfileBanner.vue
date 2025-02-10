@@ -1,17 +1,15 @@
 <script setup lang="ts">
 import { ref, shallowRef } from 'vue';
 import { HeartIcon, PhotoIcon, UserCircleIcon, UsersIcon } from 'vue-tabler-icons';
-import profileBg from '@/assets/images/backgrounds/profilebg.jpg';
-import UserImage from '@/assets/images/profile/user-1.jpg';
+import profileBg from '@/assets/images/profile/profilebg.jpg';
+import UserImage from '@/assets/images/profile/user-5.jpg';
 
 const tab = ref(null);
 const items = shallowRef([
-    { tab: 'Profile', icon: UserCircleIcon, href: '/apps/user/profile' },
-    { tab: 'Followers', icon: HeartIcon, href: '/apps/user/profile/followers' },
-    { tab: 'Friends', icon: UsersIcon, href: '/apps/user/profile/friends' },
-    { tab: 'Gallery', icon: PhotoIcon, href: '/apps/user/profile/gallery' }
+    { tab: 'MY_PROFILE', icon: UserCircleIcon, href: '/main/user/profile' },
+    { tab: 'MY_NOTES', icon: HeartIcon, href: '/apps/notes' },
+    { tab: 'ACCOUNT_SETTINGS', icon: UsersIcon, href: '/pages/account-settings' },
 ]);
-
 
 </script>
 
@@ -25,17 +23,14 @@ const items = shallowRef([
                         <v-row class="justify-center">
                             <v-col cols="4" class="text-center">
                                 <FileDescriptionIcon size="20" />
-                                <h4 class="text-h4">938</h4>
                                 <h6 class="text-h6 font-weight-regular">Posts</h6>
                             </v-col>
                             <v-col cols="4" class="text-center">
                                 <UserCircleIcon size="20" />
-                                <h4 class="text-h4">3,586</h4>
                                 <h6 class="text-h6 font-weight-regular">Followers</h6>
                             </v-col>
                             <v-col cols="4" class="text-center">
                                 <UserCheckIcon size="20" />
-                                <h4 class="text-h4">2,659</h4>
                                 <h6 class="text-h6 font-weight-regular">Following</h6>
                             </v-col>
                         </v-row>
@@ -73,7 +68,7 @@ const items = shallowRef([
                     <v-tabs v-model="tab" color="primary"  class="profiletab bg-lightprimary">
                         <v-tab v-for="item in items" :key="item.tab" :to="item.href" class="font-weight-regular text-subtitle-1 ">
                             <component :is="item.icon" size="18" stroke-width="1.5" class="mr-2"></component>
-                            {{ item.tab }}
+                            {{ $t(item.tab) }}
                         </v-tab>
                     </v-tabs>
                 </v-col>

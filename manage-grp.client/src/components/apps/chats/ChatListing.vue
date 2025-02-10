@@ -70,7 +70,7 @@ const items = ref([{ title: 'Sort by time' }, { title: 'Sort by Unread' }, { tit
                     </v-avatar>
                     <v-badge inline
                         class="badg-dot"
-                        
+
                         dot
                         :color="
                             chat.status === 'away'

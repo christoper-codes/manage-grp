@@ -1,8 +1,10 @@
 {
     "LEARN_MORE_FIELD": "Learn more",
     "SIGNIN_FIELD": "Sign in",
+    "SINGOUT_FIELD": "Sign out",
     "REMEMBER_ME_FIELD": "Remember me",
     "USER_NAME_FIELD": "Username",
-    "EMAIL_FIELD": "Email",
-    "PASSWORD_FIELD": "Password"
+    "EMAIL_FIELD": "Email address",
+    "PASSWORD_FIELD": "Password",
+    "RECOVER_PASSWORD_FIELD": "Recover password"
 }

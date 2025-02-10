@@ -17,190 +17,22 @@ export interface menu {
 }
 const sidebarItem: menu[] = [
     {
-        header: 'dashboards',
+        header: 'DASHBOARD',
         id: 1,
         children: [
             {
-                title: 'Dashboard1',
-                icon: 'widget-add-line-duotone',
-                to: '/dashboards/dashboard1'
-            },
-            {
-                title: 'Dashboard2',
+                title: 'DASHBOARD_DESC',
                 icon: 'chart-line-duotone',
-                to: '/dashboards/dashboard2'
-            },
-            {
-                title: 'Dashboard3',
-                icon: 'screencast-2-line-duotone',
-                to: '/dashboards/dashboard3'
-            },
-            {
-                title: 'Front Pages',
-                icon: 'home-angle-linear',
-                to: '/',
-                children: [
-                    {
-                        title: 'Homepage',
-                        to: '/front-page/homepage'
-                    },
-                    {
-                        title: 'About Us',
-                        to: '/front-page/about-us'
-                    },
-                    {
-                        title: 'Blog',
-                        to: '/front-page/blog/posts'
-                    },
-                    {
-                        title: 'Blog Details',
-                        to: '/front-page/blog/early-black-friday-amazon-deals-cheap-tvs-headphones'
-                    },
-                    {
-                        title: 'Contact Us',
-                        to: '/front-page/contact-us'
-                    },
-                    {
-                        title: 'Portfolio',
-                        to: '/front-page/portfolio'
-                    },
-                    {
-                        title: 'Pricing',
-                        to: '/front-page/pricing'
-                    }
-                ]
+                to: '/main/dashboard'
             },
         ]
     },
-
     {
         header: 'apps',
         id: 1,
         children: [
             {
-                title: 'ECommerce',
-                icon: 'cart-3-line-duotone',
-                to: '/ecommerce/',
-                children: [
-                    {
-                        title: 'Shop',
-                        to: '/ecommerce/products'
-                    },
-                    {
-                        title: 'Detail',
-                        to: '/ecommerce/product/detail/1'
-                    },
-                    {
-                        title: 'List',
-                        to: '/ecommerce/productlist'
-                    },
-                    {
-                        title: 'Checkout',
-                        to: '/ecommerce/checkout'
-                    },
-                    {
-                        title: 'Add Product',
-                        to: '/ecommerce/add-product'
-                    },
-                    {
-                        title: 'Edit Product',
-                        to: '/ecommerce/edit-product'
-                    }
-                ]
-            },
-            {
-                title: 'Blog',
-                icon: 'widget-4-line-duotone',
-                to: '/',
-                children: [
-                    {
-                        title: 'Blog Posts',
-                        to: '/apps/blog/posts'
-                    },
-                    {
-                        title: 'Blog Details',
-                        to: '/apps/blog/early-black-friday-amazon-deals-cheap-tvs-headphones'
-                    }
-                ]
-            },
-            {
-                title: 'User Profile',
-                icon: 'shield-user-line-duotone',
-                to: '/',
-                children: [
-                    {
-                        title: 'Profile',
-                        to: '/apps/user/profile'
-                    },
-                    {
-                        title: 'Followers',
-                        to: '/apps/user/profile/followers'
-                    },
-                    {
-                        title: 'Friends',
-                        to: '/apps/user/profile/friends'
-                    },
-                    {
-                        title: 'Gallery',
-                        to: '/apps/user/profile/gallery'
-                    }
-                ]
-            },
-            {
-                title: 'Invoice',
-                icon: 'bill-check-outline',
-                to: '/',
-                children: [
-                    {
-                        title: 'List',
-                        to: '/apps/invoice'
-                    },
-                    {
-                        title: 'Details',
-                        to: '/apps/invoice/details/102'
-                    },
-                    {
-                        title: 'Create',
-                        to: '/apps/invoice/create'
-                    },
-                    {
-                        title: 'Edit',
-                        to: '/apps/invoice/edit/102'
-                    }
-                ]
-            },
-            {
-                title: 'Calendar',
-                icon: 'calendar-mark-line-duotone',
-                to: '/apps/calendar'
-            },
-            {
-                title: 'Email',
-                icon: 'letter-linear',
-                to: '/apps/email'
-            },
-            {
-                title: 'Chats',
-                icon: 'chat-round-line-line-duotone',
-                to: '/apps/chats'
-            },
-            {
-                title: 'Notes',
-                icon: 'document-text-line-duotone',
-                to: '/apps/notes'
-            },
-            {
-                title: 'Kanban',
-                icon: 'airbuds-case-minimalistic-line-duotone',
-                to: '/apps/kanban'
-            },
-            {
-                title: 'Contact',
-                icon: 'iphone-line-duotone',
-                to: '/apps/contacts'
-            },
-            {
-                title: 'Tickets',
+                title: 'DASHBOARD_DESC',
                 icon: 'ticker-star-outline',
                 to: '/apps/tickets'
             },

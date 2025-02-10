@@ -4,7 +4,7 @@ import { userCardData } from '@/_mockApis/components/dashboard/dashboard2';
 
 <template>
     <v-card elevation="10" class="overflow-hidden">
-        <img src="@/assets/images/backgrounds/blog.jpg" alt="matdash-image" class="w-100" />
+        <img src="@/assets/images/profile/blog.jpg" alt="matdash-image" class="w-100" />
         <v-card-item class="pt-6">
             <v-card-title class="text-h5">Figma tips and tricks with Stephan</v-card-title>
             <p class="text-15 text-muted my-3">

@@ -7,42 +7,42 @@ export interface minisidebar {
 const MiniSideIcons: minisidebar[] = [
     {
         icon: 'layers-line-duotone',
-        tooltip:'Dashboards',
+        tooltip:'MEMBER',
         id: 1
     },
     {
         icon: 'notes-line-duotone',
-        tooltip:'Pages',
+        tooltip:'ADMIN',
         id: 2,
     },
     {
         icon: 'palette-round-line-duotone',
-        tooltip:'Forms',
+        tooltip:'SUPER_ADMIN',
         id: 3
     },
     {
         icon:'align-vertical-spacing-broken',
-        tooltip:'Tables',
+        tooltip:'GENERAL',
         id: 4
     },
     {
         icon:'chart-line-duotone',
-        tooltip:'Charts',
+        tooltip:'GENERAL',
         id: 5
     },
     {
         icon:'widget-6-line-duotone',
-        tooltip:'UI Components',
+        tooltip:'GENERAL',
         id: 6
     },
     {
         icon:'lock-keyhole-line-duotone',
-        tooltip:'Authentication Pages',
+        tooltip:'GENERAL',
         id: 7
     },
     {
         icon:'mirror-left-line-duotone',
-        tooltip:'Others',
+        tooltip:'GENERAL',
         id: 8
     }
 ]

@@ -156,10 +156,20 @@ watch(dialogDelete, (val) => {
     val || closeDelete();
 });
 initialize();
+
+watch(dialog, () => {
+  /* if (dialog.value) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    } */
+})
+
 </script>
 
 <template>
-    <BaseBreadcrumb :title="page.title" :breadcrumbs="breadcrumbs"></BaseBreadcrumb>
+    <div data-aos="fade-left" data-aos-duration="1500">
+      <BaseBreadcrumb :title="page.title" :breadcrumbs="breadcrumbs"></BaseBreadcrumb>
     <v-row>
         <v-col cols="12">
             <v-card elevation="10">
@@ -167,7 +177,7 @@ initialize();
                     class=" rounded-md datatabels productlist"
                     :headers="headers"
                     :items="productlist"
-                    v-model:search="search" 
+                    v-model:search="search"
                     items-per-page="5"
                     item-value="product"
                     color="primary"
@@ -188,7 +198,7 @@ initialize();
                     <template v-slot:item.status="{ item }">
                         <div class="d-flex gap-2 align-center">
                             <Icon icon="carbon:dot-mark" v-if="item.status == 'Instock'" class="text-success" />
-                            <Icon icon="carbon:dot-mark" v-else class="text-error" /> 
+                            <Icon icon="carbon:dot-mark" v-else class="text-error" />
                             {{ item.status }}
                         </div>
                     </template>
@@ -288,4 +298,11 @@ initialize();
             </v-card>
         </v-col>
     </v-row>
+    </div>
 </template>
+
+<style lang="scss">
+.modal-open .v-theme--BLUE_THEME {
+  backdrop-filter: blur(1px) !important;
+}
+</style>

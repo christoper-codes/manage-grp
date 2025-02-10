@@ -7,46 +7,11 @@ import type { notificationType, profileType, languageType, appsLinkType,searchTy
 //
 const notifications:notificationType[] = [
     {
-        avatar: 'widget-3-line-duotone',
-        color:'error',
-        title: 'Launch Admin',
-        subtitle: 'Just see the my new admin!',
-        time:'9:30 AM'
-    },
-    {
-        avatar: 'calendar-line-duotone',
-        color:'primary',
-        title: 'Event Today',
-        subtitle: 'Just a reminder that you have event',
-        time:'9:15 AM'
-    },
-    {
         avatar: 'settings-line-duotone',
         color:'secondary',
-        title: 'Settings',
-        subtitle: 'You can customize this template as you want',
-        time:'4:36 PM'
-    },
-    {
-        avatar: 'widget-4-line-duotone',
-        color:'warning',
-        title: 'Launch Admin',
-        subtitle: 'Just see the my new admin!',
-        time:'9:30 AM'
-    },
-    {
-        avatar: 'calendar-line-duotone',
-        color:'primary',
-        title: 'Event Today',
-        subtitle: 'Just a reminder that you have event',
-        time:'9:15 AM'
-    },
-    {
-        avatar: 'settings-line-duotone',
-        color:'secondary',
-        title: 'Settings',
-        subtitle: 'You can customize this template as you want',
-        time:'4:36 PM'
+        title: 'SETTINGS',
+        subtitle: 'NOTIFICATION',
+        time:'12:00 AM'
     },
 ];
 
@@ -55,27 +20,22 @@ const notifications:notificationType[] = [
 //
 const profileDD: profileType[] = [
     {
-        title: 'My Profile',
-        href: '/apps/user/profile',
+        title: 'MY_PROFILE',
+        href: 'user/profile',
         badge:false
     },
     {
-        title: 'My Subscription',
-        href: '/pages/pricing',
-        badge:false
-    },
-    {
-        title: 'My Notes',
+        title: 'MY_NOTES',
         href: '/apps/notes',
         badge:true
     },
     {
-        title: 'Account Settings',
+        title: 'ACCOUNT_SETTINGS',
         href: '/pages/account-settings',
         badge:false
     },
     {
-        title: 'Sign Out',
+        title: 'SINGOUT_FIELD',
         href: '/auth/login2',
         badge:false
     },
@@ -99,60 +59,24 @@ const appsLink: appsLinkType[] = [
     {
         avatar: 'chat-line-bold-duotone',
         color:'primary',
-        title: 'Chat Application',
-        subtext: 'New messages arrived',
+        title: 'MEMBER',
+        subtext: 'MEMBER_DESC',
         href: '/apps/chats'
     },
     {
         avatar: 'user-bold-duotone',
         color:'success',
-        title: 'User Profile App',
-        subtext: 'Get profile details',
-        href: '/apps/user/profile'
+        title: 'ADMIN',
+        subtext: 'ADMIN_DESC',
+        href: 'user/profile'
     },
     {
         avatar: 'bill-list-bold-duotone',
         color:'secondary',
-        title: 'eCommerce App',
-        subtext: 'learn more information',
+        title: 'SUPER_ADMIN',
+        subtext: 'SUPER_ADMIN_DESC',
         href: '/ecommerce/products'
     },
-
-    {
-        avatar: 'calendar-minimalistic-bold-duotone',
-        color:'primary',
-        title: 'Calendar App',
-        subtext: 'Get dates',
-        href: '/apps/calendar'
-    },
-    {
-        avatar: 'phone-calling-rounded-bold-duotone',
-        color:'warning',
-        title: 'Contact Application',
-        subtext: '2 Unsaved Contacts',
-        href: '/apps/contacts'
-    },
-    {
-        avatar: 'settings-bold-duotone',
-        color:'info',
-        title: 'Account Setting App',
-        subtext: 'Account settings',
-        href: '/pages/account-settings'
-    },
-    {
-        avatar: 'checklist-minimalistic-bold',
-        color:'error',
-        title: 'Kanban App',
-        subtext: 'Get new Task',
-        href: '/apps/kanban'
-    },
-    {
-        avatar: 'notes-bold-duotone',
-        color:'warning',
-        title: 'Notes Application',
-        subtext: 'To-do and Daily tasks',
-        href: '/apps/notes'
-    }
 ];
 
 

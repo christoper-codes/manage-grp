@@ -1,8 +1,5 @@
 import mock from '../../mockAdapter';
-import image1 from '@/assets/images/backgrounds/kanban-img-1.jpg';
-import image2 from '@/assets/images/backgrounds/kanban-img-2.jpg';
-import image3 from '@/assets/images/backgrounds/kanban-img-3.jpg';
-import image4 from '@/assets/images/backgrounds/kanban-img-4.jpg';
+import image from '@/assets/images/profile/profilebg.jpg';
 import { uniqueId } from 'lodash';
 import { sub } from 'date-fns';
 
@@ -26,9 +23,9 @@ const TaskData: TaskType[] = [
         cardbg: 'light',
         tasks: [
             {
-                id: uniqueId('#task_'), 
+                id: uniqueId('#task_'),
                 title: 'This is first task',
-                taskimg: image1,
+                taskimg: image,
                 date:sub(new Date(), { months: 1 }),
                 category: 'Design',
                 categorybg: 'success'
@@ -65,7 +62,7 @@ const TaskData: TaskType[] = [
             {
                 id: uniqueId('#task_'),
                 title: 'Battle with fire',
-                taskimg: image2,
+                taskimg: image,
                 date:sub(new Date(), { seconds: 1 }),
                 category: 'Design',
                 categorybg: 'success'
@@ -101,7 +98,7 @@ const TaskData: TaskType[] = [
             },
             {
                 id: uniqueId('#task_'),
-                taskimg: image4,
+                taskimg: image,
                 title: 'Redesign Overview',
                 date:sub(new Date(), { seconds: 1 }),
                 category: 'Design',
@@ -116,9 +113,9 @@ const TaskData: TaskType[] = [
         cardbg: 'lightsuccess',
         tasks: [
             {
-                id: uniqueId('#task_'), 
+                id: uniqueId('#task_'),
                 title: 'Develop React app',
-                taskimg: image3,
+                taskimg: image,
                 date:sub(new Date(), { months: 1 }),
                 category: 'Mobile',
                 categorybg: 'warning'

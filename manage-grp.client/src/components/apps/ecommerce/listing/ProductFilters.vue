@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
-import { useEcomStore } from '@/stores/apps/eCommerce';
 
 const panel = ref([0, 1, 2, 3, 4]);
 const priceSort = [
@@ -26,7 +25,6 @@ const priceSort = [
     }
 ];
 
-const store = useEcomStore();
 
 //Reset Filter
 store.filterReset();
@@ -79,7 +77,7 @@ function filterReset() {
 <template>
     <v-sheet class="pa-4 pt-1 shop-sidebar">
         <v-expansion-panels v-model="panel" multiple>
-            
+
             <v-expansion-panel elevation="0">
                 <v-expansion-panel-title class="font-weight-semibold  custom-accordion"> Filter by Category </v-expansion-panel-title>
                 <v-expansion-panel-text class="acco-body">
@@ -110,7 +108,7 @@ function filterReset() {
                         </v-col>
                         <v-col cols="12">
                             <v-checkbox
-                                label="Fashion" 
+                                label="Fashion"
                                 v-model="selectedCategory"
                                 color="primary"
                                 value="fashion"
@@ -141,11 +139,11 @@ function filterReset() {
                 </v-expansion-panel-text>
             </v-expansion-panel>
             <v-divider  />
-           
+
             <v-expansion-panel elevation="0">
                 <v-expansion-panel-title class="font-weight-semibold  custom-accordion"> By Pricing </v-expansion-panel-title>
                 <v-expansion-panel-text class="acco-body">
-                    <v-radio-group v-model="selectPrice" class="custom-radio-box">    
+                    <v-radio-group v-model="selectPrice" class="custom-radio-box">
 
                         <v-radio
                             v-for="pricing in priceSort"

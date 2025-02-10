@@ -16,22 +16,22 @@ const MainRoutes = {
         {
             name: 'user-profile',
             path: 'user/profile',
-            component: () => import('@/views/apps/user-profile/Profile.vue')
+            component: () => import('@/views/profile/Profile.vue')
         },
         {
             name: 'Notes',
             path: '/apps/notes',
-            component: () => import('@/views/apps/notes/Notes.vue')
+            component: () => import('@/views/profile/Notes.vue')
         },
         {
             name: 'Kanban',
             path: '/apps/kanban',
-            component: () => import('@/views/apps/kanban/Kanban.vue')
+            component: () => import('@/views/profile/Kanban.vue')
         },
         {
             name: 'Account Setting',
             path: '/pages/account-settings',
-            component: () => import('@/views/pages/account-settings/AccountSettings.vue')
+            component: () => import('@/views/profile/AccountSettings.vue')
         },
 
     ]

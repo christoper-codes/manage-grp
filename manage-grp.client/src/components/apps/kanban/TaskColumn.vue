@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useTaskStore } from '@/stores/apps/kanban/task';
+import { useTaskStore } from '@/stores/profile/task';
 import TaskItemCard from './TaskItemCard.vue'
 
 const props = defineProps({
@@ -18,7 +18,7 @@ const categorybg = ref('primary')
 const columnId = ref(props.column?.id)
 
 function addItemAndClear() {
-    
+
     title.value = '',
     subtitle.value = '',
     category.value = 'Mobile',

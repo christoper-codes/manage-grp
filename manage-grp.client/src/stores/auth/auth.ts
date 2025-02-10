@@ -23,6 +23,9 @@ export const useAuthStore = defineStore('auth', () => {
   const login = async (values: LoginValues, loading:{value: boolean}) => {
     loading.value = true;
     try {
+      //const baseUrl = `${import.meta.env.VITE_API_URL}/users`;
+      //const user = await fetchWrapper.post(`${baseUrl}/authenticate`, { username, password });
+
       //const response = await axios.post('http://localhost:3000/auth/login', values);
       //fake data for response
       const response = {

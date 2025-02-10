@@ -2,7 +2,6 @@
 import { ref, watch, computed,onBeforeMount } from 'vue';
 import { useCustomizerStore } from '../../../stores/customizer';
 import Logo from '../logo/Logo.vue';
-import { useEcomStore } from '@/stores/apps/eCommerce';
 // dropdown imports
 import LanguageDD from '../vertical-header/LanguageDD.vue';
 import NotificationDD from '../vertical-header/NotificationDD.vue';
@@ -25,7 +24,6 @@ watch(priority, (newPriority) => {
 });
 
 // count items
-const store = useEcomStore();
 const getCart = computed(() => {
     return store.cart;
 });

@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
 import ProductItemVue from '../listing/ProductItem.vue';
-import { useEcomStore } from '@/stores/apps/eCommerce';
 import { useRoute } from 'vue-router';
 import { Carousel, Slide, Navigation } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
 
-const store = useEcomStore();
 
 onMounted(() => {
     store.fetchProducts();

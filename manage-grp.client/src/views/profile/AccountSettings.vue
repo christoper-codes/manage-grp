@@ -2,7 +2,6 @@
 import { ref } from 'vue';
 // common components
 import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
-import UiParentCard from '@/components/shared/UiParentCard.vue';
 
 /*import tabler icons*/
 import { UserCircleIcon,BellIcon,ArticleIcon,LockIcon } from 'vue-tabler-icons';

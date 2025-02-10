@@ -8,8 +8,8 @@ export const useCustomizerStore = defineStore({
     Sidebar_drawer: config.Sidebar_drawer,
     Customizer_drawer: config.Customizer_drawer,
     mini_sidebar: config.mini_sidebar,
-    setHorizontalLayout: config.setHorizontalLayout, // Horizontal layout
-    setRTLLayout:config.setRTLLayout, // RTL layout
+    setHorizontalLayout: config.setHorizontalLayout,
+    setRTLLayout:config.setRTLLayout,
     actTheme: config.actTheme,
     boxed: config.boxed,
     setBorderCard: config.setBorderCard

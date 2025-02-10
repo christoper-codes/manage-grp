@@ -1,12 +1,10 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-import { useEcomStore } from '@/stores/apps/eCommerce';
 import { useRoute } from 'vue-router';
 import ProductCarousel from './ProductCarousel.vue';
 import ProductTab from './ProductTab.vue';
 import RelatedProducts from './RelatedProducts.vue';
 
-const store = useEcomStore();
 const route = useRoute();
 const size = ref(['10', '09', '08', '07']);
 const selectedSize = ref(['10']);

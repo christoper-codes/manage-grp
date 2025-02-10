@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { useEcomStore } from '@/stores/apps/eCommerce';
 import OrderSummaryVue from './OrderSummary.vue';
 import AddressCard from './AddressCard.vue';
 import AddCard from './AddCard.vue';
@@ -11,7 +10,6 @@ const dialog = ref(false);
 
 const delivery = ref('free');
 
-const store = useEcomStore();
 const getCart = computed(() => {
     return store.cart;
 });
@@ -188,7 +186,7 @@ const getCart = computed(() => {
                     </v-dialog>
                 </v-col>
 
-                
+
             </v-row>
         </v-col>
         <v-col lg="3" cols="12">

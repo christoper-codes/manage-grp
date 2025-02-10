@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
-import { usePostsStore } from '@/stores/apps/userprofile/posts';
 import PostItem from './posts/PostItem.vue';
 
-const store = usePostsStore();
 
 onMounted(() => {
     store.fetchPosts();

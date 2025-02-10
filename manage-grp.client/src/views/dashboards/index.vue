@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import ProfitCard from '@/components/dashboards/dashboard2/ProfitCard.vue';
-import SubscriptionCard from '@/components/dashboards/dashboard2/SubscriptionCard.vue';
-import UsersChart from '@/components/dashboards/dashboard2/UsersChart.vue';
-import RevenueCard from '@/components/dashboards/dashboard2/RevenueCard.vue';
-import AnnualProfit from '@/components/dashboards/dashboard2/AnnualProfit.vue';
-import NewCustomer from '@/components/dashboards/dashboard2/NewCustomer.vue';
-import TotalIncome from '@/components/dashboards/dashboard2/TotalIncome.vue';
-import WeeklySchedule from '@/components/dashboards/dashboard2/WeeklySchedule.vue';
-import RevenueProducts from '@/components/dashboards/dashboard1/RevenueProducts.vue';
-import SalesFromLocation from '@/components/dashboards/dashboard2/SalesFromLocation.vue';
-import WeeklyState from '@/components/dashboards/dashboard2/WeeklyState.vue';
-import DailyActivities from '@/components/dashboards/dashboard2/DailyActivities.vue';
-import ProifileCard from '@/components/dashboards/dashboard2/ProifileCard.vue';
+import ProfitCard from '@/components/dashboards/dashboard/ProfitCard.vue';
+import SubscriptionCard from '@/components/dashboards/dashboard/SubscriptionCard.vue';
+import UsersChart from '@/components/dashboards/dashboard/UsersChart.vue';
+import RevenueCard from '@/components/dashboards/dashboard/RevenueCard.vue';
+import AnnualProfit from '@/components/dashboards/dashboard/AnnualProfit.vue';
+import NewCustomer from '@/components/dashboards/dashboard/NewCustomer.vue';
+import TotalIncome from '@/components/dashboards/dashboard/TotalIncome.vue';
+import WeeklySchedule from '@/components/dashboards/dashboard/WeeklySchedule.vue';
+import RevenueProducts from '@/components/dashboards/dashboard/RevenueProducts.vue';
+import SalesFromLocation from '@/components/dashboards/dashboard/SalesFromLocation.vue';
+import WeeklyState from '@/components/dashboards/dashboard/WeeklyState.vue';
+import DailyActivities from '@/components/dashboards/dashboard/DailyActivities.vue';
+import ProifileCard from '@/components/dashboards/dashboard/ProifileCard.vue';
 </script>
 <template>
     <v-row>

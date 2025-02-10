@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
-import { useTaskStore } from '@/stores/apps/kanban/task';
+import { useTaskStore } from '@/stores/profile/task';
 import { uniqueId } from 'lodash';
 
 // common components
@@ -20,7 +20,7 @@ const getTask = computed(() => {
 const getId = getTask.value.length;
 function addTask() {
     return getTask.value.push({ id: getId + 1, title: title.value, subtitle: subtitle.value, datef: new Date() }), (dialog.value = false), (title.value = ''),  (subtitle.value = '');
-   
+
 }
 </script>
 

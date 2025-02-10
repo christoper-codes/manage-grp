@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { usePostsStore } from '@/stores/apps/userprofile/posts';
-import Comments from './Comments.vue';
+/* import { usePostsStore } from '@/stores/apps/userprofile/posts';
+ */import Comments from './Comments.vue';
 import uniqueId from 'lodash/uniqueId';
 import { ShareIcon, UsersIcon, Message2Icon, ClipboardIcon } from 'vue-tabler-icons';
 
-const store = usePostsStore();
-const props = defineProps({
+/* const store = usePostsStore();
+ */const props = defineProps({
     post: Object || Array
 });
 
@@ -23,9 +23,9 @@ const toggleCommentbox = () => {
     return (showCommentBox.value = !showCommentBox.value);
 };
 
-const handlePostLikes = async (postId: string) => {
+/* const handlePostLikes = async (postId: string) => {
     await store.likePost(postId);
-};
+}; */
 const onSubmit = async (id: any, comment: any) => {
     const commentId = uniqueId('#COMMENT_');
     const newComment: any = {
@@ -45,7 +45,7 @@ const onSubmit = async (id: any, comment: any) => {
             replies: []
         }
     };
-    store.addComment(id, newComment);
+   /*  store.addComment(id, newComment); */
     searchValue.value = '';
 };
 </script>
@@ -112,7 +112,7 @@ const onSubmit = async (id: any, comment: any) => {
                         </div>
                     </template>
                 </v-tooltip>
-               
+
                 <v-menu>
                     <template v-slot:activator="{ props }">
                         <v-btn icon class="ml-auto" variant="text" size="small" v-bind="props"><ShareIcon size="16" /></v-btn>

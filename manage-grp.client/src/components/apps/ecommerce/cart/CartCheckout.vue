@@ -1,17 +1,14 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { useEcomStore } from '@/stores/apps/eCommerce';
 import StepFirst from './steps/StepFirst.vue';
 import StepSecond from './steps/StepSecond.vue';
 import Payment from './steps/Payment.vue';
 import Thankyou from './steps/Thankyou.vue';
 import { BasketIcon } from 'vue-tabler-icons';
 
-const store = useEcomStore();
 const thankyou = ref(false);
 
 const getCart = computed(() => {
-    return store.cart;
 });
 const tab = ref('tab-1');
 function changeTab(e: string) {
@@ -23,13 +20,13 @@ function changeTab(e: string) {
 <template>
     <v-card elevation="0">
         <v-card-item>
-           
+
                 <v-tabs v-model="tab" color="primary" class="customTab">
                     <v-tab value="tab-1" rounded="md" class="mb-3 text-left me-4" height="70">
                         <span class="round-40 rounded-circle bg-grey100 d-flex justify-center align-center me-3 icon">
                             <BasketIcon stroke-width="1.5" width="20"  />
                         </span>
-                        
+
                         <div>
                             <div class="text-h6">Item Cart</div>
                             <span class="text-subtitle-2 textSecondary font-weight-medium d-block"
@@ -101,7 +98,7 @@ function changeTab(e: string) {
                         </v-row>
                     </v-window-item>
                 </v-window>
-          
+
         </v-card-item>
     </v-card>
 </template>

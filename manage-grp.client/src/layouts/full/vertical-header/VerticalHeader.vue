@@ -29,7 +29,7 @@ const getCart = computed(() => {
 </script>
 
 <template>
-    <v-app-bar elevation="0" :priority="priority" height="70" id="top" class="main-head">
+    <v-app-bar elevation="0" :priority="priority" height="70" id="top" class="main-head !tw-bg-surface/50 !tw-backdrop-blur-2xl">
         <v-btn
             class="hidden-lg-and-up custom-hover-primary"
             size="small"
@@ -59,7 +59,7 @@ const getCart = computed(() => {
         <!-- Mobile Logo -->
         <!-- ---------------------------------------------- -->
         <div class="hidden-md-and-up">
-            <Logo />
+            <Logo class="tw-w-24" />
         </div>
 
 
@@ -75,11 +75,11 @@ const getCart = computed(() => {
         <!-- ---------------------------------------------- -->
         <!-- ShoppingCart -->
         <!-- ---------------------------------------------- -->
-        <v-btn icon class="custom-hover-primary hidden-sm-and-down" size="small" variant="text" color="primary" to="/ecommerce/checkout">
+        <!-- <v-btn icon class="custom-hover-primary hidden-sm-and-down" size="small" variant="text" color="primary" to="/ecommerce/checkout">
             <v-badge color="error" :content="getCart?.length">
                 <Icon icon="solar:cart-large-2-outline" height="22" />
             </v-badge>
-        </v-btn>
+        </v-btn> -->
 
         <!-- ---------------------------------------------- -->
         <!-- Notification -->

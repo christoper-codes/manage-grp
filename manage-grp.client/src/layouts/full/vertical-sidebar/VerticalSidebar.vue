@@ -14,8 +14,7 @@ import MiniSideIcons from './MinIconItems';
 const route = useRoute();
 
 const findTitleByPath = (items: any, path: any) => {
-    let title = '';
-
+    let title: string | number = '';
     for (const item of items) {
         if (item.to === path) {
             title = item.id;
@@ -44,7 +43,6 @@ const getCurrent = foundId ? foundId : 1;
 const currentMenu = ref<any>(getCurrent);
 function showData(data: any) {
     currentMenu.value = data;
-    //customizer.SET_MINI_SIDEBAR(!customizer.mini_sidebar)
 }
 
 // MiniSidebar Icons End
@@ -88,7 +86,7 @@ const sidebarMenu = shallowRef(sidebarItems);
                             >
                                 <Icon :icon="'solar:' + menu.icon" width="25" />
                                 <!-- Tooltip on Hover -->
-                                <v-tooltip activator="parent" location="end" class="custom-tooltip">{{ menu.tooltip }}</v-tooltip>
+                                <v-tooltip activator="parent" location="end" class="custom-tooltip">{{ $t(menu.tooltip || 'GENERAL') }}</v-tooltip>
                             </v-btn>
                         </div>
                     </div>
@@ -110,7 +108,7 @@ const sidebarMenu = shallowRef(sidebarItems);
     >
         <!---Logo part -->
         <div class="pa-4 pb-0">
-            <Logo />
+            <Logo class="tw-w-40" />
         </div>
 
         <!-- ---------------------------------------------- -->
@@ -119,14 +117,13 @@ const sidebarMenu = shallowRef(sidebarItems);
         <perfect-scrollbar class="scrollnavbar">
             <div class="px-4 py-0 sidebar-menus">
                 <v-list class="py-1">
-                    <template v-for="(item, i) in sidebarMenu">
+                    <template v-for="(item, i) in sidebarMenu" :key="i">
                         <template v-if="currentMenu == item.id">
                             <!---Item Sub Header -->
                             <NavGroup :item="item" v-if="item.header" :key="item.title" />
                             <!---If Has Child -->
-                            <template v-for="sItem in item.children">
-                                <NavCollapse class="leftPadding" :item="sItem" :level="0" v-if="sItem.children" />
-                                <NavItem :item="sItem" class="leftPadding" v-else />
+                            <template v-for="sItem in item.children" :key="sItem.id">
+                                <NavItem :item="sItem" class="leftPadding"  />
                             </template>
                         </template>
                     </template>

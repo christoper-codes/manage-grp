@@ -20,25 +20,20 @@ export interface menu {
 
 const horizontalItems: menu[] = [
     {
-        title: 'Dashboard',
+        title: 'DASHBOARD',
         icon: 'layers-line-duotone',
         to: '#',
         children: [
-            {
-                title: 'Dashboard 1',
-                icon: CircleIcon,
-                to: '/dashboards/dashboard1'
-            },
-            {
-                title: 'Dashboard 2',
-                icon: CircleIcon,
-                to: '/dashboards/dashboard2'
-            },
-            {
-                title: 'Dashboard 3',
-                icon: CircleIcon,
-                to: '/dashboards/dashboard3'
-            }
+          {
+            title: 'DASHBOARD_DESC',
+            icon: 'chart-line-duotone',
+            to: '/main/dashboard'
+          },
+          {
+            title: 'DASHBOARD_DESC',
+            icon: 'ticker-star-outline',
+            to: '/apps/tickets'
+          },
         ]
     },
     {

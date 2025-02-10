@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useTheme } from 'vuetify';
 import { useCustomizerStore } from '@/stores/customizer';
 import { Icon } from '@iconify/vue';
 
-const theme = useTheme();
 const customizer = useCustomizerStore();
 
 // template skin color options

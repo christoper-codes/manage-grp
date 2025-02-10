@@ -15,7 +15,7 @@ const authStore = useAuthStore();
         <template v-slot:activator="{ props }">
             <v-btn variant="text" class="custom-hover-primary" color="primary" v-bind="props" icon>
                 <v-avatar size="35">
-                    <img src="@/assets/images/profile/user-1.jpg" width="35" alt="Julia" />
+                    <img src="@/assets/images/profile/user-5.jpg" width="35" alt="Julia" />
                 </v-avatar>
             </v-btn>
         </template>
@@ -23,7 +23,7 @@ const authStore = useAuthStore();
             <div class="pa-6">
                 <div class="d-flex align-center pb-6">
                     <v-avatar size="55">
-                        <img src="@/assets/images/profile/user-1.jpg" width="55" />
+                        <img src="@/assets/images/profile/user-5.jpg" width="55" />
                     </v-avatar>
                     <div class="ml-3">
                         <h6 class="text-subtitle-1">David McMichael <span class="text-success text-caption">Pro</span></h6>
@@ -35,8 +35,8 @@ const authStore = useAuthStore();
                 <v-list class="py-0 theme-list mt-3" lines="one">
                     <v-list-item v-for="item in profileDD" :key="item.title" class="py-0 px-2 rounded-md custom-text-primary" color="primary"  :to="item.href">
                         <div class="d-flex gap-3 align-center">
-                            <p class="text-subtitle-1 heading custom-title">{{ item.title }}</p>
-                            <v-chip size="small" color="error" v-if="item.badge">4</v-chip>
+                            <p class="text-subtitle-1 heading custom-title">{{ $t(item.title) }}</p>
+                            <v-chip size="small" color="error" v-if="item.badge">1</v-chip>
                         </div>
                     </v-list-item>
                 </v-list>

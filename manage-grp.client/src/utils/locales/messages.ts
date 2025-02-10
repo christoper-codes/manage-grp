@@ -6,6 +6,7 @@ import esCommon from './es/common.json';
 import esDashboard from './es/dashboard.json';
 import esFields from './es/fields.json';
 import esErrorsFieds from './es/errors-fields.json';
+import esPrivacyPolicy from './es/privacy-policy.json';
 import esToastify from './es/toastify.json';
 
 import enAuth from './en/auth.json';
@@ -13,6 +14,7 @@ import enCommon from './en/common.json';
 import enDashboard from './en/dashboard.json';
 import enFields from './en/fields.json';
 import enErrorsFieds from './en/errors-fields.json';
+import enPrivacyPolicy from './en/privacy-policy.json';
 import enToastify from './en/toastify.json';
 
 
@@ -24,6 +26,7 @@ const messages = {
         ...esDashboard,
         ...esFields,
         ...esErrorsFieds,
+        ...esPrivacyPolicy,
         ...esToastify
     },
     en: {
@@ -33,6 +36,7 @@ const messages = {
       ...enDashboard,
       ...enFields,
       ...enErrorsFieds,
+      ...enPrivacyPolicy,
       ...enToastify
     }
 };

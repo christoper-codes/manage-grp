@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useEcomStore } from '@/stores/apps/eCommerce';
 import CartEmpty from '../CartEmpty.vue';
 import OrderSummaryVue from './OrderSummary.vue';
 
-const store = useEcomStore();
 const getCart = computed(() => {
     return store.cart;
 });
@@ -12,7 +10,7 @@ const getCart = computed(() => {
 <template>
     <div v-if="getCart.length > 0">
         <h5 class="text-h5 my-8">Cart Item ({{ getCart.length }})</h5>
-       
+
         <v-table class="revenue-table">
             <thead>
                 <tr>

@@ -2,10 +2,8 @@
 import { onMounted, ref } from 'vue';
 import AddressCard from './AddressCard.vue';
 import AddAddress from './AddAddress.vue';
-import { useEcomStore } from '@/stores/apps/eCommerce';
 import OrderSummary from './OrderSummary.vue';
 
-const store = useEcomStore();
 onMounted(() => {
     store.fetchAddress();
 });

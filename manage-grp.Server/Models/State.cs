@@ -1,31 +1,25 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using manage_grp.Server.Helpers;
 using System.Text.Json.Serialization;
 
 namespace manage_grp.Server.Models
 {
     public class State
     {
-        // Properties
-
         public int? Id { get; set; }
 
-        public required string Name { get; set; }
+        public string Name { get; set; }
 
-        public required string Abbreviation { get; set; }
+        public string Abbreviation { get; set; }
 
         public string? Description { get; set; }
 
-        public Boolean? IsActive { get; set; } = true;
+        public bool IsActive { get; set; } = true;
 
-        public DateTime? CreatedAt { get; set; } = DateTime.Now;
-        
-        public DateTime? UpdatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateHelper.GetTimeInTimeZone();
 
-
-        // Relationships
+        public DateTime UpdatedAt { get; set; } = DateHelper.GetTimeInTimeZone();
 
         [JsonIgnore]
-        public ICollection<Municipality>? Municipalities { get; set; }
-
+        public ICollection<Municipality>? Municipalities { get; set; } = new List<Municipality>();
     }
 }

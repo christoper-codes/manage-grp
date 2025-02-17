@@ -12,18 +12,18 @@ const { t } = useI18n();
 const { handleSubmit } = useForm({
   validationSchema: loginSchema(t),
   initialValues: {
-    remember: false,
+    rememberMe: false,
   },
 })
-const email = useField('email');
+const userNameOrEmail = useField('userNameOrEmail');
 const password = useField('password');
-const remember = useField('remember');
+const rememberMe = useField('rememberMe');
 const loading: Ref<boolean> = ref(false);
 const show: Ref<boolean> = ref(false);
 const auth = useAuthStore();
 
 const submit = handleSubmit((values: Record<string, any>) => {
-    auth.login(values, loading);
+    auth.login(values, loading, t);
 });
 </script>
 
@@ -38,8 +38,8 @@ const submit = handleSubmit((values: Record<string, any>) => {
     <Form class="mt-5">
         <v-label class="font-weight-semibold pb-2 ">{{ $t('EMAIL_FIELD') }}</v-label>
         <VTextField
-            v-model="email.value.value"
-            :error-messages="email.errorMessage.value"
+            v-model="userNameOrEmail.value.value"
+            :error-messages="userNameOrEmail.errorMessage.value"
             class="mb-8"
             required
             hide-details="auto"
@@ -57,7 +57,7 @@ const submit = handleSubmit((values: Record<string, any>) => {
             class="pwdInput"
         ></VTextField>
         <div class="d-flex flex-wrap align-center my-3 ml-n2">
-            <v-checkbox class="pe-2" v-model="remember.value.value" hide-details color="primary">
+            <v-checkbox class="pe-2" v-model="rememberMe.value.value" hide-details color="primary">
                 <template v-slot:label>{{ $t('REMEMBER_ME_FIELD') }}</template>
             </v-checkbox>
             <div class="ml-sm-auto">

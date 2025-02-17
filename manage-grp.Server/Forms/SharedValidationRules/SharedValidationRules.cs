@@ -259,7 +259,7 @@ namespace manage_grp.Server.Forms
                     {
                         var user = await userService.GetByEmailAsync(Email);
 
-                        return user != null;
+                        return user == null;
                     }
                     catch (KeyNotFoundException)
                     {

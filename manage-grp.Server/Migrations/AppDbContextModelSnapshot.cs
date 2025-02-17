@@ -8,7 +8,7 @@ using manage_grp.Server.Data.Contexts;
 
 #nullable disable
 
-namespace manage_grp.Server.Data.Migrations
+namespace manage_grp.Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot

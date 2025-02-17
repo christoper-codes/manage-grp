@@ -9,11 +9,11 @@ using manage_grp.Server.Data.Contexts;
 
 #nullable disable
 
-namespace manage_grp.Server.Data.Migrations
+namespace manage_grp.Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250214214502_Initial")]
-    partial class Initial
+    [Migration("20250217072142_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

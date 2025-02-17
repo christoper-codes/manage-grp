@@ -1,7 +1,7 @@
 type TranslateFunction = (key: string, values?: Record<string, any>) => string
 
 export const loginSchema = (t: TranslateFunction) => ({
-  email(value: string) {
+  userNameOrEmail(value: string) {
       if (!value) {
         return t('REQUIRED');
       }
@@ -23,7 +23,7 @@ export const loginSchema = (t: TranslateFunction) => ({
 
       return true;
   },
-  remember(value: boolean) {
+  rememberMe(value: boolean) {
       return true;
   }
 });

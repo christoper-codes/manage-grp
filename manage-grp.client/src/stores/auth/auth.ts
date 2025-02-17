@@ -1,7 +1,7 @@
 import axios from "axios";
 import { defineStore } from "pinia";
 import { useRouter } from "vue-router";
-import { toast } from 'vue3-toastify'
+import { error } from "@/utils/toast/Error";
 
 interface LoginValues {
   email: string;
@@ -13,47 +13,29 @@ export const useAuthStore = defineStore('auth', () => {
   const router = useRouter();
 
   const isAuthenticated = () => {
-    return localStorage.getItem('token') !== null;
+    return localStorage.getItem('jwtTokens') !== null;
   }
 
   const roles = () => {
     return JSON.parse(localStorage.getItem('roles') || '[]');
   }
 
-  const login = async (values: LoginValues, loading:{value: boolean}) => {
+  const login = async (values: LoginValues, loading:{value: boolean}, t: any) => {
     loading.value = true;
     try {
-      //const baseUrl = `${import.meta.env.VITE_API_URL}/users`;
-      //const user = await fetchWrapper.post(`${baseUrl}/authenticate`, { username, password });
-
-      //const response = await axios.post('http://localhost:3000/auth/login', values);
-      //fake data for response
-      const response = {
-        status: 200,
-        data: {
-          token: 'aASDsxaADSsd13223casASF2345vdsFW3',
-          user: {
-            id: 1,
-            email: 'lila@gmail.com',
-            name: 'Lila',
-          },
-          roles: ['member', 'admin']
-        }
-      };
+      const response = await axios.post('/api/Users/Login', values);
 
       if(response.status === 200){
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-        localStorage.setItem('roles', JSON.stringify(response.data.roles));
-
+        localStorage.setItem('jwtTokens', JSON.stringify(response.data.data.jwtTokens));
+        localStorage.setItem('user', JSON.stringify(response.data.data.user));
+        localStorage.setItem('roles', JSON.stringify(response.data.data.roles || ['member', 'admin', 'superadmin']));
         router.push({ name: 'dashboard' });
+        return;
       }
+
+      error(t('ERROR_MESSAGE'));
     } catch (error: any) {
-      toast(error.response.data.message, {
-        "theme": "auto",
-        "type": "error",
-        "dangerouslyHTMLString": true
-      });
+      error(error.response.data.message);
     } finally {
       loading.value = false;
     }

@@ -18,9 +18,6 @@ const changeLanguage = (lan: string) => {
 };
 </script>
 <template>
-    <!-- ---------------------------------------------- -->
-    <!-- language DD -->
-    <!-- ---------------------------------------------- -->
     <v-menu open-on-hover open-on-click>
         <template v-slot:activator="{ props }">
             <v-btn icon class="custom-hover-primary !tw-bg-background" size="small" variant="text" color="primary" v-bind="props">

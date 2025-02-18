@@ -1,6 +1,7 @@
 {
     "DASHBOARD": "DASHBOARD",
     "DASHBOARD_DESC": "Administración",
+    "DEPENDENCIES": "Dependencias",
 
     "USER_PROFILE": "Perfil de usuario"
 }

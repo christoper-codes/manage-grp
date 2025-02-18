@@ -1,31 +1,17 @@
-<script setup>
+<script setup lang="ts">
 import { computed, nextTick, ref, watch } from 'vue';
 import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
-import img1 from '@/assets/images/products/s1.jpg';
-import img2 from '@/assets/images/products/s2.jpg';
-import img3 from '@/assets/images/products/s3.jpg';
-import img4 from '@/assets/images/products/s7.jpg';
-import img5 from '@/assets/images/products/s11.jpg';
+import brandAuthLogin from '@/assets/images/auth/brand-auth-login.jpeg';
 import { Icon } from '@iconify/vue';
+import { useI18n } from 'vue-i18n';
 
-const page = ref({ title: 'Product List' });
-const breadcrumbs = ref([
-    {
-        text: 'Dashboard',
-        disabled: false,
-        href: '#'
-    },
-    {
-        text: 'Product List',
-        disabled: true,
-        href: '#'
-    }
-]);
+// i18n translation
+const { t } = useI18n();
 const search = ref();
 const dialog = ref(false);
 const dialogDelete = ref(false);
 const headers = ref([
-    { title: 'Product Image', key: 'image' },
+    { title: t('ITEM_IMAGE_HEADER'), key: 'ITEM_IMAGE_HEADER' },
     { title: 'Product', key: 'product' },
     { title: 'Date', key: 'date' },
     { title: 'Status', key: 'status' },
@@ -36,7 +22,7 @@ const productlist = ref([]);
 const editedIndex = ref(-1);
 const editedItem = ref({
     product: '',
-    image: img1,
+    ITEM_IMAGE_HEADER: brandAuthLogin,
     category: '',
     date: '',
     status: '',
@@ -44,7 +30,7 @@ const editedItem = ref({
 });
 const defaultItem = ref({
     product: '',
-    image: img1,
+    ITEM_IMAGE_HEADER: brandAuthLogin,
     category: '',
     date: '',
     status: '',
@@ -58,58 +44,26 @@ function initialize() {
         {
             product: 'Curology Face wash',
             category: 'Beauty',
-            image: img1,
+            ITEM_IMAGE_HEADER: brandAuthLogin,
             date: 'Thu, Jan 12 2023',
             status: 'Instock',
             price: '$275'
         },
         {
-            product: 'Body Lotion',
-            category: 'Beauty',
-            image: img2,
-            date: 'Thu, Jan 20 2023',
-            status: 'Out of Stock',
-            price: '$89'
+          product: 'Panel TV',
+          category: 'Electronics',
+          ITEM_IMAGE_HEADER: brandAuthLogin,
+          date: 'Thu, Jan 12 2023',
+          status: 'Out of Stock',
+          price: '$275'
         },
         {
-            product: 'Smart Watch',
-            category: 'Electronics',
-            image: img3,
-            date: 'Fri, Feb 15 2024',
-            status: 'Instock',
-            price: '$125'
-        },
-        {
-            product: 'Camera',
-            category: 'Electronics',
-            image: img4,
-            date: 'Fri, March 30 2024',
-            status: 'Instock',
-            price: '$200'
-        },
-        {
-            product: 'Games',
-            category: 'Electronics',
-            image: img5,
-            date: 'Sat, March 30 2024',
-            status: 'Out of Stock',
-            price: '$100'
-        },
-        {
-            product: 'Body Lotion',
-            category: 'Beauty',
-            image: img2,
-            date: 'Thu, Jan 28 2023',
-            status: 'Out of Stock',
-            price: '$84'
-        },
-        {
-            product: 'Smart Watch',
-            category: 'Electronics',
-            image: img3,
-            date: 'Fri, Feb 15 2024',
-            status: 'Instock',
-            price: '$300'
+          product: 'Apple Watch',
+          category: 'Electronics',
+          ITEM_IMAGE_HEADER: brandAuthLogin,
+          date: 'Thu, Jan 12 2023',
+          status: 'Instock',
+          price: '$375'
         }
     ];
 }
@@ -157,19 +111,11 @@ watch(dialogDelete, (val) => {
 });
 initialize();
 
-watch(dialog, () => {
-  /* if (dialog.value) {
-      document.body.classList.add('modal-open');
-    } else {
-      document.body.classList.remove('modal-open');
-    } */
-})
-
 </script>
 
 <template>
     <div data-aos="fade-left" data-aos-duration="1500">
-      <BaseBreadcrumb :title="page.title" :breadcrumbs="breadcrumbs"></BaseBreadcrumb>
+      <BaseBreadcrumb title="DEPENDENCIES"></BaseBreadcrumb>
     <v-row>
         <v-col cols="12">
             <v-card elevation="10">
@@ -184,10 +130,10 @@ watch(dialog, () => {
                     show-select
                     :sort-by="[{ key: 'calories', order: 'asc' }]"
                 >
-                    <template v-slot:item.image="{ item }">
+                    <template v-slot:item.ITEM_IMAGE_HEADER="{ item }">
                         <div class="d-flex gap-3 align-center">
                             <div>
-                                <v-img :src="`${item.image}`" height="55" width="55" class="rounded-circle" cover></v-img>
+                                <v-img :src="`${item.ITEM_IMAGE_HEADER}`" height="55" width="55" class="rounded-circle" cover></v-img>
                             </div>
                             <div>
                                 <h6 class="text-h6">{{ item.product }}</h6>
@@ -213,12 +159,12 @@ watch(dialog, () => {
                                         <v-text-field
                                             v-model="search"
                                             append-inner-icon="mdi-magnify"
-                                            label="Search"
+                                            :label="$t('SEARCH_FIELD')"
                                             single-line
                                             hide-details
                                             class="mb-md-0 mb-3"
                                         />
-                                        <v-btn color="primary" variant="flat" dark v-bind="props">Add New Item</v-btn>
+                                        <v-btn color="primary" variant="flat" dark v-bind="props">{{ $t('ADD_NEW_ITEM_FIELD') }}</v-btn>
                                     </div>
                                 </template>
                                 <v-card>
@@ -300,9 +246,3 @@ watch(dialog, () => {
     </v-row>
     </div>
 </template>
-
-<style lang="scss">
-.modal-open .v-theme--BLUE_THEME {
-  backdrop-filter: blur(1px) !important;
-}
-</style>

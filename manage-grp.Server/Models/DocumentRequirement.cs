@@ -7,10 +7,15 @@ namespace manage_grp.Server.Models
     {
         public int? Id { get; set; }
 
-        public int BudgetaryKeyDocumentTypeId { get; set; }
+        public int? BudgetaryKeyDocumentTypeBudgetaryKeyId { get; set; }
 
         [JsonIgnore]
-        public BudgetaryKeyDocumentType? BudgetaryKeyDocumentType { get; set; }
+        public BudgetaryKeyDocumentTypeBudgetaryKey? BudgetaryKeyDocumentTypeBudgetaryKey { get; set; }
+        
+        public int? ResourceDistributionDocumentTypeResourceDistributionId { get; set; }
+
+        [JsonIgnore]
+        public ResourceDistributionDocumentTypeResourceDistribution? ResourceDistributionDocumentTypeResourceDistribution { get; set; }
 
         public string Purpose { get; set; }
 

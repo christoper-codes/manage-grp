@@ -23,7 +23,7 @@ namespace manage_grp.Server.DTOs
         public bool? IsActive { get; set; }
 
         [ModelBinder(BinderType = typeof(JsonModelBinder))]
-        public List<BudgetaryKeyDocumentTypeDto>? DocumentTypesDto { get; set; }
+        public List<BudgetaryKeyDocumentTypeBudgetaryKeyDto>? DocumentTypesDto { get; set; }
 
         [ModelBinder(BinderType = typeof(JsonModelBinder))]
         public List<FileGroupDto> FileGroupsDto { get; set; } = new List<FileGroupDto>();

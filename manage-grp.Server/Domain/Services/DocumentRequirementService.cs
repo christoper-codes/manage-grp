@@ -16,11 +16,11 @@ namespace manage_grp.Server.Services
             _serviceProvider = serviceProvider;
         }
 
-        public async Task<IEnumerable<DocumentRequirement>> GetByBudgetaryKeyDocumentTypeIdAsync(int budgetaryKeyDocumentTypeId)
+        public async Task<IEnumerable<DocumentRequirement>> GetByBudgetaryKeyDocumentTypeBudgetaryKeyIdAsync(int budgetaryKeyDocumentTypeId)
         {
             try
             {
-                return await _documentRequirementRepository.GetByBudgetaryKeyDocumentTypeIdAsync(budgetaryKeyDocumentTypeId);
+                return await _documentRequirementRepository.GetByBudgetaryKeyDocumentTypeBudgetaryKeyIdAsync(budgetaryKeyDocumentTypeId);
             }
             catch (Exception ex)
             {
@@ -52,7 +52,8 @@ namespace manage_grp.Server.Services
             }            
         }
 
-        public async Task<List<DocumentRequirement>> CreateListAsync(List<DocumentRequirementDto> documentRequirementDto, string path, List<FileGroupDto> FileGroupsDto, List<IFormFile> FilesDto)
+        public async Task<List<DocumentRequirement>> CreateListAsync<T>(List<DocumentRequirementDto> documentRequirementDto, string path,
+            Func<DocumentRequirement, T?> relationSelector, Func<T?, int?> idSelector, List<FileGroupDto> FileGroupsDto, List<IFormFile> FilesDto)
         {
             try
             {
@@ -62,7 +63,7 @@ namespace manage_grp.Server.Services
                 {
                     foreach (var FileGroupDto in FileGroupsDto)
                     {
-                        var file = documentRequirements.FirstOrDefault(f => f.BudgetaryKeyDocumentType!.DocumentTypeId == FileGroupDto.Id);
+                        var file = documentRequirements.FirstOrDefault(f => idSelector(relationSelector(f)) == FileGroupDto.Id);
 
                         if (file != null)
                         {

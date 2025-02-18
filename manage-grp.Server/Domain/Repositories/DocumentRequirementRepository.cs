@@ -18,9 +18,9 @@ namespace manage_grp.Server.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<DocumentRequirement>> GetByBudgetaryKeyDocumentTypeIdAsync(int budgetaryKeyDocumentTypeId)
+        public async Task<IEnumerable<DocumentRequirement>> GetByBudgetaryKeyDocumentTypeBudgetaryKeyIdAsync(int budgetaryKeyDocumentTypeBudgetaryKeyId)
         {
-            return await _context.DocumentRequirements.Where(m => m.BudgetaryKeyDocumentTypeId == budgetaryKeyDocumentTypeId).ToListAsync();
+            return await _context.DocumentRequirements.Where(m => m.BudgetaryKeyDocumentTypeBudgetaryKeyId == budgetaryKeyDocumentTypeBudgetaryKeyId).ToListAsync();
         }
 
         public async Task<DocumentRequirement?> GetByIdAsync(int id)
@@ -32,7 +32,8 @@ namespace manage_grp.Server.Repositories
         {
             var documentRequirements = documentRequirementDto.Select(dto => new DocumentRequirement
             {
-                BudgetaryKeyDocumentTypeId = dto.BudgetaryKeyDocumentTypeId,
+                BudgetaryKeyDocumentTypeBudgetaryKeyId = dto.BudgetaryKeyDocumentTypeBudgetaryKeyId,
+                ResourceDistributionDocumentTypeResourceDistributionId = dto.ResourceDistributionDocumentTypeResourceDistributionId,
                 Purpose = dto.Purpose,
                 Description = dto.Description,
                 Size = dto.Size,

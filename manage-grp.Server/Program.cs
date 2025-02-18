@@ -99,12 +99,16 @@ builder.Services.AddScoped<IBudgetaryKeyRepository, BudgetaryKeyRepository>();
 builder.Services.AddScoped<BudgetaryKeyService>();
 builder.Services.AddValidatorsFromAssemblyContaining<BudgetaryKeyDtoValidator>();
 
-builder.Services.AddScoped<IDocumentTypeRepository, DocumentTypeRepository>();
-builder.Services.AddScoped<DocumentTypeService>();
-builder.Services.AddValidatorsFromAssemblyContaining<DocumentTypeDtoValidator>();
-
 builder.Services.AddScoped<IBudgetaryKeyDocumentTypeRepository, BudgetaryKeyDocumentTypeRepository>();
 builder.Services.AddScoped<BudgetaryKeyDocumentTypeService>();
+builder.Services.AddValidatorsFromAssemblyContaining<BudgetaryKeyDocumentTypeDtoValidator>();
+
+builder.Services.AddScoped<IBudgetaryKeyDocumentTypeBudgetaryKeyRepository, BudgetaryKeyDocumentTypeBudgetaryKeyRepository>();
+builder.Services.AddScoped<BudgetaryKeyDocumentTypeBudgetaryKeyService>();
+
+builder.Services.AddScoped<IResourceDistributionDocumentTypeRepository, ResourceDistributionDocumentTypeRepository>();
+builder.Services.AddScoped<ResourceDistributionDocumentTypeService>();
+builder.Services.AddValidatorsFromAssemblyContaining<ResourceDistributionDocumentTypeDtoValidator>();
 
 builder.Services.AddScoped<IDocumentRequirementRepository, DocumentRequirementRepository>();
 builder.Services.AddScoped<DocumentRequirementService>();
@@ -121,6 +125,34 @@ builder.Services.AddValidatorsFromAssemblyContaining<BudgetKeyDefaultDtoValidato
 builder.Services.AddScoped<IAreaRepository, AreaRepository>();
 builder.Services.AddScoped<AreaService>();
 builder.Services.AddValidatorsFromAssemblyContaining<AreaDtoValidator>();
+
+builder.Services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
+builder.Services.AddScoped<ServiceTypeService>();
+builder.Services.AddValidatorsFromAssemblyContaining<ServiceTypeDtoValidator>();
+
+builder.Services.AddScoped<IResourceDistributionRepository, ResourceDistributionRepository>();
+builder.Services.AddScoped<ResourceDistributionService>();
+builder.Services.AddValidatorsFromAssemblyContaining<ResourceDistributionDtoValidator>();
+
+builder.Services.AddScoped<IResourceDistributionDocumentTypeResourceDistributionRepository, ResourceDistributionDocumentTypeResourceDistributionRepository>();
+builder.Services.AddScoped<ResourceDistributionDocumentTypeResourceDistributionService>();
+
+builder.Services.AddScoped<IResourceTypeRepository, ResourceTypeRepository>();
+builder.Services.AddScoped<ResourceTypeService>();
+builder.Services.AddValidatorsFromAssemblyContaining<ResourceTypeDtoValidator>();
+
+builder.Services.AddScoped<ITenderTypeRepository, TenderTypeRepository>();
+builder.Services.AddScoped<TenderTypeService>();
+builder.Services.AddValidatorsFromAssemblyContaining<TenderTypeDtoValidator>();
+
+
+builder.Services.AddScoped<ITenderStatusRepository, TenderStatusRepository>();
+builder.Services.AddScoped<TenderStatusService>();
+builder.Services.AddValidatorsFromAssemblyContaining<TenderStatusDtoValidator>();
+
+builder.Services.AddScoped<IPriceTypeRepository, PriceTypeRepository>();
+builder.Services.AddScoped<PriceTypeService>();
+builder.Services.AddValidatorsFromAssemblyContaining<PriceTypeDtoValidator>();
 
 builder.Services.AddScoped<IFileRepository, FileRepository>();
 builder.Services.AddScoped<FileService>();

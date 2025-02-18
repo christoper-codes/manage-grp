@@ -6,14 +6,14 @@ namespace manage_grp.Server.Repositories.Interfaces
 {
     public interface IBudgetaryKeyDocumentTypeRepository
     {
+        Task<IEnumerable<BudgetaryKeyDocumentType>> GetByDependencyIdAsync(int dependencyId);
+
         Task<BudgetaryKeyDocumentType?> GetByIdAsync(int id);
-        
-        Task<BudgetaryKeyDocumentType?> GetByKeysAsync(int budgetaryKeyId, int documentTypeById);
 
-        Task<List<BudgetaryKeyDocumentType>> CreateListAsync(int budgetaryKeyId, List<BudgetaryKeyDocumentTypeDto> budgetaryKeyDocumentTypeDtos);
+        Task<BudgetaryKeyDocumentType?> CreateAsync(BudgetaryKeyDocumentType address, BudgetaryKeyDocumentTypeDto budgetaryKeyDocumentTypeDto);
 
-        Task<BudgetaryKeyDocumentType?> CreateAsync(BudgetaryKeyDocumentType budgetaryKeyDocumentType, BudgetaryKeyDocumentTypeDto budgetaryKeyDocumentTypeDto);
-        
+        Task<bool?> UpdateAsync(BudgetaryKeyDocumentType address, BudgetaryKeyDocumentTypeDto budgetaryKeyDocumentTypeDto);
+
         Task<bool> DeleteAsync(BudgetaryKeyDocumentType budgetaryKeyDocumentType);
     }
 }

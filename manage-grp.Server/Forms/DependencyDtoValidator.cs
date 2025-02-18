@@ -17,6 +17,6 @@ public class DependencyDtoValidator : AbstractValidator<DependencyDto>
             .ValidateStringField("Nombre", 50);
 
         RuleFor(x => x.Acronym)
-            .ValidateStringField("acrónimo", 10);
+            .ValidateStringField("acrónimo", 50);
     }
 }

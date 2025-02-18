@@ -12,7 +12,7 @@ using manage_grp.Server.Data.Contexts;
 namespace manage_grp.Server.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250214214502_Initial")]
+    [Migration("20250218005756_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -433,14 +433,52 @@ namespace manage_grp.Server.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DependencyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Mandatory")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DependencyId");
+
+                    b.ToTable("BudgetaryKeyDocumentTypes");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.BudgetaryKeyDocumentTypeBudgetaryKey", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BudgetaryKeyDocumentTypeId")
+                        .HasColumnType("int");
+
                     b.Property<int>("BudgetaryKeyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("DocumentTypeId")
-                        .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -450,11 +488,11 @@ namespace manage_grp.Server.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BudgetaryKeyDocumentTypeId");
+
                     b.HasIndex("BudgetaryKeyId");
 
-                    b.HasIndex("DocumentTypeId");
-
-                    b.ToTable("BudgetaryKeyDocumentTypes");
+                    b.ToTable("BudgetaryKeyDocumentTypeBudgetaryKeys");
                 });
 
             modelBuilder.Entity("manage_grp.Server.Models.Contact", b =>
@@ -613,7 +651,7 @@ namespace manage_grp.Server.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BudgetaryKeyDocumentTypeId")
+                    b.Property<int?>("BudgetaryKeyDocumentTypeBudgetaryKeyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -630,6 +668,9 @@ namespace manage_grp.Server.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ResourceDistributionDocumentTypeResourceDistributionId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("Size")
                         .HasColumnType("int");
 
@@ -638,48 +679,15 @@ namespace manage_grp.Server.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BudgetaryKeyDocumentTypeId")
-                        .IsUnique();
+                    b.HasIndex("BudgetaryKeyDocumentTypeBudgetaryKeyId")
+                        .IsUnique()
+                        .HasFilter("[BudgetaryKeyDocumentTypeBudgetaryKeyId] IS NOT NULL");
+
+                    b.HasIndex("ResourceDistributionDocumentTypeResourceDistributionId")
+                        .IsUnique()
+                        .HasFilter("[ResourceDistributionDocumentTypeResourceDistributionId] IS NOT NULL");
 
                     b.ToTable("DocumentRequirements");
-                });
-
-            modelBuilder.Entity("manage_grp.Server.Models.DocumentType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DependencyId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Mandatory")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DependencyId");
-
-                    b.ToTable("DocumentTypes");
                 });
 
             modelBuilder.Entity("manage_grp.Server.Models.Municipality", b =>
@@ -697,20 +705,11 @@ namespace manage_grp.Server.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ExternalMunicipalityId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
-
-                    b.Property<double>("Latitude")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Longitude")
-                        .HasColumnType("float");
-
-                    b.Property<int>("MunicipalityKey")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -723,6 +722,10 @@ namespace manage_grp.Server.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ExternalMunicipalityId")
+                        .IsUnique()
+                        .HasFilter("[ExternalMunicipalityId] IS NOT NULL");
 
                     b.HasIndex("StateId");
 
@@ -767,6 +770,41 @@ namespace manage_grp.Server.Data.Migrations
                     b.ToTable("Positions");
                 });
 
+            modelBuilder.Entity("manage_grp.Server.Models.PriceType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DependencyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DependencyId");
+
+                    b.ToTable("PriceTypes");
+                });
+
             modelBuilder.Entity("manage_grp.Server.Models.RefreshToken", b =>
                 {
                     b.Property<int>("Id")
@@ -796,6 +834,213 @@ namespace manage_grp.Server.Data.Migrations
                     b.ToTable("RefreshTokens");
                 });
 
+            modelBuilder.Entity("manage_grp.Server.Models.ResourceDistribution", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int?>("AreaId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BudgetaryKeyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Concept")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Latitude")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Longitude")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Observations")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RequestDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RequestNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ResourceNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ResourceTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AreaId");
+
+                    b.HasIndex("BudgetaryKeyId");
+
+                    b.HasIndex("ResourceTypeId");
+
+                    b.ToTable("ResourceDistributions");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.ResourceDistributionDocumentType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DependencyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Mandatory")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DependencyId");
+
+                    b.ToTable("ResourceDistributionDocumentTypes");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.ResourceDistributionDocumentTypeResourceDistribution", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ResourceDistributionDocumentTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ResourceDistributionId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResourceDistributionDocumentTypeId");
+
+                    b.HasIndex("ResourceDistributionId");
+
+                    b.ToTable("ResourceDistributionDocumentTypeResourceDistributions");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.ResourceType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DependencyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DependencyId");
+
+                    b.ToTable("ResourceTypes");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.ServiceType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AreaId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AreaId");
+
+                    b.ToTable("ServiceTypes");
+                });
+
             modelBuilder.Entity("manage_grp.Server.Models.State", b =>
                 {
                     b.Property<int>("Id")
@@ -811,7 +1056,44 @@ namespace manage_grp.Server.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("ExternalStateId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExternalStateId")
+                        .IsUnique()
+                        .HasFilter("[ExternalStateId] IS NOT NULL");
+
+                    b.ToTable("States");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.TenderStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DependencyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -826,7 +1108,44 @@ namespace manage_grp.Server.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("States");
+                    b.HasIndex("DependencyId");
+
+                    b.ToTable("TenderStatuses");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.TenderType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DependencyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DependencyId");
+
+                    b.ToTable("TenderTypes");
                 });
 
             modelBuilder.Entity("manage_grp.Server.Models.Role", b =>
@@ -990,21 +1309,32 @@ namespace manage_grp.Server.Data.Migrations
 
             modelBuilder.Entity("manage_grp.Server.Models.BudgetaryKeyDocumentType", b =>
                 {
-                    b.HasOne("manage_grp.Server.Models.BudgetaryKey", "BudgetaryKey")
-                        .WithMany("BudgetaryKeyDocumentTypes")
-                        .HasForeignKey("BudgetaryKeyId")
+                    b.HasOne("manage_grp.Server.Models.Dependency", "Dependency")
+                        .WithMany()
+                        .HasForeignKey("DependencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Dependency");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.BudgetaryKeyDocumentTypeBudgetaryKey", b =>
+                {
+                    b.HasOne("manage_grp.Server.Models.BudgetaryKeyDocumentType", "BudgetaryKeyDocumentType")
+                        .WithMany("BudgetaryKeyDocumentTypeBudgetaryKeys")
+                        .HasForeignKey("BudgetaryKeyDocumentTypeId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("manage_grp.Server.Models.DocumentType", "DocumentType")
-                        .WithMany("BudgetaryKeyDocumentTypes")
-                        .HasForeignKey("DocumentTypeId")
+                    b.HasOne("manage_grp.Server.Models.BudgetaryKey", "BudgetaryKey")
+                        .WithMany("BudgetaryKeyDocumentTypeBudgetaryKeys")
+                        .HasForeignKey("BudgetaryKeyId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("BudgetaryKey");
 
-                    b.Navigation("DocumentType");
+                    b.Navigation("BudgetaryKeyDocumentType");
                 });
 
             modelBuilder.Entity("manage_grp.Server.Models.Contact", b =>
@@ -1055,24 +1385,17 @@ namespace manage_grp.Server.Data.Migrations
 
             modelBuilder.Entity("manage_grp.Server.Models.DocumentRequirement", b =>
                 {
-                    b.HasOne("manage_grp.Server.Models.BudgetaryKeyDocumentType", "BudgetaryKeyDocumentType")
+                    b.HasOne("manage_grp.Server.Models.BudgetaryKeyDocumentTypeBudgetaryKey", "BudgetaryKeyDocumentTypeBudgetaryKey")
                         .WithOne("DocumentRequirement")
-                        .HasForeignKey("manage_grp.Server.Models.DocumentRequirement", "BudgetaryKeyDocumentTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("manage_grp.Server.Models.DocumentRequirement", "BudgetaryKeyDocumentTypeBudgetaryKeyId");
 
-                    b.Navigation("BudgetaryKeyDocumentType");
-                });
+                    b.HasOne("manage_grp.Server.Models.ResourceDistributionDocumentTypeResourceDistribution", "ResourceDistributionDocumentTypeResourceDistribution")
+                        .WithOne("DocumentRequirement")
+                        .HasForeignKey("manage_grp.Server.Models.DocumentRequirement", "ResourceDistributionDocumentTypeResourceDistributionId");
 
-            modelBuilder.Entity("manage_grp.Server.Models.DocumentType", b =>
-                {
-                    b.HasOne("manage_grp.Server.Models.Dependency", "Dependency")
-                        .WithMany()
-                        .HasForeignKey("DependencyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("BudgetaryKeyDocumentTypeBudgetaryKey");
 
-                    b.Navigation("Dependency");
+                    b.Navigation("ResourceDistributionDocumentTypeResourceDistribution");
                 });
 
             modelBuilder.Entity("manage_grp.Server.Models.Municipality", b =>
@@ -1097,6 +1420,15 @@ namespace manage_grp.Server.Data.Migrations
                     b.Navigation("Dependency");
                 });
 
+            modelBuilder.Entity("manage_grp.Server.Models.PriceType", b =>
+                {
+                    b.HasOne("manage_grp.Server.Models.Dependency", "Dependency")
+                        .WithMany()
+                        .HasForeignKey("DependencyId");
+
+                    b.Navigation("Dependency");
+                });
+
             modelBuilder.Entity("manage_grp.Server.Models.RefreshToken", b =>
                 {
                     b.HasOne("manage_grp.Server.Models.User", "User")
@@ -1106,6 +1438,96 @@ namespace manage_grp.Server.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.ResourceDistribution", b =>
+                {
+                    b.HasOne("manage_grp.Server.Models.Area", "Area")
+                        .WithMany()
+                        .HasForeignKey("AreaId");
+
+                    b.HasOne("manage_grp.Server.Models.BudgetaryKey", "BudgetaryKey")
+                        .WithMany()
+                        .HasForeignKey("BudgetaryKeyId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("manage_grp.Server.Models.ResourceType", "ResourceType")
+                        .WithMany()
+                        .HasForeignKey("ResourceTypeId");
+
+                    b.Navigation("Area");
+
+                    b.Navigation("BudgetaryKey");
+
+                    b.Navigation("ResourceType");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.ResourceDistributionDocumentType", b =>
+                {
+                    b.HasOne("manage_grp.Server.Models.Dependency", "Dependency")
+                        .WithMany()
+                        .HasForeignKey("DependencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Dependency");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.ResourceDistributionDocumentTypeResourceDistribution", b =>
+                {
+                    b.HasOne("manage_grp.Server.Models.ResourceDistributionDocumentType", "ResourceDistributionDocumentType")
+                        .WithMany("ResourceDistributionDocumentTypeResourceDistributions")
+                        .HasForeignKey("ResourceDistributionDocumentTypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("manage_grp.Server.Models.ResourceDistribution", "ResourceDistribution")
+                        .WithMany("ResourceDistributionDocumentTypeResourceDistributions")
+                        .HasForeignKey("ResourceDistributionId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("ResourceDistribution");
+
+                    b.Navigation("ResourceDistributionDocumentType");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.ResourceType", b =>
+                {
+                    b.HasOne("manage_grp.Server.Models.Dependency", "Dependency")
+                        .WithMany()
+                        .HasForeignKey("DependencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Dependency");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.ServiceType", b =>
+                {
+                    b.HasOne("manage_grp.Server.Models.Area", "Area")
+                        .WithMany()
+                        .HasForeignKey("AreaId");
+
+                    b.Navigation("Area");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.TenderStatus", b =>
+                {
+                    b.HasOne("manage_grp.Server.Models.Dependency", "Dependency")
+                        .WithMany()
+                        .HasForeignKey("DependencyId");
+
+                    b.Navigation("Dependency");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.TenderType", b =>
+                {
+                    b.HasOne("manage_grp.Server.Models.Dependency", "Dependency")
+                        .WithMany()
+                        .HasForeignKey("DependencyId");
+
+                    b.Navigation("Dependency");
                 });
 
             modelBuilder.Entity("manage_grp.Server.Models.Role", b =>
@@ -1152,10 +1574,15 @@ namespace manage_grp.Server.Data.Migrations
 
             modelBuilder.Entity("manage_grp.Server.Models.BudgetaryKey", b =>
                 {
-                    b.Navigation("BudgetaryKeyDocumentTypes");
+                    b.Navigation("BudgetaryKeyDocumentTypeBudgetaryKeys");
                 });
 
             modelBuilder.Entity("manage_grp.Server.Models.BudgetaryKeyDocumentType", b =>
+                {
+                    b.Navigation("BudgetaryKeyDocumentTypeBudgetaryKeys");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.BudgetaryKeyDocumentTypeBudgetaryKey", b =>
                 {
                     b.Navigation("DocumentRequirement");
                 });
@@ -1165,14 +1592,24 @@ namespace manage_grp.Server.Data.Migrations
                     b.Navigation("BudgetaryKeys");
                 });
 
-            modelBuilder.Entity("manage_grp.Server.Models.DocumentType", b =>
-                {
-                    b.Navigation("BudgetaryKeyDocumentTypes");
-                });
-
             modelBuilder.Entity("manage_grp.Server.Models.Municipality", b =>
                 {
                     b.Navigation("Dependencies");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.ResourceDistribution", b =>
+                {
+                    b.Navigation("ResourceDistributionDocumentTypeResourceDistributions");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.ResourceDistributionDocumentType", b =>
+                {
+                    b.Navigation("ResourceDistributionDocumentTypeResourceDistributions");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.ResourceDistributionDocumentTypeResourceDistribution", b =>
+                {
+                    b.Navigation("DocumentRequirement");
                 });
 
             modelBuilder.Entity("manage_grp.Server.Models.State", b =>

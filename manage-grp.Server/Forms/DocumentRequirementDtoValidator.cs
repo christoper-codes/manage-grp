@@ -5,10 +5,13 @@ using manage_grp.Server.Services;
 
 public class DocumentTypeRequirementDtoValidator : AbstractValidator<DocumentRequirementDto>
 {
-    public DocumentTypeRequirementDtoValidator(BudgetaryKeyDocumentTypeService budgetaryKeyDocumentTypeService)
+    public DocumentTypeRequirementDtoValidator(BudgetaryKeyDocumentTypeBudgetaryKeyService budgetaryKeyDocumentTypeBudgetaryKeyService, ResourceDistributionDocumentTypeResourceDistributionService tenderDocumentTypeResourceDistributionService)
     {
-        RuleFor(x => x.BudgetaryKeyDocumentTypeId)
-            .ValidateDocumentRequirementIdField(budgetaryKeyDocumentTypeService);
+        RuleFor(x => x.BudgetaryKeyDocumentTypeBudgetaryKeyId)
+            .ValidateBudgetaryKeyDocumentTypeBudgetaryKeyField(budgetaryKeyDocumentTypeBudgetaryKeyService);
+        
+        RuleFor(x => x.ResourceDistributionDocumentTypeResourceDistributionId)
+            .ValidaTetenderDocumentTypeResourceDistributionField(tenderDocumentTypeResourceDistributionService);
 
         RuleFor(x => x.Purpose)
             .ValidateStringField("Nombre", 255);

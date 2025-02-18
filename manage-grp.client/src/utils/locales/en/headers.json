@@ -1,0 +1,9 @@
+{
+    "ITEM_IMAGE_HEADER": "Item image",
+    "MUNICIPALITY_HEADER": "Municipality",
+    "NAME_HEADER": "Name",
+    "ACRONYM_HEADER": "Acronym",
+    "RFC_HEADER": "RFC",
+    "STATUS_HEADER": "Status",
+    "CREATED_AT_HEADER": "Created at"
+}

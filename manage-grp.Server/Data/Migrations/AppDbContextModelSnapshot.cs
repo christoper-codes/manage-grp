@@ -3,25 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using manage_grp.Server.Data.Contexts;
 
 #nullable disable
 
-namespace manage_grp.Server.Migrations
+namespace manage_grp.Server.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-<<<<<<<< HEAD:manage-grp.Server/Migrations/20250218005756_Initial.Designer.cs
-    [Migration("20250218005756_Initial")]
-    partial class Initial
-========
-    [Migration("20250217072142_InitialCreate")]
-    partial class InitialCreate
->>>>>>>> f9f3da6c7543566a86dd16032b3714fb4c2bdd9c:manage-grp.Server/Migrations/20250217072142_InitialCreate.Designer.cs
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

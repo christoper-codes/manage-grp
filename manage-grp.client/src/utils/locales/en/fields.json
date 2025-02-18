@@ -6,5 +6,7 @@
     "USER_NAME_FIELD": "Username",
     "EMAIL_FIELD": "Email address",
     "PASSWORD_FIELD": "Password",
-    "RECOVER_PASSWORD_FIELD": "Recover password"
+    "RECOVER_PASSWORD_FIELD": "Recover password",
+    "ADD_NEW_ITEM_FIELD": "Add new item",
+    "SEARCH_FIELD": "Search"
 }

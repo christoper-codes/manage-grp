@@ -32,7 +32,7 @@ const sidebarItem: menu[] = [
         id: 1,
         children: [
             {
-                title: 'DASHBOARD_DESC',
+                title: 'DEPENDENCIES',
                 icon: 'ticker-star-outline',
                 to: '/apps/tickets'
             },

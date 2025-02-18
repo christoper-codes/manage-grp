@@ -61,9 +61,7 @@ const submit = handleSubmit((values: Record<string, any>) => {
                 <template v-slot:label>{{ $t('REMEMBER_ME_FIELD') }}</template>
             </v-checkbox>
             <div class="ml-sm-auto">
-                <RouterLink :to="{name: 'forgot-password'}" class="text-primary text-decoration-none font-weight-medium"
-                    >{{ $t('FORGOT_PASSWORD') }}</RouterLink
-                >
+                <RouterLink :to="{name: 'forgot-password'}" class="text-primary text-decoration-none font-weight-medium">{{ $t('FORGOT_PASSWORD') }}</RouterLink>
             </div>
         </div>
         <v-btn @click="submit" :loading="loading" :disabled="loading" size="large" block type="submit"  class="!tw-bg-gradient-to-r !tw-from-primary !tw-to-secondary !tw-text-white">

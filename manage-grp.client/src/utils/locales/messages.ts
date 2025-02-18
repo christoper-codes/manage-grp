@@ -8,6 +8,7 @@ import esFields from './es/fields.json';
 import esErrorsFieds from './es/errors-fields.json';
 import esPrivacyPolicy from './es/privacy-policy.json';
 import esToastify from './es/toastify.json';
+import esHeaders from './es/headers.json';
 
 import enAuth from './en/auth.json';
 import enCommon from './en/common.json';
@@ -16,6 +17,7 @@ import enFields from './en/fields.json';
 import enErrorsFieds from './en/errors-fields.json';
 import enPrivacyPolicy from './en/privacy-policy.json';
 import enToastify from './en/toastify.json';
+import enHeaders from './en/headers.json';
 
 
 const messages = {
@@ -27,7 +29,8 @@ const messages = {
         ...esFields,
         ...esErrorsFieds,
         ...esPrivacyPolicy,
-        ...esToastify
+        ...esToastify,
+        ...esHeaders
     },
     en: {
       ...en,
@@ -37,7 +40,8 @@ const messages = {
       ...enFields,
       ...enErrorsFieds,
       ...enPrivacyPolicy,
-      ...enToastify
+      ...enToastify,
+      ...enHeaders
     }
 };
 

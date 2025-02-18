@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace manage_grp.Server.Models
 {
-    public class ServiceType
+    public class AreaServiceType
     {
         public int? Id { get; set; }
 

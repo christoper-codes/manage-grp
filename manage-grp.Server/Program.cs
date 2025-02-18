@@ -135,9 +135,9 @@ builder.Services.AddScoped<IAreaRepository, AreaRepository>();
 builder.Services.AddScoped<AreaService>();
 builder.Services.AddValidatorsFromAssemblyContaining<AreaDtoValidator>();
 
-builder.Services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
-builder.Services.AddScoped<ServiceTypeService>();
-builder.Services.AddValidatorsFromAssemblyContaining<ServiceTypeDtoValidator>();
+builder.Services.AddScoped<IAreaServiceTypeRepository, AreaServiceTypeRepository>();
+builder.Services.AddScoped<AreaServiceTypeService>();
+builder.Services.AddValidatorsFromAssemblyContaining<AreaServiceTypeDtoValidator>();
 
 builder.Services.AddScoped<IResourceDistributionRepository, ResourceDistributionRepository>();
 builder.Services.AddScoped<ResourceDistributionService>();

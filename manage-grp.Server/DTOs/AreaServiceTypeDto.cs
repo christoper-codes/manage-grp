@@ -1,6 +1,6 @@
 namespace manage_grp.Server.DTOs
 {
-    public class ServiceTypeDto
+    public class AreaServiceTypeDto
     {
         public int? Id { get; set; }
 

@@ -3,9 +3,9 @@ using manage_grp.Server.DTOs;
 using manage_grp.Server.Forms;
 using manage_grp.Server.Services;
 
-public class ServiceTypeDtoValidator : AbstractValidator<ServiceTypeDto>
+public class AreaServiceTypeDtoValidator : AbstractValidator<AreaServiceTypeDto>
 {
-    public ServiceTypeDtoValidator(AreaService areaService)
+    public AreaServiceTypeDtoValidator(AreaService areaService)
     {
         RuleFor(x => x.AreaId)
             .ValidateAreaIdField(areaService);

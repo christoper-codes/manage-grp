@@ -18,7 +18,7 @@ namespace manage_grp.Server.Data.Contexts
 
         public DbSet<Area> Areas { get; set; } 
 
-        public DbSet<ServiceType> ServiceTypes { get; set; } 
+        public DbSet<AreaServiceType> AreaServiceTypes { get; set; } 
 
         public DbSet<User> AspNetUsers { get; set; }
 

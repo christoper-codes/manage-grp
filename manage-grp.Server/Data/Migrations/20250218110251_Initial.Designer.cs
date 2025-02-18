@@ -12,7 +12,7 @@ using manage_grp.Server.Data.Contexts;
 namespace manage_grp.Server.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250218012817_Initial")]
+    [Migration("20250218110251_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -699,7 +699,6 @@ namespace manage_grp.Server.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Abbreviation")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")

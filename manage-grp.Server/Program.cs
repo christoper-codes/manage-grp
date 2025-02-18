@@ -2,7 +2,9 @@ using FluentValidation;
 using Humanizer;
 using manage_grp.Server.Data.Contexts;
 using manage_grp.Server.Domain.Interfaces;
+using manage_grp.Server.Domain.Interfaces.External;
 using manage_grp.Server.Domain.Repositories;
+using manage_grp.Server.Domain.Repositories.External;
 using manage_grp.Server.Domain.Services;
 using manage_grp.Server.Models;
 using manage_grp.Server.Repositories;
@@ -59,7 +61,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+// Registering External Services
+builder.Services.Configure<DipomexDto>(builder.Configuration.GetSection("Dipomex"));
+
 // Registering Services and Repositories
+
+builder.Services.AddScoped<IDipomexRepository, DipomexRepository>();
+builder.Services.AddScoped<DipomexService>();
+
 builder.Services.AddScoped<IStateRepository, StateRepository>();
 builder.Services.AddScoped<StateService>();
 
@@ -172,11 +181,11 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Ejecution of Seeders
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    DbSeeders.Seed(dbContext);
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+//    DbSeeders.Seed(dbContext);
+//}
 
 
 app.UseDefaultFiles();

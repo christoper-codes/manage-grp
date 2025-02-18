@@ -14,6 +14,15 @@ namespace manage_grp.Server.Domain.Repositories
             _context = context;
         }
 
+        public async Task<IEnumerable<State>> CreateListAsync(List<State> states)
+        {
+            _context.States.AddRange(states);
+
+            await _context.SaveChangesAsync();
+
+            return states;
+        }
+
         public async Task<IEnumerable<State>> GetAllAsync()
         {
             return await _context.States.ToListAsync();

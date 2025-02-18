@@ -43,5 +43,18 @@ namespace manage_grp.Server.Domain.Services
             }
         }
 
+
+        public async Task CreateListAsync(List<State> states)
+        {
+            try
+            {
+                await _stateRepository.CreateListAsync(states);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

@@ -13,6 +13,14 @@ namespace manage_grp.Server.Domain.Repositories
         {
             _context = context;
         }
+        public async Task<IEnumerable<Municipality>> CreateListAsync(List<Municipality> municipalities)
+        {
+            _context.Municipalities.AddRange(municipalities);
+
+            await _context.SaveChangesAsync();
+
+            return municipalities;
+        }
 
         public async Task<IEnumerable<Municipality>> GetByStateIdAsync(int state_id)
         {
@@ -23,5 +31,6 @@ namespace manage_grp.Server.Domain.Repositories
         {
             return await _context.Municipalities.FirstOrDefaultAsync(x => x.Id == id);
         }
+
     }
 }

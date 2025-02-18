@@ -1,4 +1,5 @@
 ﻿using manage_grp.Server.Domain.Interfaces;
+using manage_grp.Server.Domain.Repositories;
 using manage_grp.Server.Models;
 
 namespace manage_grp.Server.Domain.Services
@@ -36,6 +37,18 @@ namespace manage_grp.Server.Domain.Services
                 }
 
                 return municipality;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task CreateListAsync(List<Municipality> municipalities)
+        {
+            try
+            {
+                await _municipalityRepository.CreateListAsync(municipalities);
             }
             catch (Exception ex)
             {

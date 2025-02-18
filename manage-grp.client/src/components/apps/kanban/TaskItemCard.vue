@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useTaskStore } from '@/stores/apps/kanban/task';
+import { useTaskStore } from '@/stores/profile/task';
 import { formatDistanceToNowStrict } from 'date-fns';
 
 const props = defineProps({
     task: null,
-   
+
 });
 
 // common components
@@ -62,7 +62,7 @@ function cancel() {
         <v-img v-if="task?.taskimg" :src="task?.taskimg" height="110px" cover class="w-100 "></v-img>
         <!-- IF SUBTEXT -->
         <p v-if="task?.subtitle" class="text-subtitle-2 px-4 textSecondary">{{ task?.subtitle }}</p>
-        
+
 
         <div class="d-flex align-center justify-space-between px-4 py-3">
             <div class="d-flex align-center">
@@ -70,7 +70,7 @@ function cancel() {
                 <div class="text-body-2 pl-2 textSecondary">{{
                                 formatDistanceToNowStrict(new Date((task?.date)), {
                                     addSuffix: false
-                                }) 
+                                })
                             }} ago</div>
             </div>
             <div :class="'rounded-sm text-10 px-2 py-0 bg-' + task?.categorybg" size="small">

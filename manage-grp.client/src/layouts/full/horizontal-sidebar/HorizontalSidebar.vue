@@ -29,7 +29,7 @@ const { mdAndUp } = useDisplay();
                         <!---End Single Item-->
                     </li>
                 </ul>
-            </div>    
+            </div>
         </div>
     </template>
     <div v-else class="mobile-menu">

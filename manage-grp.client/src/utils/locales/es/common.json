@@ -1,0 +1,26 @@
+{
+    "BRAND_NAME": "Manage GRP",
+
+    "MEMBER": "Miembro",
+    "MEMBER_DESC": "Un miembro es un usuario que ha sido invitado a unirse a la organización.",
+    "ADMIN": "Administrador",
+    "ADMIN_DESC": "Un administrador es un usuario que ha sido invitado a unirse a la organización y tiene la capacidad de administrar la organización.",
+    "SUPER_ADMIN": "Super Administrador",
+    "SUPER_ADMIN_DESC": "Un super administrador es un usuario que ha sido invitado a unirse a la organización y tiene la capacidad de administrar la organización y sus miembros.",
+
+    "GENERAL": "General",
+    "SETTINGS": "Configuración",
+    "SIDEBAR_LAYOUT": "Diseño de la barra lateral",
+    "SIDEBAR_TYPE": "Tipo de barra lateral",
+    "LIGHT_WEBSITE_THEME": "Tema del sitio web claro",
+    "DARK_WEBSITE_THEME": "Tema del sitio web oscuro",
+
+    "QHICK_PAGE_LINKS": "Enlaces rápidos de la página",
+    "NOTIFICATIONS": "Notificaciones",
+    "NOTIFICATION": "Puede personalizar este sitio web haciendo clic en el icono de configuración.",
+    "SEE_ALL_NOTIFICATIONS": "Ver todas las notificaciones",
+
+    "MY_PROFILE": "Mi perfil",
+    "MY_NOTES": "Mis notas",
+    "ACCOUNT_SETTINGS": "Configuración de la cuenta"
+}

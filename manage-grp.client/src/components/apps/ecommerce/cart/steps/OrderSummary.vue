@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { computed, onMounted, onUpdated, reactive, ref } from 'vue';
-import { useEcomStore } from '@/stores/apps/eCommerce';
 
-const store = useEcomStore();
+/* const store = useEcomStore();
 onMounted(() => {
     store.getsubTotal();
     store.getTotal();
     store.getDiscount();
-});
+}); */
 
 </script>
 <template>

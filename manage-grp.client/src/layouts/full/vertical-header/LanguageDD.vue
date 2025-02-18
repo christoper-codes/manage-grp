@@ -1,23 +1,29 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { languageDD } from '@/_mockApis/headerData';
-import flag1 from '@/assets/images/flag/icon-flag-en.svg';
-import flag2 from '@/assets/images/flag/icon-flag-ro.svg';
-import flag3 from '@/assets/images/flag/icon-flag-zh.svg';
-import flag4 from '@/assets/images/flag/icon-flag-fr.svg';
+import flag1 from '@/assets/images/flag/icon-flag-es.webp';
+import flag2 from '@/assets/images/flag/icon-flag-en.webp';
+import { toast } from 'vue3-toastify'
+import { useI18n } from 'vue-i18n';
+
+const { t, locale } = useI18n();
+const changeLanguage = (lan: string) => {
+  locale.value = lan;
+  localStorage.setItem('preferredLanguage', lan);
+   toast(t('SUCCESS_MESSAGE'), {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+    });
+};
 </script>
 <template>
-    <!-- ---------------------------------------------- -->
-    <!-- language DD -->
-    <!-- ---------------------------------------------- -->
     <v-menu open-on-hover open-on-click>
         <template v-slot:activator="{ props }">
-            <v-btn icon class="custom-hover-primary" size="small" variant="text" color="primary" v-bind="props">
+            <v-btn icon class="custom-hover-primary !tw-bg-background" size="small" variant="text" color="primary" v-bind="props">
                 <v-avatar size="20">
-                    <img v-if="$i18n.locale === 'en'" :src="flag1" :alt="$i18n.locale" width="22" height="22" class="obj-cover" />
-                    <img v-if="$i18n.locale === 'fr'" :src="flag4" :alt="$i18n.locale" width="22" height="22" class="obj-cover" />
-                    <img v-if="$i18n.locale === 'ro'" :src="flag2" :alt="$i18n.locale" width="22" height="22" class="obj-cover" />
-                    <img v-if="$i18n.locale === 'zh'" :src="flag3" :alt="$i18n.locale" width="22" height="22" class="obj-cover" />
+                    <img v-if="$i18n.locale === 'es'" :src="flag1" :alt="$i18n.locale" width="22" height="22" class="obj-cover" />
+                    <img v-if="$i18n.locale === 'en'" :src="flag2" :alt="$i18n.locale" width="22" height="22" class="obj-cover" />
                 </v-avatar>
             </v-btn>
         </template>
@@ -29,7 +35,7 @@ import flag4 from '@/assets/images/flag/icon-flag-fr.svg';
                     color="primary"
                     :active="$i18n.locale == item.value"
                     class="d-flex align-center"
-                    @click="() => ($i18n.locale = item.value)"
+                    @click="changeLanguage(item.value)"
                 >
                     <template v-slot:prepend>
                         <v-avatar size="22">

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { Icon } from '@iconify/vue';
 const props = defineProps({ item: Object, level: Number });
 </script>
@@ -8,7 +8,7 @@ const props = defineProps({ item: Object, level: Number });
     <router-link :to="`${item.to}`" class="navItemLink single-link rounded-md"  :disabled="item.disabled">
         <!---If icon-->
         <i class="navIcon"> <Icon :icon="'solar:' + item.icon" height="18" width="18" :level="level" class="dot" :class="'text-' + item.BgColor"/></i>
-        <span>{{ item.title }}</span>
+        <span>{{ $t(item.title) }}</span>
         <!---If Caption-->
         <small v-if="item.subCaption" class="text-caption mt-n1 hide-menu">
             {{ item.subCaption }}

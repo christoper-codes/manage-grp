@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { onMounted, computed } from 'vue';
-import { usePhotosStore } from '@/stores/apps/userprofile/photos';
 
-const store = usePhotosStore();
 
 onMounted(() => {
     store.fetchPhotos();

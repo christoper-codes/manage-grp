@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
-import { useNoteStore } from '@/stores/apps/notes';
+import { useNoteStore } from '@/stores/profile/notes';
 import { TrashIcon } from 'vue-tabler-icons';
 const store = useNoteStore();
 

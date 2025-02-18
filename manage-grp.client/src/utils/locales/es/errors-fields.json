@@ -1,0 +1,6 @@
+{
+    "REQUIRED": "Este campo es requerido",
+    "FIELD_LESS_THAN": "Este campo debe tener menos de {count} caracteres",
+    "INVALID_EMAIL": "Correo electrónico inválido",
+    "INVALID_PASSWORD": "Contraseña inválida"
+}

@@ -3,7 +3,7 @@ import { ref, onMounted, computed } from 'vue';
 // common components
 import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
 import TaskColumn from './TaskColumn.vue'
-import { useTaskStore } from '@/stores/apps/kanban/task';
+import { useTaskStore } from '@/stores/profile/task';
 
 
 const store = useTaskStore();

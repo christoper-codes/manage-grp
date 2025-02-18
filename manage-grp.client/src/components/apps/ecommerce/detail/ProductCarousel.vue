@@ -1,6 +1,5 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { useEcomStore } from '@/stores/apps/eCommerce';
 import { useRoute } from 'vue-router';
 import { Carousel, Slide, Navigation } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
@@ -13,7 +12,6 @@ import product6 from '@/assets/images/products/s6.jpg';
 import product7 from '@/assets/images/products/s7.jpg';
 import product8 from '@/assets/images/products/s8.jpg';
 
-const store = useEcomStore();
 const route = useRoute();
 
 const getDetailImage = computed(() => {

@@ -1,0 +1,10 @@
+{
+    "LEARN_MORE_FIELD": "Más información",
+    "SIGNIN_FIELD": "Iniciar sesión",
+    "SINGOUT_FIELD": "Cerrar sesión",
+    "REMEMBER_ME_FIELD": "Recordar sesión",
+    "USER_NAME_FIELD": "Nombre de usuario",
+    "EMAIL_FIELD": "Correo electrónico",
+    "PASSWORD_FIELD": "Contraseña",
+    "RECOVER_PASSWORD_FIELD": "Recuperar contraseña"
+}

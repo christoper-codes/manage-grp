@@ -21,7 +21,7 @@ import AppsLink from './AppsLink.vue';
                         </div>
                     </v-col>
                     <v-col cols="12" md="4" class="pa-0">
-                        <img src="@/assets/images/backgrounds/mega-dd-bg.jpg" alt="matdash-img" height="320" class="w-100"  />
+                        <img src="@/assets/images/profile/profilebg.jpg" alt="matdash-img" height="320" class="w-100"  />
                     </v-col>
                 </v-row>
             </div>

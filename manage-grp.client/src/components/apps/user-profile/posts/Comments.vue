@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { usePostsStore } from '@/stores/apps/userprofile/posts';
-import uniqueId from 'lodash/uniqueId';
+/* import { usePostsStore } from '@/stores/apps/userprofile/posts';
+ */import uniqueId from 'lodash/uniqueId';
 
-const store = usePostsStore();
-const props = defineProps({
+/* const store = usePostsStore();
+ */const props = defineProps({
     comments: Object || Array,
     postId: String
 });
@@ -28,8 +28,8 @@ const onSubmit = async (id: any, commentid: any, reply: string) => {
             replies: []
         }
     };
-    store.addReply(id, commentid, newReply);
-    replyValue.value = '';
+/*     store.addReply(id, commentid, newReply);
+ */    replyValue.value = '';
 };
 const showReplyBox = ref(false);
 const toggleReplybox = () => {
@@ -104,7 +104,7 @@ const toggleReplybox = () => {
         <v-avatar size="40">
             <img :src="comments?.profile.avatar" width="40" class="flex-shrink-0 d-none d-sm-block" alt="avatar" />
                     </v-avatar>
-        
+
         <v-text-field variant="outlined" color="primary" v-model="replyValue" label="Write Reply" hide-details></v-text-field>
         <v-btn color="secondary" class="mt-3 mt-sm-0" variant="flat" size="large" @click="onSubmit(postId, comments?.id, replyValue)">
             Reply

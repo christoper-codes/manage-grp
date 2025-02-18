@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import NavItem from '../NavItem/Index.vue';
 import { Icon } from '@iconify/vue';
 
@@ -11,7 +11,7 @@ const props = defineProps({ item: Object, level: Number });
         <!---Icon  -->
         <i class="navIcon"><Icon :icon="'solar:' + item.icon" height="18" width="18" :level="level" class="dot" :class="'text-' + item.BgColor"/></i>
         <!---Title  -->
-        <span class="mr-auto">{{ item.title }}</span>
+        <span class="mr-auto">{{ $t(item.title) }}</span>
         <!---If Caption-->
         <small v-if="item.subCaption" class="text-caption mt-n1 hide-menu">
             {{ item.subCaption }}

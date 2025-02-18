@@ -5,7 +5,7 @@ import Logoimg from '@/assets/images/logos/logo.svg';
 <template>
     <div class="logo">
         <RouterLink to="/">
-            <img :src="Logoimg" alt="home" />
+            <img class="tw-w-auto tw-h-auto" :src="Logoimg" alt="home" />
         </RouterLink>
     </div>
 </template>

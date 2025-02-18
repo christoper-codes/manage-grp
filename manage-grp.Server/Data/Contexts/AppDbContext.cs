@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using manage_grp.Server.DTOs;
 
 namespace manage_grp.Server.Data.Contexts
 {
@@ -54,6 +55,8 @@ namespace manage_grp.Server.Data.Contexts
         public DbSet<TenderType> TenderTypes { get; set; }
         
         public DbSet<TenderStatus> TenderStatuses { get; set; }
+
+        public DbSet<TenderFundingSource> TenderFundingSources { get; set; }
         
         public DbSet<PriceType> PriceTypes { get; set; }
 

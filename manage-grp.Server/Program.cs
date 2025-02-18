@@ -154,6 +154,10 @@ builder.Services.AddScoped<ITenderTypeRepository, TenderTypeRepository>();
 builder.Services.AddScoped<TenderTypeService>();
 builder.Services.AddValidatorsFromAssemblyContaining<TenderTypeDtoValidator>();
 
+builder.Services.AddScoped<ITenderFundingSourceRepository, TenderFundingSourceRepository>();
+builder.Services.AddScoped<TenderFundingSourceService>();
+builder.Services.AddValidatorsFromAssemblyContaining<TenderFundingSourceDtoValidator>();
+
 
 builder.Services.AddScoped<ITenderStatusRepository, TenderStatusRepository>();
 builder.Services.AddScoped<TenderStatusService>();
@@ -180,7 +184,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Ejecution of Seeders
+//Ejecution of Seeders
 //using (var scope = app.Services.CreateScope())
 //{
 //    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();

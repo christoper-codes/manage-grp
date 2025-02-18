@@ -54,7 +54,7 @@ namespace manage_grp.Server.Services
 
                 if (budgetaryKey != null && budgetaryKeyDto.DocumentTypesDto != null && budgetaryKeyDto.DocumentTypesDto.Any())
                 {
-                    await _serviceProvider.GetRequiredService<BudgetaryKeyDocumentTypeService>().CreateListAsync(
+                    await _serviceProvider.GetRequiredService<BudgetaryKeyDocumentTypeBudgetaryKeyService>().CreateListAsync(
                         budgetaryKey,
                         budgetaryKeyDto.DocumentTypesDto,
                         budgetaryKeyDto.FileGroupsDto,
@@ -68,7 +68,6 @@ namespace manage_grp.Server.Services
             {
                 throw ex;
             }
-
         }
 
         public async Task<bool?> UpdateAsync(int id, BudgetaryKeyDto budgetaryKeyDto)

@@ -1,27 +1,42 @@
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Models;
 using manage_grp.Server.Repositories.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace manage_grp.Server.Services
 {
     public class BudgetaryKeyDocumentTypeService
     {
         private readonly IBudgetaryKeyDocumentTypeRepository _budgetaryKeyDocumentTypeRepository;
-        private readonly IServiceProvider _serviceProvider;
 
-        public BudgetaryKeyDocumentTypeService(IBudgetaryKeyDocumentTypeRepository budgetaryKeyDocumentTypeRepository, IServiceProvider serviceProvider)
+        public BudgetaryKeyDocumentTypeService(IBudgetaryKeyDocumentTypeRepository budgetaryKeyDocumentTypeRepository)
         {
             _budgetaryKeyDocumentTypeRepository = budgetaryKeyDocumentTypeRepository;
-            _serviceProvider = serviceProvider;
+        }
+
+        public async Task<IEnumerable<BudgetaryKeyDocumentType>> GetByDependencyIdAsync(int dependencyId)
+        {
+            try
+            {
+                return await _budgetaryKeyDocumentTypeRepository.GetByDependencyIdAsync(dependencyId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<BudgetaryKeyDocumentType?> GetByIdAsync(int id)
         {
             try
             {
-                return await _budgetaryKeyDocumentTypeRepository.GetByIdAsync(id);
+                var budgetaryKeyDocumentType = await _budgetaryKeyDocumentTypeRepository.GetByIdAsync(id);
+
+                if (budgetaryKeyDocumentType == null)
+                {
+                    throw new KeyNotFoundException();
+                }
+
+                return budgetaryKeyDocumentType;
             }
             catch (Exception ex)
             {
@@ -35,49 +50,26 @@ namespace manage_grp.Server.Services
             {
                 return await _budgetaryKeyDocumentTypeRepository.CreateAsync(new BudgetaryKeyDocumentType(), budgetaryKeyDocumentTypeDto);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
         }
 
-        public async Task<List<BudgetaryKeyDocumentType>> CreateListAsync(
-            BudgetaryKey budgetaryKey,
-            List<BudgetaryKeyDocumentTypeDto> budgetaryKeyDocumentTypesDto,
-            List<FileGroupDto> fileGroupsDto, 
-            List<IFormFile> filesDto
-         ){            
+        public async Task<bool?> UpdateAsync(int id, BudgetaryKeyDocumentTypeDto budgetaryKeyDocumentTypeDto)
+        {
             try
             {
-                var budgetaryKeyDocumentTypes =  await _budgetaryKeyDocumentTypeRepository.CreateListAsync((int)budgetaryKey.Id!, budgetaryKeyDocumentTypesDto);
-
-                var documentRequirementsDto = new List<DocumentRequirementDto>();
-
-                foreach (var budgetaryKeyDocumentTypeDto in budgetaryKeyDocumentTypesDto)
+                var budgetaryKeyDocumentType = await GetByIdAsync(id);
+           
+                if (budgetaryKeyDocumentType == null)
                 {
-                    if (budgetaryKeyDocumentTypeDto.DocumentRequirementDto != null)
-                    {
-                        var budgetaryKeyDocumentType = budgetaryKeyDocumentTypes.FirstOrDefault(f => f.DocumentTypeId == budgetaryKeyDocumentTypeDto.DocumentTypeId);
-
-                        budgetaryKeyDocumentTypeDto.DocumentRequirementDto!.BudgetaryKeyDocumentTypeId = (int)budgetaryKeyDocumentType!.Id!;
-
-                        documentRequirementsDto.Add(budgetaryKeyDocumentTypeDto.DocumentRequirementDto);
-                    }                    
+                    throw new KeyNotFoundException();
                 }
 
-                if (documentRequirementsDto.Any())
-                {
-                    var dependency = await _serviceProvider.GetRequiredService<DependencyService>().GetByIdAsync(budgetaryKey.DependencyId);
+                await _budgetaryKeyDocumentTypeRepository.UpdateAsync(budgetaryKeyDocumentType, budgetaryKeyDocumentTypeDto);
 
-                    await _serviceProvider.GetRequiredService<DocumentRequirementService>().CreateListAsync(
-                        documentRequirementsDto,
-                        FilePathGenerator.GeneratePathFromUuids([dependency!, budgetaryKey]),
-                        fileGroupsDto,
-                        filesDto
-                     );
-                }
-
-                return budgetaryKeyDocumentTypes;
+                return true;
             }
             catch (Exception ex)
             {
@@ -85,11 +77,11 @@ namespace manage_grp.Server.Services
             }
         }
 
-        public async Task<bool> DeleteAsync(int budgetaryKeyId, int documentTypeById)
+        public async Task<bool> DeleteAsync(int id)
         {
             try
             {
-                var budgetaryKeyDocumentType = await _budgetaryKeyDocumentTypeRepository.GetByKeysAsync(budgetaryKeyId, documentTypeById);
+                var budgetaryKeyDocumentType = await _budgetaryKeyDocumentTypeRepository.GetByIdAsync(id);
 
                 if (budgetaryKeyDocumentType == null)
                 {

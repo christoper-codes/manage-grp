@@ -3,9 +3,9 @@ using manage_grp.Server.DTOs;
 using manage_grp.Server.Forms;
 using manage_grp.Server.Services;
 
-public class DocumentTypeDtoValidator : AbstractValidator<DocumentTypeDto>
+public class BudgetaryKeyDocumentTypeDtoValidator : AbstractValidator<BudgetaryKeyDocumentTypeDto>
 {
-    public DocumentTypeDtoValidator(DependencyService dependencyService)
+    public BudgetaryKeyDocumentTypeDtoValidator(DependencyService dependencyService)
     {
         RuleFor(x => x.DependencyId)
             .ValidateDependencyIdField(dependencyService);

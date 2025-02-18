@@ -14,7 +14,7 @@ public class AreaDtoValidator : AbstractValidator<AreaDto>
             .ValidateStringField("Nombre", 100);
 
         RuleFor(x => x.Acronym)
-            .ValidateStringField("Acrónimo", 10);
+            .ValidateStringField("Acrónimo", 50);
 
         RuleFor(x => x.Description)
             .ValidateStringField("Descripción", 250);

@@ -34,6 +34,6 @@ namespace manage_grp.Server.Models
         public DateTime UpdatedAt { get; set; } = DateHelper.GetTimeInTimeZone();
 
         [JsonIgnore]
-        public ICollection<BudgetaryKeyDocumentType>? BudgetaryKeyDocumentTypes { get; set; } = new List<BudgetaryKeyDocumentType>();
+        public ICollection<BudgetaryKeyDocumentTypeBudgetaryKey>? BudgetaryKeyDocumentTypeBudgetaryKeys { get; set; } = new List<BudgetaryKeyDocumentTypeBudgetaryKey>();
     }
 }

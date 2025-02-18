@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using manage_grp.Server.Domain.Services;
 using manage_grp.Server.Models;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
+using Microsoft.AspNetCore.Routing;
 
 namespace manage_grp.Server.Forms
 {
@@ -193,21 +194,61 @@ namespace manage_grp.Server.Forms
             }).WithMessage("El campo 'Dependencia' debe contener un valor válido.");
         }
 
-        public static IRuleBuilderOptions<T, int> ValidateDocumentRequirementIdField<T>(this IRuleBuilder<T, int> ruleBuilder, BudgetaryKeyDocumentTypeService budgetaryKeyDocumentTypeService)
+        public static IRuleBuilderOptions<T, int?> ValidateBudgetaryKeyDocumentTypeBudgetaryKeyField<T>(this IRuleBuilder<T, int?> ruleBuilder, BudgetaryKeyDocumentTypeBudgetaryKeyService budgetaryKeyDocumentTypeBudgetaryKeyService)
         {
-            return ruleBuilder.MustAsync(async (BudgetaryKeyDocumentTypeId, cancellation) =>
+            return ruleBuilder.MustAsync(async (BudgetaryKeyDocumentTypeBudgetaryKeyId, cancellation) =>
             {
+                if (!BudgetaryKeyDocumentTypeBudgetaryKeyId.HasValue) return true;
+
                 try
                 {
-                    var budgetaryKeyDocumentType = await budgetaryKeyDocumentTypeService.GetByIdAsync(BudgetaryKeyDocumentTypeId);
+                    var BudgetaryKeyDocumentTypeBudgetaryKey = await budgetaryKeyDocumentTypeBudgetaryKeyService.GetByIdAsync((int)BudgetaryKeyDocumentTypeBudgetaryKeyId!);
 
-                    return budgetaryKeyDocumentType != null;
+                    return BudgetaryKeyDocumentTypeBudgetaryKey != null;
                 }
                 catch (KeyNotFoundException)
                 {
                     return false;
                 }
             }).WithMessage("El campo 'Clave presupuestal' y 'Tipo de documento' debe contener un valor válido.");
+        }
+
+        public static IRuleBuilderOptions<T, int?> ValidaTetenderDocumentTypeResourceDistributionField<T>(this IRuleBuilder<T, int?> ruleBuilder, ResourceDistributionDocumentTypeResourceDistributionService tenderDocumentTypeResourceDistributionService)
+        {
+            return ruleBuilder.MustAsync(async (TetenderDocumentTypeResourceDistributionId, cancellation) =>
+            {
+                if (!TetenderDocumentTypeResourceDistributionId.HasValue) return true;
+
+                try
+                {
+                    var tetenderDocumentTypeResourceDistribution = await tenderDocumentTypeResourceDistributionService.GetByIdAsync((int)TetenderDocumentTypeResourceDistributionId!);
+
+                    return tetenderDocumentTypeResourceDistribution != null;
+                }
+                catch (KeyNotFoundException)
+                {
+                    return false;
+                }
+            }).WithMessage("El campo 'Distribución de Recurso' y 'Tipo de documento' debe contener un valor válido.");
+        }
+
+        public static IRuleBuilderOptions<T, int?> ValidateResourceTypeIdField<T>(this IRuleBuilder<T, int?> ruleBuilder, ResourceTypeService resourceTypeService)
+        {
+            return ruleBuilder.MustAsync(async (ResourceTypeId, cancellation) =>
+            {
+                if (!ResourceTypeId.HasValue) return true;
+
+                try
+                {
+                    var resourceType = await resourceTypeService.GetByIdAsync((int)ResourceTypeId);
+
+                    return resourceType != null;
+                }
+                catch (KeyNotFoundException)
+                {
+                    return false;
+                }
+            }).WithMessage("El campo 'Tipo de recurso' debe contener un valor válido.");
         }
 
         public static IRuleBuilderOptions<T, string> ValidateMimeTypeField<T>(this IRuleBuilder<T, string> ruleBuilder, string fieldName)
@@ -310,12 +351,18 @@ namespace manage_grp.Server.Forms
             .WithMessage("La latitud debe estar en el rango de -90 a 90 y la longitud en el rango de -180 a 180, con un formato válido.");
         }
 
-        public static IRuleBuilderOptions<T, string> ValidateStringField<T>(this IRuleBuilder<T, string> ruleBuilder, string fieldName, int maxLength)
+        public static IRuleBuilderOptions<T, string> ValidateStringField<T>(this IRuleBuilder<T, string> ruleBuilder, string fieldName, int? maxLength = null)
         {
-            return ruleBuilder
+            var validation = ruleBuilder
                 .NotNull().WithMessage($"El campo '{fieldName}' no debe ser nulo.")
-                .NotEmpty().WithMessage($"El campo '{fieldName}' no debe estar vacío.")
-                .MaximumLength(maxLength).WithMessage($"El campo '{fieldName}' no debe tener más de {maxLength} caracteres.");
+                .NotEmpty().WithMessage($"El campo '{fieldName}' no debe estar vacío.");
+
+            if (maxLength.HasValue)
+            {
+                validation = validation.MaximumLength((int)maxLength).WithMessage($"El campo '{fieldName}' no debe tener más de {maxLength} caracteres.");
+            }
+
+            return validation;
         }
 
         public static IRuleBuilderOptions<T, string> ValidateStringLength<T>(this IRuleBuilder<T, string> ruleBuilder, string fieldName, int length)

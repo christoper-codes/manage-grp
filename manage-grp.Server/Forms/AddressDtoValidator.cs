@@ -11,10 +11,10 @@ public class AddressDtoValidator : AbstractValidator<AddressDto>
             .ValidateDependencyIdField(dependencyService);
 
         RuleFor(x => x.Neighborhood)
-            .ValidateStringField("Colonia", 50);
+            .ValidateStringField("Colonia", 250);
 
         RuleFor(x => x.Street)
-            .ValidateStringField("Calle", 50);
+            .ValidateStringField("Calle", 255);
 
         RuleFor(x => x.ExteriorNumber)
             .ValidateNumericIntField("Número Exterior", minValue:1);

@@ -20,6 +20,6 @@ public class DocumentDtoValidator : AbstractValidator<DocumentDto>
             .ValidateNumericLongField("Tamaño de archivo", 0);
 
         RuleFor(x => x.Path)
-            .ValidateStringField("Ruta de archivo", 50);
+            .ValidateStringField("Ruta de archivo", 255);
     }
 }

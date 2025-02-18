@@ -1,3 +1,6 @@
+
+
+using FluentValidation;
 using manage_grp.Server.Data.Contexts;
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Models;
@@ -15,29 +18,14 @@ namespace manage_grp.Server.Repositories
             _context = context;
         }
 
+        public async Task<IEnumerable<BudgetaryKeyDocumentType>> GetByDependencyIdAsync(int dependencyId)
+        {
+            return await _context.BudgetaryKeyDocumentTypes.Where(m => m.DependencyId == dependencyId).ToListAsync();
+        }
+
         public async Task<BudgetaryKeyDocumentType?> GetByIdAsync(int id)
         {
             return await _context.BudgetaryKeyDocumentTypes.FirstOrDefaultAsync(x => x.Id == id);
-        }
-
-        public async Task<BudgetaryKeyDocumentType?> GetByKeysAsync(int budgetaryKeyId, int documentTypeById)
-        {
-            return await _context.BudgetaryKeyDocumentTypes.FirstOrDefaultAsync(x => x.BudgetaryKeyId == budgetaryKeyId && x.DocumentTypeId == documentTypeById);
-        }
-
-        public async Task<List<BudgetaryKeyDocumentType>> CreateListAsync(int budgetaryKeyId, List<BudgetaryKeyDocumentTypeDto> budgetaryKeyDocumentTypeDtos)
-        {
-            var budgetaryKeyDocumentTypes = budgetaryKeyDocumentTypeDtos.Select(dto => new BudgetaryKeyDocumentType
-            {
-                BudgetaryKeyId = budgetaryKeyId,
-                DocumentTypeId = dto.DocumentTypeId
-            }).ToList();
-
-            _context.BudgetaryKeyDocumentTypes.AddRange(budgetaryKeyDocumentTypes);
-
-            await _context.SaveChangesAsync();
-
-            return budgetaryKeyDocumentTypes;
         }
 
         public async Task<BudgetaryKeyDocumentType?> CreateAsync(BudgetaryKeyDocumentType budgetaryKeyDocumentType, BudgetaryKeyDocumentTypeDto budgetaryKeyDocumentTypeDto)
@@ -51,6 +39,17 @@ namespace manage_grp.Server.Repositories
             return budgetaryKeyDocumentType;
         }
 
+        public async Task<bool?> UpdateAsync(BudgetaryKeyDocumentType budgetaryKeyDocumentType, BudgetaryKeyDocumentTypeDto budgetaryKeyDocumentTypeDto)
+        {
+            EntityHelper.UpdateEntityFromDto(Enums.UpdateEntityFromDtoAction.Update, budgetaryKeyDocumentType, budgetaryKeyDocumentTypeDto);
+
+            _context.BudgetaryKeyDocumentTypes.Update(budgetaryKeyDocumentType);
+
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
         public async Task<bool> DeleteAsync(BudgetaryKeyDocumentType budgetaryKeyDocumentType)
         {
             _context.BudgetaryKeyDocumentTypes.Remove(budgetaryKeyDocumentType);
@@ -58,6 +57,6 @@ namespace manage_grp.Server.Repositories
             await _context.SaveChangesAsync();
 
             return true;
-        }
+        }        
     }
 }

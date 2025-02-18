@@ -7,9 +7,9 @@ public class RefreshTokenDtoValidator : AbstractValidator<RefreshTokenDto>
     public RefreshTokenDtoValidator()
     {
         RuleFor(x => x.AccessToken)
-            .ValidateStringField("AccessToken", 1000);
+            .ValidateStringField("AccessToken");
 
         RuleFor(x => x.RefreshToken)
-            .ValidateStringField("RefreshToken", 1000);
+            .ValidateStringField("RefreshToken");
     }
 }

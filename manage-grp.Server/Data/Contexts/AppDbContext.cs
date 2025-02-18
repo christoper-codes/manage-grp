@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Net;
-using System.Xml.Linq;
 
 namespace manage_grp.Server.Data.Contexts
 {
@@ -19,6 +17,8 @@ namespace manage_grp.Server.Data.Contexts
 
         public DbSet<Area> Areas { get; set; } 
 
+        public DbSet<ServiceType> ServiceTypes { get; set; } 
+
         public DbSet<User> AspNetUsers { get; set; }
 
         public DbSet<Role> AspNetRoles { get; set; }
@@ -33,19 +33,41 @@ namespace manage_grp.Server.Data.Contexts
         
         public DbSet<BudgetaryKey> BudgetaryKeys { get; set; }
 
-        public DbSet<DocumentType> DocumentTypes { get; set; }
-
         public DbSet<BudgetaryKeyDocumentType> BudgetaryKeyDocumentTypes { get; set; }
+
+        public DbSet<ResourceDistributionDocumentType> ResourceDistributionDocumentTypes { get; set; }
+
+        public DbSet<BudgetaryKeyDocumentTypeBudgetaryKey> BudgetaryKeyDocumentTypeBudgetaryKeys { get; set; }
 
         public DbSet<DocumentRequirement> DocumentRequirements { get; set; }
 
         public DbSet<Document> Documents { get; set; }
 
-        public DbSet<BudgetKeyDefault> BudgetKeyDefaults { get; set; }         
+        public DbSet<BudgetKeyDefault> BudgetKeyDefaults { get; set; }
+        
+        public DbSet<ResourceType> ResourceTypes { get; set; }
+
+        public DbSet<ResourceDistribution> ResourceDistributions { get; set; }
+
+        public DbSet<ResourceDistributionDocumentTypeResourceDistribution> ResourceDistributionDocumentTypeResourceDistributions { get; set; }
+
+        public DbSet<TenderType> TenderTypes { get; set; }
+        
+        public DbSet<TenderStatus> TenderStatuses { get; set; }
+        
+        public DbSet<PriceType> PriceTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<State>()
+                .HasIndex(s => s.ExternalStateId)
+                .IsUnique();
+
+            modelBuilder.Entity<Municipality>()
+                .HasIndex(s => s.ExternalMunicipalityId)
+                .IsUnique();
 
             modelBuilder.Entity<Contact>(entity =>
             {
@@ -79,16 +101,40 @@ namespace manage_grp.Server.Data.Contexts
                       .OnDelete(DeleteBehavior.NoAction);
             });
 
-            modelBuilder.Entity<BudgetaryKeyDocumentType>()
+            modelBuilder.Entity<BudgetaryKeyDocumentTypeBudgetaryKey>()
                 .HasOne(bkdt => bkdt.BudgetaryKey)
-                .WithMany(bk => bk.BudgetaryKeyDocumentTypes)
+                .WithMany(bk => bk.BudgetaryKeyDocumentTypeBudgetaryKeys)
                 .HasForeignKey(bkdt => bkdt.BudgetaryKeyId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<BudgetaryKeyDocumentType>()
-                .HasOne(bkdt => bkdt.DocumentType)
-                .WithMany(dt => dt.BudgetaryKeyDocumentTypes)
-                .HasForeignKey(bkdt => bkdt.DocumentTypeId)
+            modelBuilder.Entity<BudgetaryKeyDocumentTypeBudgetaryKey>()
+                .HasOne(bkdt => bkdt.BudgetaryKeyDocumentType)
+                .WithMany(dt => dt.BudgetaryKeyDocumentTypeBudgetaryKeys)
+                .HasForeignKey(bkdt => bkdt.BudgetaryKeyDocumentTypeId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<ResourceDistribution>(entity =>
+            {
+                entity.Property(e => e.Amount)
+                    .HasColumnType("decimal(18, 2)");
+            });
+
+            modelBuilder.Entity<ResourceDistribution>()
+                .HasOne(r => r.BudgetaryKey)
+                .WithMany()
+                .HasForeignKey(r => r.BudgetaryKeyId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<ResourceDistributionDocumentTypeResourceDistribution>()
+                .HasOne(bkdt => bkdt.ResourceDistribution)
+                .WithMany(bk => bk.ResourceDistributionDocumentTypeResourceDistributions)
+                .HasForeignKey(bkdt => bkdt.ResourceDistributionId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<ResourceDistributionDocumentTypeResourceDistribution>()
+                .HasOne(bkdt => bkdt.ResourceDistributionDocumentType)
+                .WithMany(dt => dt.ResourceDistributionDocumentTypeResourceDistributions)
+                .HasForeignKey(bkdt => bkdt.ResourceDistributionDocumentTypeId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
 

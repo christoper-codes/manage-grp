@@ -1,6 +1,4 @@
 ﻿using manage_grp.Server.Helpers;
-using manage_grp.Server.Models;
-using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
 namespace manage_grp.Server.Models
@@ -9,15 +7,16 @@ namespace manage_grp.Server.Models
     {
         public int? Id { get; set; }
 
-        public int BudgetaryKeyId { get; set; }
+        public int DependencyId { get; set; }
 
         [JsonIgnore]
-        public BudgetaryKey BudgetaryKey { get; set; }
+        public Dependency? Dependency { get; set; }
 
-        public int DocumentTypeId { get; set; }
+        public string Name { get; set; }
 
-        [JsonIgnore]
-        public DocumentType DocumentType { get; set; }
+        public string Description { get; set; }
+
+        public bool Mandatory { get; set; } = true;
 
         public bool IsActive { get; set; } = true;
 
@@ -26,6 +25,6 @@ namespace manage_grp.Server.Models
         public DateTime UpdatedAt { get; set; } = DateHelper.GetTimeInTimeZone();
 
         [JsonIgnore]
-        public DocumentRequirement? DocumentRequirement { get; set; }
+        public ICollection<BudgetaryKeyDocumentTypeBudgetaryKey>? BudgetaryKeyDocumentTypeBudgetaryKeys { get; set; } = new List<BudgetaryKeyDocumentTypeBudgetaryKey>();
     }
 }

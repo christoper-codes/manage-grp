@@ -1,9 +1,17 @@
-﻿using manage_grp.Server.Helpers;
+using FluentValidation;
+using manage_grp.Server.Data.Contexts;
+using manage_grp.Server.DTOs;
+using manage_grp.Server.Forms;
+using manage_grp.Server.Helpers;
+using manage_grp.Server.Models;
+using manage_grp.Server.Repositories.Interfaces;
+using manage_grp.Server.Services;
+using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
 
 namespace manage_grp.Server.Models
 {
-    public class DocumentType
+    public class ResourceDistributionDocumentType
     {
         public int? Id { get; set; }
 
@@ -25,6 +33,6 @@ namespace manage_grp.Server.Models
         public DateTime UpdatedAt { get; set; } = DateHelper.GetTimeInTimeZone();
 
         [JsonIgnore]
-        public ICollection<BudgetaryKeyDocumentType>? BudgetaryKeyDocumentTypes { get; set; } = new List<BudgetaryKeyDocumentType>();
+        public ICollection<ResourceDistributionDocumentTypeResourceDistribution>? ResourceDistributionDocumentTypeResourceDistributions { get; set; } = new List<ResourceDistributionDocumentTypeResourceDistribution>();
     }
 }

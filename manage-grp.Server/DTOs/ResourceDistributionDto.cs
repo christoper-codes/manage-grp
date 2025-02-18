@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc;
+
 namespace manage_grp.Server.DTOs
 {
     public class ResourceDistributionDto
@@ -7,6 +9,8 @@ namespace manage_grp.Server.DTOs
         public int? AreaId { get; set; }
 
         public int? BudgetaryKeyId { get; set; }
+
+        public int? ResourceTypeId { get; set; }
 
         public string RequestNumber { get; set; }
 
@@ -22,10 +26,16 @@ namespace manage_grp.Server.DTOs
 
         public string Longitude { get; set; }
 
-        public string ResourceType { get; set; }
-
         public string Observations { get; set; }
 
         public bool? IsActive { get; set; }
+
+        [ModelBinder(BinderType = typeof(JsonModelBinder))]
+        public List<ResourceDistributionDocumentTypeResourceDistributionDto>? DocumentTypesDto { get; set; }
+
+        [ModelBinder(BinderType = typeof(JsonModelBinder))]
+        public List<FileGroupDto> FileGroupsDto { get; set; } = new List<FileGroupDto>();
+
+        public List<IFormFile> FilesDto { get; set; } = new List<IFormFile>();
     }
 }

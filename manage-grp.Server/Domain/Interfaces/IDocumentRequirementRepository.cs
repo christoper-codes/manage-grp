@@ -6,7 +6,7 @@ namespace manage_grp.Server.Repositories.Interfaces
 {
     public interface IDocumentRequirementRepository
     {
-        Task<IEnumerable<DocumentRequirement>> GetByBudgetaryKeyDocumentTypeIdAsync(int budgetaryKeyDocumentTypeId);
+        Task<IEnumerable<DocumentRequirement>> GetByBudgetaryKeyDocumentTypeBudgetaryKeyIdAsync(int budgetaryKeyDocumentTypeBudgetaryKeyId);
 
         Task<DocumentRequirement?> GetByIdAsync(int id);
 

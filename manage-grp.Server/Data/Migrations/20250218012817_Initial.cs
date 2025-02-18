@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace manage_grp.Server.Migrations
+namespace manage_grp.Server.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,9 +17,9 @@ namespace manage_grp.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ExternalStateId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Abbreviation = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -35,13 +35,10 @@ namespace manage_grp.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ExternalMunicipalityId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     StateId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MunicipalityKey = table.Column<int>(type: "int", nullable: false),
                     Abbreviation = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Latitude = table.Column<double>(type: "float", nullable: false),
-                    Longitude = table.Column<double>(type: "float", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -221,6 +218,31 @@ namespace manage_grp.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BudgetaryKeyDocumentTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DependencyId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Mandatory = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BudgetaryKeyDocumentTypes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BudgetaryKeyDocumentTypes_Dependencies_DependencyId",
+                        column: x => x.DependencyId,
+                        principalTable: "Dependencies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BudgetKeyDefaults",
                 columns: table => new
                 {
@@ -239,31 +261,6 @@ namespace manage_grp.Server.Migrations
                     table.PrimaryKey("PK_BudgetKeyDefaults", x => x.Id);
                     table.ForeignKey(
                         name: "FK_BudgetKeyDefaults_Dependencies_DependencyId",
-                        column: x => x.DependencyId,
-                        principalTable: "Dependencies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DocumentTypes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DependencyId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Mandatory = table.Column<bool>(type: "bit", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DocumentTypes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DocumentTypes_Dependencies_DependencyId",
                         column: x => x.DependencyId,
                         principalTable: "Dependencies",
                         principalColumn: "Id",
@@ -293,6 +290,147 @@ namespace manage_grp.Server.Migrations
                         principalTable: "Dependencies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PriceTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DependencyId = table.Column<int>(type: "int", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PriceTypes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PriceTypes_Dependencies_DependencyId",
+                        column: x => x.DependencyId,
+                        principalTable: "Dependencies",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ResourceDistributionDocumentTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DependencyId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Mandatory = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ResourceDistributionDocumentTypes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ResourceDistributionDocumentTypes_Dependencies_DependencyId",
+                        column: x => x.DependencyId,
+                        principalTable: "Dependencies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ResourceTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DependencyId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ResourceTypes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ResourceTypes_Dependencies_DependencyId",
+                        column: x => x.DependencyId,
+                        principalTable: "Dependencies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TenderStatuses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DependencyId = table.Column<int>(type: "int", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TenderStatuses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TenderStatuses_Dependencies_DependencyId",
+                        column: x => x.DependencyId,
+                        principalTable: "Dependencies",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TenderTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DependencyId = table.Column<int>(type: "int", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TenderTypes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TenderTypes_Dependencies_DependencyId",
+                        column: x => x.DependencyId,
+                        principalTable: "Dependencies",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ServiceTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AreaId = table.Column<int>(type: "int", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ServiceTypes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ServiceTypes_Areas_AreaId",
+                        column: x => x.AreaId,
+                        principalTable: "Areas",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -497,29 +635,97 @@ namespace manage_grp.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BudgetaryKeyDocumentTypes",
+                name: "BudgetaryKeyDocumentTypeBudgetaryKeys",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BudgetaryKeyId = table.Column<int>(type: "int", nullable: false),
-                    DocumentTypeId = table.Column<int>(type: "int", nullable: false),
+                    BudgetaryKeyDocumentTypeId = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BudgetaryKeyDocumentTypes", x => x.Id);
+                    table.PrimaryKey("PK_BudgetaryKeyDocumentTypeBudgetaryKeys", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BudgetaryKeyDocumentTypes_BudgetaryKeys_BudgetaryKeyId",
+                        name: "FK_BudgetaryKeyDocumentTypeBudgetaryKeys_BudgetaryKeyDocumentTypes_BudgetaryKeyDocumentTypeId",
+                        column: x => x.BudgetaryKeyDocumentTypeId,
+                        principalTable: "BudgetaryKeyDocumentTypes",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_BudgetaryKeyDocumentTypeBudgetaryKeys_BudgetaryKeys_BudgetaryKeyId",
+                        column: x => x.BudgetaryKeyId,
+                        principalTable: "BudgetaryKeys",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ResourceDistributions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BudgetaryKeyId = table.Column<int>(type: "int", nullable: true),
+                    AreaId = table.Column<int>(type: "int", nullable: true),
+                    ResourceTypeId = table.Column<int>(type: "int", nullable: true),
+                    RequestNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ResourceNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Concept = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    RequestDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Latitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Longitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Observations = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ResourceDistributions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ResourceDistributions_Areas_AreaId",
+                        column: x => x.AreaId,
+                        principalTable: "Areas",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ResourceDistributions_BudgetaryKeys_BudgetaryKeyId",
                         column: x => x.BudgetaryKeyId,
                         principalTable: "BudgetaryKeys",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_BudgetaryKeyDocumentTypes_DocumentTypes_DocumentTypeId",
-                        column: x => x.DocumentTypeId,
-                        principalTable: "DocumentTypes",
+                        name: "FK_ResourceDistributions_ResourceTypes_ResourceTypeId",
+                        column: x => x.ResourceTypeId,
+                        principalTable: "ResourceTypes",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ResourceDistributionDocumentTypeResourceDistributions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ResourceDistributionId = table.Column<int>(type: "int", nullable: false),
+                    ResourceDistributionDocumentTypeId = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ResourceDistributionDocumentTypeResourceDistributions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ResourceDistributionDocumentTypeResourceDistributions_ResourceDistributionDocumentTypes_ResourceDistributionDocumentTypeId",
+                        column: x => x.ResourceDistributionDocumentTypeId,
+                        principalTable: "ResourceDistributionDocumentTypes",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ResourceDistributionDocumentTypeResourceDistributions_ResourceDistributions_ResourceDistributionId",
+                        column: x => x.ResourceDistributionId,
+                        principalTable: "ResourceDistributions",
                         principalColumn: "Id");
                 });
 
@@ -529,7 +735,8 @@ namespace manage_grp.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BudgetaryKeyDocumentTypeId = table.Column<int>(type: "int", nullable: false),
+                    BudgetaryKeyDocumentTypeBudgetaryKeyId = table.Column<int>(type: "int", nullable: true),
+                    ResourceDistributionDocumentTypeResourceDistributionId = table.Column<int>(type: "int", nullable: true),
                     Purpose = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Size = table.Column<int>(type: "int", nullable: true),
@@ -541,11 +748,15 @@ namespace manage_grp.Server.Migrations
                 {
                     table.PrimaryKey("PK_DocumentRequirements", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DocumentRequirements_BudgetaryKeyDocumentTypes_BudgetaryKeyDocumentTypeId",
-                        column: x => x.BudgetaryKeyDocumentTypeId,
-                        principalTable: "BudgetaryKeyDocumentTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_DocumentRequirements_BudgetaryKeyDocumentTypeBudgetaryKeys_BudgetaryKeyDocumentTypeBudgetaryKeyId",
+                        column: x => x.BudgetaryKeyDocumentTypeBudgetaryKeyId,
+                        principalTable: "BudgetaryKeyDocumentTypeBudgetaryKeys",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_DocumentRequirements_ResourceDistributionDocumentTypeResourceDistributions_ResourceDistributionDocumentTypeResourceDistribut~",
+                        column: x => x.ResourceDistributionDocumentTypeResourceDistributionId,
+                        principalTable: "ResourceDistributionDocumentTypeResourceDistributions",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -656,14 +867,19 @@ namespace manage_grp.Server.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BudgetaryKeyDocumentTypes_BudgetaryKeyId",
-                table: "BudgetaryKeyDocumentTypes",
+                name: "IX_BudgetaryKeyDocumentTypeBudgetaryKeys_BudgetaryKeyDocumentTypeId",
+                table: "BudgetaryKeyDocumentTypeBudgetaryKeys",
+                column: "BudgetaryKeyDocumentTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BudgetaryKeyDocumentTypeBudgetaryKeys_BudgetaryKeyId",
+                table: "BudgetaryKeyDocumentTypeBudgetaryKeys",
                 column: "BudgetaryKeyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BudgetaryKeyDocumentTypes_DocumentTypeId",
+                name: "IX_BudgetaryKeyDocumentTypes_DependencyId",
                 table: "BudgetaryKeyDocumentTypes",
-                column: "DocumentTypeId");
+                column: "DependencyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BudgetaryKeys_ContactId",
@@ -701,10 +917,18 @@ namespace manage_grp.Server.Migrations
                 column: "MunicipalityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DocumentRequirements_BudgetaryKeyDocumentTypeId",
+                name: "IX_DocumentRequirements_BudgetaryKeyDocumentTypeBudgetaryKeyId",
                 table: "DocumentRequirements",
-                column: "BudgetaryKeyDocumentTypeId",
-                unique: true);
+                column: "BudgetaryKeyDocumentTypeBudgetaryKeyId",
+                unique: true,
+                filter: "[BudgetaryKeyDocumentTypeBudgetaryKeyId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DocumentRequirements_ResourceDistributionDocumentTypeResourceDistributionId",
+                table: "DocumentRequirements",
+                column: "ResourceDistributionDocumentTypeResourceDistributionId",
+                unique: true,
+                filter: "[ResourceDistributionDocumentTypeResourceDistributionId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Documents_DocumentRequirementId",
@@ -712,9 +936,11 @@ namespace manage_grp.Server.Migrations
                 column: "DocumentRequirementId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DocumentTypes_DependencyId",
-                table: "DocumentTypes",
-                column: "DependencyId");
+                name: "IX_Municipalities_ExternalMunicipalityId",
+                table: "Municipalities",
+                column: "ExternalMunicipalityId",
+                unique: true,
+                filter: "[ExternalMunicipalityId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Municipalities_StateId",
@@ -727,9 +953,71 @@ namespace manage_grp.Server.Migrations
                 column: "DependencyId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PriceTypes_DependencyId",
+                table: "PriceTypes",
+                column: "DependencyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_UserId",
                 table: "RefreshTokens",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ResourceDistributionDocumentTypeResourceDistributions_ResourceDistributionDocumentTypeId",
+                table: "ResourceDistributionDocumentTypeResourceDistributions",
+                column: "ResourceDistributionDocumentTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ResourceDistributionDocumentTypeResourceDistributions_ResourceDistributionId",
+                table: "ResourceDistributionDocumentTypeResourceDistributions",
+                column: "ResourceDistributionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ResourceDistributionDocumentTypes_DependencyId",
+                table: "ResourceDistributionDocumentTypes",
+                column: "DependencyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ResourceDistributions_AreaId",
+                table: "ResourceDistributions",
+                column: "AreaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ResourceDistributions_BudgetaryKeyId",
+                table: "ResourceDistributions",
+                column: "BudgetaryKeyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ResourceDistributions_ResourceTypeId",
+                table: "ResourceDistributions",
+                column: "ResourceTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ResourceTypes_DependencyId",
+                table: "ResourceTypes",
+                column: "DependencyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServiceTypes_AreaId",
+                table: "ServiceTypes",
+                column: "AreaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_States_ExternalStateId",
+                table: "States",
+                column: "ExternalStateId",
+                unique: true,
+                filter: "[ExternalStateId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TenderStatuses_DependencyId",
+                table: "TenderStatuses",
+                column: "DependencyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TenderTypes_DependencyId",
+                table: "TenderTypes",
+                column: "DependencyId");
         }
 
         /// <inheritdoc />
@@ -760,7 +1048,19 @@ namespace manage_grp.Server.Migrations
                 name: "Documents");
 
             migrationBuilder.DropTable(
+                name: "PriceTypes");
+
+            migrationBuilder.DropTable(
                 name: "RefreshTokens");
+
+            migrationBuilder.DropTable(
+                name: "ServiceTypes");
+
+            migrationBuilder.DropTable(
+                name: "TenderStatuses");
+
+            migrationBuilder.DropTable(
+                name: "TenderTypes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -772,13 +1072,25 @@ namespace manage_grp.Server.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "BudgetaryKeyDocumentTypeBudgetaryKeys");
+
+            migrationBuilder.DropTable(
+                name: "ResourceDistributionDocumentTypeResourceDistributions");
+
+            migrationBuilder.DropTable(
                 name: "BudgetaryKeyDocumentTypes");
+
+            migrationBuilder.DropTable(
+                name: "ResourceDistributionDocumentTypes");
+
+            migrationBuilder.DropTable(
+                name: "ResourceDistributions");
 
             migrationBuilder.DropTable(
                 name: "BudgetaryKeys");
 
             migrationBuilder.DropTable(
-                name: "DocumentTypes");
+                name: "ResourceTypes");
 
             migrationBuilder.DropTable(
                 name: "Contacts");

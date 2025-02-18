@@ -6,50 +6,50 @@ using Microsoft.EntityFrameworkCore;
 
 namespace manage_grp.Server.Repositories
 {
-    public class PriceTypeRepository : IPriceTypeRepository
+    public class TenderPriceTypeRepository : ITenderPriceTypeRepository
     {
         private readonly AppDbContext _context;
 
-        public PriceTypeRepository(AppDbContext context)
+        public TenderPriceTypeRepository(AppDbContext context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<PriceType>> GetByDependencyAsync(int dependencyId)
+        public async Task<IEnumerable<TenderPriceType>> GetByDependencyAsync(int dependencyId)
         {
-            return await _context.PriceTypes.Where(m => m.DependencyId == dependencyId).ToListAsync();
+            return await _context.TenderPriceTypes.Where(m => m.DependencyId == dependencyId).ToListAsync();
         }
 
-        public async Task<PriceType?> GetByIdAsync(int id)
+        public async Task<TenderPriceType?> GetByIdAsync(int id)
         {
-            return await _context.PriceTypes.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.TenderPriceTypes.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<PriceType?> CreateAsync(PriceType priceType, PriceTypeDto priceTypeDto)
+        public async Task<TenderPriceType?> CreateAsync(TenderPriceType priceType, TenderPriceTypeDto priceTypeDto)
         {
             EntityHelper.UpdateEntityFromDto(Enums.UpdateEntityFromDtoAction.Create, priceType, priceTypeDto);
 
-            _context.PriceTypes.Add(priceType);
+            _context.TenderPriceTypes.Add(priceType);
 
             await _context.SaveChangesAsync();
 
             return priceType;
         }
 
-        public async Task<bool?> UpdateAsync(PriceType priceType, PriceTypeDto priceTypeDto)
+        public async Task<bool?> UpdateAsync(TenderPriceType priceType, TenderPriceTypeDto priceTypeDto)
         {
             EntityHelper.UpdateEntityFromDto(Enums.UpdateEntityFromDtoAction.Update, priceType, priceTypeDto);
 
-            _context.PriceTypes.Update(priceType);
+            _context.TenderPriceTypes.Update(priceType);
 
             await _context.SaveChangesAsync();
 
             return true;
         }
 
-        public async Task<bool> DeleteAsync(PriceType priceType)
+        public async Task<bool> DeleteAsync(TenderPriceType priceType)
         {
-            _context.PriceTypes.Remove(priceType);
+            _context.TenderPriceTypes.Remove(priceType);
 
             await _context.SaveChangesAsync();
 

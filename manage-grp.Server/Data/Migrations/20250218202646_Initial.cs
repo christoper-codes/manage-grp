@@ -293,29 +293,6 @@ namespace manage_grp.Server.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PriceTypes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DependencyId = table.Column<int>(type: "int", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PriceTypes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PriceTypes_Dependencies_DependencyId",
-                        column: x => x.DependencyId,
-                        principalTable: "Dependencies",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ResourceDistributionDocumentTypes",
                 columns: table => new
                 {
@@ -362,6 +339,52 @@ namespace manage_grp.Server.Data.Migrations
                         principalTable: "Dependencies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TenderFundingSources",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DependencyId = table.Column<int>(type: "int", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TenderFundingSources", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TenderFundingSources_Dependencies_DependencyId",
+                        column: x => x.DependencyId,
+                        principalTable: "Dependencies",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TenderPriceTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DependencyId = table.Column<int>(type: "int", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TenderPriceTypes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TenderPriceTypes_Dependencies_DependencyId",
+                        column: x => x.DependencyId,
+                        principalTable: "Dependencies",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -953,11 +976,6 @@ namespace manage_grp.Server.Data.Migrations
                 column: "DependencyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PriceTypes_DependencyId",
-                table: "PriceTypes",
-                column: "DependencyId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_UserId",
                 table: "RefreshTokens",
                 column: "UserId");
@@ -1010,6 +1028,16 @@ namespace manage_grp.Server.Data.Migrations
                 filter: "[ExternalStateId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TenderFundingSources_DependencyId",
+                table: "TenderFundingSources",
+                column: "DependencyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TenderPriceTypes_DependencyId",
+                table: "TenderPriceTypes",
+                column: "DependencyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TenderStatuses_DependencyId",
                 table: "TenderStatuses",
                 column: "DependencyId");
@@ -1048,13 +1076,16 @@ namespace manage_grp.Server.Data.Migrations
                 name: "Documents");
 
             migrationBuilder.DropTable(
-                name: "PriceTypes");
-
-            migrationBuilder.DropTable(
                 name: "RefreshTokens");
 
             migrationBuilder.DropTable(
                 name: "ServiceTypes");
+
+            migrationBuilder.DropTable(
+                name: "TenderFundingSources");
+
+            migrationBuilder.DropTable(
+                name: "TenderPriceTypes");
 
             migrationBuilder.DropTable(
                 name: "TenderStatuses");

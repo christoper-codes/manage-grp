@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace manage_grp.Server.Models
 {
-    public class PriceType
+    public class TenderPriceType
     {
         public int? Id { get; set; }
 

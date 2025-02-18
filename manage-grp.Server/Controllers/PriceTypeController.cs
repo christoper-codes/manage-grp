@@ -9,18 +9,18 @@ namespace repro_back.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PriceTypeController : ControllerBase
+    public class TenderPriceTypeController : ControllerBase
     {
-        private readonly PriceTypeService _priceTypeService;
-        private readonly IValidator<PriceTypeDto> _validator;
+        private readonly TenderPriceTypeService _priceTypeService;
+        private readonly IValidator<TenderPriceTypeDto> _validator;
 
-        public PriceTypeController(PriceTypeService priceTypeService, IValidator<PriceTypeDto> validator)
+        public TenderPriceTypeController(TenderPriceTypeService priceTypeService, IValidator<TenderPriceTypeDto> validator)
         {
             _priceTypeService = priceTypeService;
             _validator = validator;
         }
 
-        // GET: api/PriceTypes/Dependency/1
+        // GET: api/TenderPriceTypes/Dependency/1
         [HttpGet("Dependency/{dependencyId}")]
         public async Task<IActionResult> GetByDependencyAsync(int dependencyId)
         {
@@ -34,7 +34,7 @@ namespace repro_back.Controllers
             }
         }
 
-        // GET: api/PriceTypes/5
+        // GET: api/TenderPriceTypes/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
@@ -48,9 +48,9 @@ namespace repro_back.Controllers
             }
         }
 
-        // POST: api/PriceTypes
+        // POST: api/TenderPriceTypes
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] PriceTypeDto priceTypeDto)
+        public async Task<IActionResult> CreateAsync([FromBody] TenderPriceTypeDto priceTypeDto)
         {
             try
             {
@@ -69,9 +69,9 @@ namespace repro_back.Controllers
             }
         }
 
-        // PUT: api/PriceTypes/5
+        // PUT: api/TenderPriceTypes/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAsync(int id, [FromBody] PriceTypeDto priceTypeDto)
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody] TenderPriceTypeDto priceTypeDto)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace repro_back.Controllers
             }
         }
 
-        // DELETE: api/PriceTypes/5
+        // DELETE: api/TenderPriceTypes/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {

@@ -58,7 +58,7 @@ namespace manage_grp.Server.Data.Contexts
 
         public DbSet<TenderFundingSource> TenderFundingSources { get; set; }
         
-        public DbSet<PriceType> PriceTypes { get; set; }
+        public DbSet<TenderPriceType> TenderPriceTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,6 +1,6 @@
 namespace manage_grp.Server.DTOs
 {
-    public class PriceTypeDto
+    public class TenderPriceTypeDto
     {
         public int? Id { get; set; }
 

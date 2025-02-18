@@ -4,16 +4,16 @@ using manage_grp.Server.Repositories.Interfaces;
 
 namespace manage_grp.Server.Services
 {
-    public class PriceTypeService
+    public class TenderPriceTypeService
     {
-        private readonly IPriceTypeRepository _priceTypeRepository;
+        private readonly ITenderPriceTypeRepository _priceTypeRepository;
 
-        public PriceTypeService(IPriceTypeRepository priceTypeRepository)
+        public TenderPriceTypeService(ITenderPriceTypeRepository priceTypeRepository)
         {
             _priceTypeRepository = priceTypeRepository;
         }
 
-        public async Task<IEnumerable<PriceType>> GetByDependencyAsync(int dependencyId)
+        public async Task<IEnumerable<TenderPriceType>> GetByDependencyAsync(int dependencyId)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace manage_grp.Server.Services
 
         }
 
-        public async Task<PriceType?> GetByIdAsync(int id)
+        public async Task<TenderPriceType?> GetByIdAsync(int id)
         {
             try
             {
@@ -45,11 +45,11 @@ namespace manage_grp.Server.Services
             }
         }
 
-        public async Task<PriceType?> CreateAsync(PriceTypeDto priceTypeDto)
+        public async Task<TenderPriceType?> CreateAsync(TenderPriceTypeDto priceTypeDto)
         {
             try
             {
-                return await _priceTypeRepository.CreateAsync(new PriceType(), priceTypeDto);
+                return await _priceTypeRepository.CreateAsync(new TenderPriceType(), priceTypeDto);
             }
             catch (Exception ex)
             {
@@ -57,7 +57,7 @@ namespace manage_grp.Server.Services
             }
         }
 
-        public async Task<bool?> UpdateAsync(int id, PriceTypeDto priceTypeDto)
+        public async Task<bool?> UpdateAsync(int id, TenderPriceTypeDto priceTypeDto)
         {
             try
             {

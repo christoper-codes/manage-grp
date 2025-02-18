@@ -163,9 +163,9 @@ builder.Services.AddScoped<ITenderStatusRepository, TenderStatusRepository>();
 builder.Services.AddScoped<TenderStatusService>();
 builder.Services.AddValidatorsFromAssemblyContaining<TenderStatusDtoValidator>();
 
-builder.Services.AddScoped<IPriceTypeRepository, PriceTypeRepository>();
-builder.Services.AddScoped<PriceTypeService>();
-builder.Services.AddValidatorsFromAssemblyContaining<PriceTypeDtoValidator>();
+builder.Services.AddScoped<ITenderPriceTypeRepository, TenderPriceTypeRepository>();
+builder.Services.AddScoped<TenderPriceTypeService>();
+builder.Services.AddValidatorsFromAssemblyContaining<TenderPriceTypeDtoValidator>();
 
 builder.Services.AddScoped<IFileRepository, FileRepository>();
 builder.Services.AddScoped<FileService>();
@@ -185,11 +185,11 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 //Ejecution of Seeders
-//using (var scope = app.Services.CreateScope())
-//{
-//    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-//    DbSeeders.Seed(dbContext);
-//}
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    DbSeeders.Seed(dbContext);
+}
 
 
 app.UseDefaultFiles();

@@ -52,6 +52,8 @@ namespace manage_grp.Server.Data.Contexts
 
         public DbSet<ResourceDistributionDocumentTypeResourceDistribution> ResourceDistributionDocumentTypeResourceDistributions { get; set; }
 
+        public DbSet<TenderDocumentType> TenderDocumentTypes { get; set; }
+
         public DbSet<TenderType> TenderTypes { get; set; }
         
         public DbSet<TenderStatus> TenderStatuses { get; set; }

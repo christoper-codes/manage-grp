@@ -150,6 +150,10 @@ builder.Services.AddScoped<IResourceTypeRepository, ResourceTypeRepository>();
 builder.Services.AddScoped<ResourceTypeService>();
 builder.Services.AddValidatorsFromAssemblyContaining<ResourceTypeDtoValidator>();
 
+builder.Services.AddScoped<ITenderDocumentTypeRepository, TenderDocumentTypeRepository>();
+builder.Services.AddScoped<TenderDocumentTypeService>();
+builder.Services.AddValidatorsFromAssemblyContaining<TenderDocumentTypeDtoValidator>();
+
 builder.Services.AddScoped<ITenderTypeRepository, TenderTypeRepository>();
 builder.Services.AddScoped<TenderTypeService>();
 builder.Services.AddValidatorsFromAssemblyContaining<TenderTypeDtoValidator>();

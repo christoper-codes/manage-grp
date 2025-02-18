@@ -6,5 +6,7 @@
     "USER_NAME_FIELD": "Nombre de usuario",
     "EMAIL_FIELD": "Correo electrónico",
     "PASSWORD_FIELD": "Contraseña",
-    "RECOVER_PASSWORD_FIELD": "Recuperar contraseña"
+    "RECOVER_PASSWORD_FIELD": "Recuperar contraseña",
+    "ADD_NEW_ITEM_FIELD": "Agregar nuevo elemento",
+    "SEARCH_FIELD": "Buscar"
 }

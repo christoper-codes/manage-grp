@@ -11,7 +11,7 @@ const MainRoutes = {
         {
             name: 'Product Listing',
             path: '/apps/tickets',
-            component: () => import('@/views/apps/eCommerce/ProductList.vue')
+            component: () => import('@/views/apps/Dependencies.vue')
         },
         {
             name: 'user-profile',

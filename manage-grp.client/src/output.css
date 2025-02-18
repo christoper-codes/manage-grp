@@ -587,6 +587,10 @@ video {
   margin-bottom: 2.5rem !important;
 }
 
+.tw-ml-3 {
+  margin-left: 0.75rem;
+}
+
 .tw-mr-1 {
   margin-right: 0.25rem;
 }
@@ -816,6 +820,10 @@ video {
 
 .tw-p-5 {
   padding: 1.25rem;
+}
+
+.tw-p-6 {
+  padding: 1.5rem;
 }
 
 .tw-py-16 {

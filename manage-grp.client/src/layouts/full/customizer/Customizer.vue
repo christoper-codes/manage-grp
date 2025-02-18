@@ -1,48 +1,26 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useCustomizerStore } from '@/stores/customizer';
-import {
-    CheckIcon,
-    LayoutColumnsIcon,
-    LayoutNavbarIcon,
-    LayoutSidebarLeftCollapseIcon,
-} from 'vue-tabler-icons';
+import LanguageDD from '@/layouts/full/vertical-header/LanguageDD.vue';
 
 const customizer = useCustomizerStore();
-
-// template skin color options
 const themeColors = ref([
     {name: 'BLUE_THEME',bg: 'themeBlue'}
 ]);
-
-// Dark Theme Colors
 const DarkthemeColors = ref([
     { name: 'DARK_BLUE_THEME', bg: 'themeDarkBlue' },
 ]);
 </script>
-
-<!------------------------------------->
-<!-- Customizer -->
-<!------------------------------------->
 <template>
-        <div class="pa-6">
+        <div class="tw-p-6 tw-flex tw-items-center tw-justify-between">
             <h5 class="text-h5">{{ $t('SETTINGS') }}</h5>
+            <LanguageDD />
         </div>
         <v-divider></v-divider>
         <perfect-scrollbar style="height: calc(100vh - 90px)">
             <div class="pa-6">
-                <h6 class="text-h6 mb-2">{{ $t('SIDEBAR_LAYOUT') }}</h6>
-                <v-btn-toggle v-model="customizer.setHorizontalLayout" color="primary" class="my-2 btn-group-custom  gap-3" rounded="0" group>
-                    <v-btn :value="false" variant="text" elevation="9" class="rounded-md">
-                        <LayoutColumnsIcon stroke-width="1.5" size="21" class="mr-2 icon" /> Vertical
-                    </v-btn>
-                    <v-btn :value="true" variant="text" elevation="9" class="rounded-md">
-                        <LayoutNavbarIcon stroke-width="1.5" size="21" class="mr-2 icon" /> Horizontal
-                    </v-btn>
-                </v-btn-toggle>
-
                 <v-sheet v-if="customizer.setHorizontalLayout != true">
-                  <h6 class="text-h6 mt-11 mb-2">{{ $t('SIDEBAR_TYPE') }}</h6>
+                  <h6 class="text-h6 mb-2">{{ $t('SIDEBAR_TYPE') }}</h6>
                   <v-btn-toggle v-model="customizer.mini_sidebar" color="primary" class="my-2 btn-group-custom gap-3" rounded="0" group>
                       <v-btn :value="false" variant="text" elevation="9" class="rounded-md">
                           <LayoutSidebarIcon stroke-width="1.5" size="21" class="mr-2 icon" />

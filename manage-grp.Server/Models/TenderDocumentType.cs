@@ -16,9 +16,9 @@ namespace manage_grp.Server.Models
 
         public string Description { get; set; }
 
-        public bool Mandatory { get; set; } = true;
+        public bool Mandatory { get; set; }
 
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateHelper.GetTimeInTimeZone();
 

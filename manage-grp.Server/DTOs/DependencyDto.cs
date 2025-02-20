@@ -12,6 +12,6 @@ namespace manage_grp.Server.DTOs
 
         public string Rfc { get; set; }
 
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
     }
 }

@@ -1,9 +1,8 @@
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Models;
-using manage_grp.Server.Repositories.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
+using manage_grp.Server.Domain.Interfaces;
 
-namespace manage_grp.Server.Services
+namespace manage_grp.Server.Domain.Services
 {
     public class ResourceDistributionService
     {
@@ -32,14 +31,7 @@ namespace manage_grp.Server.Services
         {
             try
             {
-                var resourceDistribution = await _resourceDistributionRepository.GetByIdAsync(id);
-
-                if (resourceDistribution == null)
-                {
-                    throw new KeyNotFoundException();
-                }
-
-                return resourceDistribution;
+                return await _resourceDistributionRepository.GetByIdAsync(id);
             }
             catch (Exception ex)
             {

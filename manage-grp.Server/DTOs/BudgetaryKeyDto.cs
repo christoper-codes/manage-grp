@@ -1,6 +1,4 @@
-using manage_grp.Server.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.SqlServer.Server;
 
 namespace manage_grp.Server.DTOs
 {
@@ -20,7 +18,7 @@ namespace manage_grp.Server.DTOs
 
         public string Description { get; set; }
 
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
 
         [ModelBinder(BinderType = typeof(JsonModelBinder))]
         public List<BudgetaryKeyDocumentTypeBudgetaryKeyDto>? DocumentTypesDto { get; set; }

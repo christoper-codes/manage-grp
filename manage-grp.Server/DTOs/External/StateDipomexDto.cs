@@ -1,4 +1,4 @@
-namespace manage_grp.Server.DTOs
+namespace manage_grp.Server.DTOs.External
 {
     public class StateDipomexDto
     {

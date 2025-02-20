@@ -1,8 +1,8 @@
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Models;
-using manage_grp.Server.Repositories.Interfaces;
+using manage_grp.Server.Domain.Interfaces;
 
-namespace manage_grp.Server.Services
+namespace manage_grp.Server.Domain.Services
 {
     public class BudgetaryKeyDocumentTypeService
     {
@@ -29,14 +29,7 @@ namespace manage_grp.Server.Services
         {
             try
             {
-                var budgetaryKeyDocumentType = await _budgetaryKeyDocumentTypeRepository.GetByIdAsync(id);
-
-                if (budgetaryKeyDocumentType == null)
-                {
-                    throw new KeyNotFoundException();
-                }
-
-                return budgetaryKeyDocumentType;
+                return await _budgetaryKeyDocumentTypeRepository.GetByIdAsync(id);
             }
             catch (Exception ex)
             {

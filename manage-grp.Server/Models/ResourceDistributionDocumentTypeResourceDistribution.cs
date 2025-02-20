@@ -10,14 +10,14 @@ namespace manage_grp.Server.Models
         public int ResourceDistributionId { get; set; }
 
         [JsonIgnore]
-        public ResourceDistribution ResourceDistribution { get; set; }
+        public ResourceDistribution? ResourceDistribution { get; set; }
 
         public int ResourceDistributionDocumentTypeId { get; set; }
 
         [JsonIgnore]
-        public ResourceDistributionDocumentType ResourceDistributionDocumentType { get; set; }
+        public ResourceDistributionDocumentType? ResourceDistributionDocumentType { get; set; }
 
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateHelper.GetTimeInTimeZone();
 

@@ -13,14 +13,14 @@ namespace manage_grp.Server.Models
         public int BudgetaryKeyId { get; set; }
 
         [JsonIgnore]
-        public BudgetaryKey BudgetaryKey { get; set; }
+        public BudgetaryKey? BudgetaryKey { get; set; }
 
         public int BudgetaryKeyDocumentTypeId { get; set; }
 
         [JsonIgnore]
-        public BudgetaryKeyDocumentType BudgetaryKeyDocumentType { get; set; }
+        public BudgetaryKeyDocumentType? BudgetaryKeyDocumentType { get; set; }
 
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateHelper.GetTimeInTimeZone();
 

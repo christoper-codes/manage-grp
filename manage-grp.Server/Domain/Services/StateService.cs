@@ -28,14 +28,7 @@ namespace manage_grp.Server.Domain.Services
         {
             try
             {
-                var state = await _stateRepository.GetByIdAsync(id);
-
-                if (state == null)
-                {
-                    throw new KeyNotFoundException();
-                }
-
-                return state;
+                return await _stateRepository.GetByIdAsync(id);
             }
             catch (Exception ex)
             {

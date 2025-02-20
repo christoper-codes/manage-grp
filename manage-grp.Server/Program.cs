@@ -6,10 +6,8 @@ using manage_grp.Server.Domain.Interfaces.External;
 using manage_grp.Server.Domain.Repositories;
 using manage_grp.Server.Domain.Repositories.External;
 using manage_grp.Server.Domain.Services;
+using manage_grp.Server.Domain.Services.External;
 using manage_grp.Server.Models;
-using manage_grp.Server.Repositories;
-using manage_grp.Server.Repositories.Interfaces;
-using manage_grp.Server.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -198,11 +196,11 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 //Ejecution of Seeders
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    DbSeeders.Seed(dbContext);
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+//    DbSeeders.Seed(dbContext);
+//}
 
 
 app.UseDefaultFiles();

@@ -28,10 +28,10 @@ namespace manage_grp.Server.DTOs
 
         public string Observations { get; set; }
 
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
 
         [ModelBinder(BinderType = typeof(JsonModelBinder))]
-        public List<ResourceDistributionDocumentTypeResourceDistributionDto>? DocumentTypesDto { get; set; }
+        public List<ResourceDistributionDocumentTypeResourceDistributionDto>? DocumentTypesDto { get; set; } = new List<ResourceDistributionDocumentTypeResourceDistributionDto>();
 
         [ModelBinder(BinderType = typeof(JsonModelBinder))]
         public List<FileGroupDto> FileGroupsDto { get; set; } = new List<FileGroupDto>();

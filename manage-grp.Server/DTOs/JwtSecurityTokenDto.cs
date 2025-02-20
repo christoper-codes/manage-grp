@@ -11,7 +11,7 @@ namespace manage_grp.Server.DTOs
 
         public DateTime Expiration { get; set; }
 
-        public IEnumerable<Claim> Claims { get; set; }
+        public IEnumerable<Claim> Claims { get; set; } = new List<Claim>();
 
         public SigningCredentials SigningCredentials { get; set; }
     }

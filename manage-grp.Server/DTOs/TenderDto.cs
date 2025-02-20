@@ -1,7 +1,4 @@
-using manage_grp.Server.DTOs;
-using manage_grp.Server.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.SqlServer.Server;
 
 namespace manage_grp.Server.DTOs
 {
@@ -27,13 +24,13 @@ namespace manage_grp.Server.DTOs
 
         public DateTime PublicationDate { get; set; }
 
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
 
         [ModelBinder(BinderType = typeof(JsonModelBinder))]
-        public List<ResourceDistributionTenderDto>? ResourceDistributionTendersDtos { get; set; }
+        public List<ResourceDistributionTenderDto>? ResourceDistributionTendersDtos { get; set; } = new List<ResourceDistributionTenderDto>();
 
         [ModelBinder(BinderType = typeof(JsonModelBinder))]
-        public List<TenderDocumentTypeTenderDto>? DocumentTypesDto { get; set; }
+        public List<TenderDocumentTypeTenderDto>? DocumentTypesDto { get; set; } = new List<TenderDocumentTypeTenderDto>();
 
         [ModelBinder(BinderType = typeof(JsonModelBinder))]
         public List<FileGroupDto> FileGroupsDto { get; set; } = new List<FileGroupDto>();

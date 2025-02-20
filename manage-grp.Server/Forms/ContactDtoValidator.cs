@@ -1,7 +1,7 @@
 using FluentValidation;
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Forms;
-using manage_grp.Server.Services;
+using manage_grp.Server.Domain.Services;
 
 public class ContactDtoValidator : AbstractValidator<ContactDto>
 {
@@ -20,9 +20,12 @@ public class ContactDtoValidator : AbstractValidator<ContactDto>
             .ValidateStringField("Primer Nombre", 50);
 
         RuleFor(x => x.Email)
-            .ValidateEmailContactField(contactService);
+            .VerifyContactEmailFieldIsNotRegistered(contactService);
 
         RuleFor(x => x.Phone)
             .ValidatePhoneField("Número de Teléfono");
+
+        RuleFor(x => x.IsActive)
+            .ValidateBooleanField("Estatus");
     }
 }

@@ -1,8 +1,8 @@
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Models;
-using manage_grp.Server.Repositories.Interfaces;
+using manage_grp.Server.Domain.Interfaces;
 
-namespace manage_grp.Server.Services
+namespace manage_grp.Server.Domain.Services
 {
     public class TenderPriceTypeService
     {
@@ -30,14 +30,7 @@ namespace manage_grp.Server.Services
         {
             try
             {
-                var priceType = await _priceTypeRepository.GetByIdAsync(id);
-
-                if (priceType == null)
-                {
-                    throw new KeyNotFoundException();
-                }
-
-                return priceType;
+                return await _priceTypeRepository.GetByIdAsync(id);
             }
             catch (Exception ex)
             {

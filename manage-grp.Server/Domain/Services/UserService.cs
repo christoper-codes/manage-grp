@@ -1,8 +1,8 @@
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Models;
-using manage_grp.Server.Repositories.Interfaces;
+using manage_grp.Server.Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
-namespace manage_grp.Server.Services
+namespace manage_grp.Server.Domain.Services
 {
     public class UserService
     {
@@ -29,9 +29,7 @@ namespace manage_grp.Server.Services
         {
             try
             {
-                var user = await GetForLoginAsync(userLoginDto);
-
-                return await _userRepository.LoginAsync(user, userLoginDto);
+                return await _userRepository.LoginAsync(await GetForLoginAsync(userLoginDto), userLoginDto);
             }
             catch (Exception ex)
             {

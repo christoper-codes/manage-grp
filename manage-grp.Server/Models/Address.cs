@@ -7,7 +7,7 @@ namespace manage_grp.Server.Models
     {
         public int? Id { get; set; }
 
-        public int DependencyId { get; set; }
+        public int? DependencyId { get; set; }
 
         [JsonIgnore]
         public Dependency? Dependency { get; set; }
@@ -28,7 +28,7 @@ namespace manage_grp.Server.Models
 
         public string? Reference { get; set; }
 
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateHelper.GetTimeInTimeZone();
 

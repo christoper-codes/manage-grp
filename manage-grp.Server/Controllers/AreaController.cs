@@ -2,7 +2,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Helpers;
-using manage_grp.Server.Services;
+using manage_grp.Server.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace repro_back.Controllers

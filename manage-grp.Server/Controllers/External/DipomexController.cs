@@ -1,11 +1,10 @@
-using manage_grp.Server.Domain.Interfaces.External;
+
 using manage_grp.Server.Domain.Services;
-using manage_grp.Server.DTOs;
+using manage_grp.Server.Domain.Services.External;
 using manage_grp.Server.Helpers;
-using manage_grp.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace manage_grp.Server.Controllers
+namespace manage_grp.Server.Controllers.External
 {
     [Route("api/[controller]")]
     [ApiController]

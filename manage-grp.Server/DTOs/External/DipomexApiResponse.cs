@@ -1,4 +1,3 @@
-using manage_grp.Server.DTOs;
 using manage_grp.Server.DTOs.External;
 
 public class DipomexApiResponse

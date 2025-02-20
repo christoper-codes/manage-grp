@@ -1,7 +1,7 @@
 using FluentValidation;
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Forms;
-using manage_grp.Server.Services;
+using manage_grp.Server.Domain.Services;
 
 public class TenderDocumentTypeDtoValidator : AbstractValidator<TenderDocumentTypeDto>
 {
@@ -15,5 +15,11 @@ public class TenderDocumentTypeDtoValidator : AbstractValidator<TenderDocumentTy
 
         RuleFor(x => x.Description)
             .ValidateStringField("Descripción", 255);
+
+        RuleFor(x => x.IsActive)
+            .ValidateBooleanField("Estatus");
+
+        RuleFor(x => x.Mandatory)
+            .ValidateBooleanField("Obligatorio");
     }
 }

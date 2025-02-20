@@ -16,7 +16,7 @@ namespace manage_grp.Server.DTOs
 
         public int? Size { get; set; }
 
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
 
     }
 }

@@ -1,5 +1,4 @@
 ﻿using manage_grp.Server.Domain.Interfaces;
-using manage_grp.Server.Domain.Repositories;
 using manage_grp.Server.Models;
 
 namespace manage_grp.Server.Domain.Services
@@ -29,14 +28,7 @@ namespace manage_grp.Server.Domain.Services
         {
             try
             {
-                var municipality = await _municipalityRepository.GetByIdAsync(id);
-
-                if (municipality == null)
-                {
-                    throw new KeyNotFoundException();
-                }
-
-                return municipality;
+                return await _municipalityRepository.GetByIdAsync(id);
             }
             catch (Exception ex)
             {

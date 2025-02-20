@@ -1,7 +1,7 @@
 using FluentValidation;
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Forms;
-using manage_grp.Server.Services;
+using manage_grp.Server.Domain.Services;
 
 public class AreaDtoValidator : AbstractValidator<AreaDto>
 {
@@ -18,5 +18,8 @@ public class AreaDtoValidator : AbstractValidator<AreaDto>
 
         RuleFor(x => x.Description)
             .ValidateStringField("Descripción", 250);
+
+        RuleFor(x => x.IsActive)
+            .ValidateBooleanField("Estatus");
     }
 }

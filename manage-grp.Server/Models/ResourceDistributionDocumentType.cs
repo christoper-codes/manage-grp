@@ -1,12 +1,4 @@
-using FluentValidation;
-using manage_grp.Server.Data.Contexts;
-using manage_grp.Server.DTOs;
-using manage_grp.Server.Forms;
 using manage_grp.Server.Helpers;
-using manage_grp.Server.Models;
-using manage_grp.Server.Repositories.Interfaces;
-using manage_grp.Server.Services;
-using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
 
 namespace manage_grp.Server.Models
@@ -24,9 +16,9 @@ namespace manage_grp.Server.Models
 
         public string Description { get; set; }
 
-        public bool Mandatory { get; set; } = true;
+        public bool Mandatory { get; set; }
 
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateHelper.GetTimeInTimeZone();
 

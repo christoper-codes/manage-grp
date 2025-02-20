@@ -1,5 +1,4 @@
 using FluentValidation;
-using manage_grp.Server.Services;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using manage_grp.Server.Domain.Services;
@@ -241,7 +240,7 @@ namespace manage_grp.Server.Forms
                 {
                     var position = await positionService.GetByIdAsync(PositionId);
 
-                    return position == null;
+                    return position != null;
                 }
                 catch (KeyNotFoundException)
                 {
@@ -359,7 +358,7 @@ namespace manage_grp.Server.Forms
                 .Matches(@"^[A-ZÑ&]{3,4}\d{6}[A-Z\d]{3}$").WithMessage($"El campo '{fieldName}' debe tener una estructura válida de RFC.");
         }
 
-        public static IRuleBuilderOptions<T, string> ValidateEmailContactField<T>(this IRuleBuilder<T, string> ruleBuilder, ContactService contactService)
+        public static IRuleBuilderOptions<T, string> VerifyContactEmailFieldIsNotRegistered<T>(this IRuleBuilder<T, string> ruleBuilder, ContactService contactService)
         {
             return ruleBuilder
                 .NotEmpty().WithMessage("El correo electrónico es obligatorio.")
@@ -371,7 +370,7 @@ namespace manage_grp.Server.Forms
                     {
                         var position = await contactService.GetByEmailAsync(Email);
 
-                        return position != null;
+                        return position == null;
                     }
                     catch (KeyNotFoundException)
                     {
@@ -461,6 +460,14 @@ namespace manage_grp.Server.Forms
         {
             return ruleBuilder
                 .Matches($@"^\d{{{length}}}$").WithMessage($"El campo '{fieldName}' debe tener {length} caracteres.");
+        }
+
+        public static IRuleBuilderOptions<T, bool> ValidateBooleanField<T>(this IRuleBuilder<T, bool> ruleBuilder, string fieldName)
+        {
+            return ruleBuilder
+                .NotEmpty().WithMessage($"El campo '{fieldName}' no debe estar vacío.")
+                .NotNull().WithMessage($"El campo '{fieldName}' no debe ser nulo.")
+                .Must(value => IsValidBoolean(value)).WithMessage($"El campo '{fieldName}' debe ser un valor booleano ('true' o 'false').");
         }
 
         public static IRuleBuilderOptions<T, int> ValidateNumericIntField<T>(this IRuleBuilder<T, int> ruleBuilder, string fieldName, int? minValue = null, int? maxValue = null)
@@ -580,6 +587,19 @@ namespace manage_grp.Server.Forms
                 return lon >= -180 && lon <= 180;
             }
 
+            return false;
+        }
+
+        private static bool IsValidBoolean(object value)
+        {
+            if (value is bool)
+            {
+                return true;
+            }
+            if (value is string strValue)
+            {
+                return bool.TryParse(strValue, out _);
+            }
             return false;
         }
     }

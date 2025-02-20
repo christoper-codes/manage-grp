@@ -1,8 +1,8 @@
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Models;
-using manage_grp.Server.Repositories.Interfaces;
+using manage_grp.Server.Domain.Interfaces;
 
-namespace manage_grp.Server.Services
+namespace manage_grp.Server.Domain.Services
 {
     public class ResourceDistributionDocumentTypeResourceDistributionService
     {
@@ -66,11 +66,9 @@ namespace manage_grp.Server.Services
 
                 if (documentRequirementsDto.Any())
                 {
-                    var dependency = await _serviceProvider.GetRequiredService<DependencyService>().GetByIdAsync(resourceDistribution.Area!.DependencyId);
-
                     await _serviceProvider.GetRequiredService<DocumentRequirementService>().CreateListAsync(
                         documentRequirementsDto,
-                        FilePathGenerator.GeneratePathFromUuids([dependency!, resourceDistribution.BudgetaryKey!]),
+                        FilePathGenerator.GeneratePathFromUuids([resourceDistribution.Area!.Dependency!, resourceDistribution.BudgetaryKey!]),
                         f => f.ResourceDistributionDocumentTypeResourceDistribution,
                         t => t?.ResourceDistributionDocumentTypeId,
                         fileGroupsDto,

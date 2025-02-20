@@ -3,7 +3,7 @@ using manage_grp.Server.DTOs;
 using manage_grp.Server.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace manage_grp.Server.Repositories.Interfaces
+namespace manage_grp.Server.Domain.Interfaces
 {
     public interface IUserRepository
     {

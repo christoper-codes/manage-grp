@@ -2,7 +2,6 @@ using FluentValidation;
 using manage_grp.Server.Domain.Services;
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Forms;
-using manage_grp.Server.Services;
 
 public class UserDtoValidator : AbstractValidator<UserDto>
 {

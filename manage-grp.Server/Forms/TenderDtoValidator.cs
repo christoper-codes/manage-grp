@@ -1,7 +1,7 @@
 using FluentValidation;
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Forms;
-using manage_grp.Server.Services;
+using manage_grp.Server.Domain.Services;
 
 public class TenderDtoValidator : AbstractValidator<TenderDto>
 {
@@ -31,5 +31,8 @@ public class TenderDtoValidator : AbstractValidator<TenderDto>
 
         RuleFor(x => x.PublicationDate)
             .ValidateDateField("Fecha de Publicación");
+
+        RuleFor(x => x.IsActive)
+            .ValidateBooleanField("Estatus");
     }
 }   

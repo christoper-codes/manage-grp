@@ -1,12 +1,9 @@
 using manage_grp.Server.Domain.Interfaces.External;
-using manage_grp.Server.Domain.Services;
 using manage_grp.Server.DTOs;
 using manage_grp.Server.DTOs.External;
-using manage_grp.Server.Helpers;
 using manage_grp.Server.Models;
-using System;
 
-namespace manage_grp.Server.Services
+namespace manage_grp.Server.Domain.Services.External
 {
     public class DipomexService
     {

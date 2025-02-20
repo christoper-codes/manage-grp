@@ -1,7 +1,7 @@
 
 using manage_grp.Server.DTOs;
 
-namespace manage_grp.Server.Repositories.Interfaces
+namespace manage_grp.Server.Domain.Interfaces
 {
     public interface IFileRepository
     {

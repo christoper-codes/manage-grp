@@ -1,18 +1,16 @@
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Models;
-using manage_grp.Server.Repositories.Interfaces;
+using manage_grp.Server.Domain.Interfaces;
 
-namespace manage_grp.Server.Services
+namespace manage_grp.Server.Domain.Services
 {
     public class ResourceDistributionTenderService
     {
         private readonly IResourceDistributionTenderRepository _resourceDistributionTenderRepository;
-        private readonly IServiceProvider _serviceProvider;
 
-        public ResourceDistributionTenderService(IResourceDistributionTenderRepository resourceDistributionTenderRepository, IServiceProvider serviceProvider)
+        public ResourceDistributionTenderService(IResourceDistributionTenderRepository resourceDistributionTenderRepository)
         {
             _resourceDistributionTenderRepository = resourceDistributionTenderRepository;
-            _serviceProvider = serviceProvider;
         }
 
         public async Task<ResourceDistributionTender?> GetByIdAsync(int id)
@@ -42,8 +40,7 @@ namespace manage_grp.Server.Services
         public async Task<List<ResourceDistributionTender>> CreateListAsync(Tender tender, List<ResourceDistributionTenderDto> resourceDistributionTendersDto){
             try
             {
-                return await _resourceDistributionTenderRepository.CreateListAsync((int)tender.Id!, resourceDistributionTendersDto);
-               
+                return await _resourceDistributionTenderRepository.CreateListAsync((int)tender.Id!, resourceDistributionTendersDto);               
             }
             catch (Exception ex)
             {

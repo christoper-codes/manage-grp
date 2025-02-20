@@ -28,7 +28,7 @@ namespace manage_grp.Server.Models
 
         public int? Size { get; set; }
 
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateHelper.GetTimeInTimeZone();
 

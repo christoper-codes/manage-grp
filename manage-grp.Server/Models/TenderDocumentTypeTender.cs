@@ -10,12 +10,12 @@ namespace manage_grp.Server.Models
         public int TenderId { get; set; }
 
         [JsonIgnore]
-        public Tender Tender { get; set; }
+        public Tender? Tender { get; set; }
 
         public int TenderDocumentTypeId { get; set; }
 
         [JsonIgnore]
-        public TenderDocumentType TenderDocumentType { get; set; }
+        public TenderDocumentType? TenderDocumentType { get; set; }
 
         public bool IsActive { get; set; } = true;
 

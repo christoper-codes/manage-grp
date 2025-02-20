@@ -8,7 +8,7 @@ namespace manage_grp.Server.DTOs
 
         public int TenderDocumentTypeId { get; set; }
 
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
 
         public DocumentRequirementDto? DocumentRequirementDto { get; set; }
     }

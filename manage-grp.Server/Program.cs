@@ -104,13 +104,13 @@ builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 builder.Services.AddScoped<AddressService>();
 builder.Services.AddValidatorsFromAssemblyContaining<AddressDtoValidator>();
 
-builder.Services.AddScoped<IBudgetaryKeyRepository, BudgetaryKeyRepository>();
-builder.Services.AddScoped<BudgetaryKeyService>();
-builder.Services.AddValidatorsFromAssemblyContaining<BudgetaryKeyDtoValidator>();
-
 builder.Services.AddScoped<IBudgetaryKeyDocumentTypeRepository, BudgetaryKeyDocumentTypeRepository>();
 builder.Services.AddScoped<BudgetaryKeyDocumentTypeService>();
 builder.Services.AddValidatorsFromAssemblyContaining<BudgetaryKeyDocumentTypeDtoValidator>();
+
+builder.Services.AddScoped<IBudgetaryKeyRepository, BudgetaryKeyRepository>();
+builder.Services.AddScoped<BudgetaryKeyService>();
+builder.Services.AddValidatorsFromAssemblyContaining<BudgetaryKeyDtoValidator>();
 
 builder.Services.AddScoped<IBudgetaryKeyDocumentTypeBudgetaryKeyRepository, BudgetaryKeyDocumentTypeBudgetaryKeyRepository>();
 builder.Services.AddScoped<BudgetaryKeyDocumentTypeBudgetaryKeyService>();
@@ -150,10 +150,6 @@ builder.Services.AddScoped<IResourceTypeRepository, ResourceTypeRepository>();
 builder.Services.AddScoped<ResourceTypeService>();
 builder.Services.AddValidatorsFromAssemblyContaining<ResourceTypeDtoValidator>();
 
-builder.Services.AddScoped<ITenderDocumentTypeRepository, TenderDocumentTypeRepository>();
-builder.Services.AddScoped<TenderDocumentTypeService>();
-builder.Services.AddValidatorsFromAssemblyContaining<TenderDocumentTypeDtoValidator>();
-
 builder.Services.AddScoped<ITenderTypeRepository, TenderTypeRepository>();
 builder.Services.AddScoped<TenderTypeService>();
 builder.Services.AddValidatorsFromAssemblyContaining<TenderTypeDtoValidator>();
@@ -162,7 +158,6 @@ builder.Services.AddScoped<ITenderFundingSourceRepository, TenderFundingSourceRe
 builder.Services.AddScoped<TenderFundingSourceService>();
 builder.Services.AddValidatorsFromAssemblyContaining<TenderFundingSourceDtoValidator>();
 
-
 builder.Services.AddScoped<ITenderStatusRepository, TenderStatusRepository>();
 builder.Services.AddScoped<TenderStatusService>();
 builder.Services.AddValidatorsFromAssemblyContaining<TenderStatusDtoValidator>();
@@ -170,6 +165,20 @@ builder.Services.AddValidatorsFromAssemblyContaining<TenderStatusDtoValidator>()
 builder.Services.AddScoped<ITenderPriceTypeRepository, TenderPriceTypeRepository>();
 builder.Services.AddScoped<TenderPriceTypeService>();
 builder.Services.AddValidatorsFromAssemblyContaining<TenderPriceTypeDtoValidator>();
+
+builder.Services.AddScoped<ITenderDocumentTypeRepository, TenderDocumentTypeRepository>();
+builder.Services.AddScoped<TenderDocumentTypeService>();
+builder.Services.AddValidatorsFromAssemblyContaining<TenderDocumentTypeDtoValidator>();
+
+builder.Services.AddScoped<ITenderRepository, TenderRepository>();
+builder.Services.AddScoped<TenderService>();
+builder.Services.AddValidatorsFromAssemblyContaining<TenderDtoValidator>();
+
+builder.Services.AddScoped<ITenderDocumentTypeTenderRepository, TenderDocumentTypeTenderRepository>();
+builder.Services.AddScoped<TenderDocumentTypeTenderService>();
+
+builder.Services.AddScoped<IResourceDistributionTenderRepository, ResourceDistributionTenderRepository>();
+builder.Services.AddScoped<ResourceDistributionTenderService>();
 
 builder.Services.AddScoped<IFileRepository, FileRepository>();
 builder.Services.AddScoped<FileService>();

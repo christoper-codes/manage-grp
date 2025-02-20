@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using manage_grp.Server.DTOs;
 
 namespace manage_grp.Server.Data.Contexts
 {
@@ -61,6 +60,12 @@ namespace manage_grp.Server.Data.Contexts
         public DbSet<TenderFundingSource> TenderFundingSources { get; set; }
         
         public DbSet<TenderPriceType> TenderPriceTypes { get; set; }
+        
+        public DbSet<Tender> Tenders { get; set; }
+
+        public DbSet<TenderDocumentTypeTender> TenderDocumentTypeTenders { get; set; }
+
+        public DbSet<ResourceDistributionTender> ResourceDistributionTenders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -140,6 +145,19 @@ namespace manage_grp.Server.Data.Contexts
                 .HasOne(bkdt => bkdt.ResourceDistributionDocumentType)
                 .WithMany(dt => dt.ResourceDistributionDocumentTypeResourceDistributions)
                 .HasForeignKey(bkdt => bkdt.ResourceDistributionDocumentTypeId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+
+            modelBuilder.Entity<TenderDocumentTypeTender>()
+                .HasOne(bkdt => bkdt.Tender)
+                .WithMany(bk => bk.TenderDocumentTypeTenders)
+                .HasForeignKey(bkdt => bkdt.TenderId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<TenderDocumentTypeTender>()
+                .HasOne(bkdt => bkdt.TenderDocumentType)
+                .WithMany(dt => dt.TenderDocumentTypeTenders)
+                .HasForeignKey(bkdt => bkdt.TenderDocumentTypeId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
 

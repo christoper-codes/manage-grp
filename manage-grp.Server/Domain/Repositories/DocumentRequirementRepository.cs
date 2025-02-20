@@ -34,6 +34,7 @@ namespace manage_grp.Server.Repositories
             {
                 BudgetaryKeyDocumentTypeBudgetaryKeyId = dto.BudgetaryKeyDocumentTypeBudgetaryKeyId,
                 ResourceDistributionDocumentTypeResourceDistributionId = dto.ResourceDistributionDocumentTypeResourceDistributionId,
+                TenderDocumentTypeTenderId = dto.TenderDocumentTypeTenderId,
                 Purpose = dto.Purpose,
                 Description = dto.Description,
                 Size = dto.Size,

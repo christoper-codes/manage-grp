@@ -25,5 +25,8 @@ namespace manage_grp.Server.Models
         public DateTime CreatedAt { get; set; } = DateHelper.GetTimeInTimeZone();
 
         public DateTime UpdatedAt { get; set; } = DateHelper.GetTimeInTimeZone();
+
+        [JsonIgnore]
+        public ICollection<AreaServiceType>? AreaServiceTypes { get; set; } = new List<AreaServiceType>(); 
     }
 }

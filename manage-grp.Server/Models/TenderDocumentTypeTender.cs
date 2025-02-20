@@ -3,18 +3,19 @@ using System.Text.Json.Serialization;
 
 namespace manage_grp.Server.Models
 {
-    public class AreaServiceType
+    public class TenderDocumentTypeTender
     {
         public int? Id { get; set; }
 
-        public int? AreaId { get; set; }
+        public int TenderId { get; set; }
 
         [JsonIgnore]
-        public Area? Area { get; set; }
+        public Tender Tender { get; set; }
 
-        public string Name { get; set; }
+        public int TenderDocumentTypeId { get; set; }
 
-        public string Description { get; set; }
+        [JsonIgnore]
+        public TenderDocumentType TenderDocumentType { get; set; }
 
         public bool IsActive { get; set; } = true;
 
@@ -23,6 +24,6 @@ namespace manage_grp.Server.Models
         public DateTime UpdatedAt { get; set; } = DateHelper.GetTimeInTimeZone();
 
         [JsonIgnore]
-        public ICollection<Tender>? Tenders { get; set; } = new List<Tender>();
+        public DocumentRequirement? DocumentRequirement { get; set; }
     }
 }

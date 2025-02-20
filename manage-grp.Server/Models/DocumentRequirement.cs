@@ -17,6 +17,11 @@ namespace manage_grp.Server.Models
         [JsonIgnore]
         public ResourceDistributionDocumentTypeResourceDistribution? ResourceDistributionDocumentTypeResourceDistribution { get; set; }
 
+        public int? TenderDocumentTypeTenderId { get; set; }
+
+        [JsonIgnore]
+        public TenderDocumentTypeTender? TenderDocumentTypeTender { get; set; }
+
         public string Purpose { get; set; }
 
         public string Description { get; set; }

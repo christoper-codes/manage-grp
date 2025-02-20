@@ -46,5 +46,8 @@ namespace manage_grp.Server.Models
 
         [JsonIgnore]
         public ICollection<ResourceDistributionDocumentTypeResourceDistribution>? ResourceDistributionDocumentTypeResourceDistributions { get; set; } = new List<ResourceDistributionDocumentTypeResourceDistribution>();
+
+        [JsonIgnore]
+        public ICollection<ResourceDistributionTender>? ResourceDistributionTenders { get; set; } = new List<ResourceDistributionTender>();
     }
 }

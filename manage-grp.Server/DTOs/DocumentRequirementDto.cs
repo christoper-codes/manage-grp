@@ -7,6 +7,8 @@ namespace manage_grp.Server.DTOs
         public int? BudgetaryKeyDocumentTypeBudgetaryKeyId { get; set; }
 
         public int? ResourceDistributionDocumentTypeResourceDistributionId { get; internal set; }
+        
+        public int? TenderDocumentTypeTenderId { get; internal set; }
 
         public string Purpose { get; set; }
 

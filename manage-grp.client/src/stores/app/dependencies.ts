@@ -9,6 +9,7 @@ interface DependencyValues {
   name: string;
   acronym: string;
   rfc: string;
+  isActive: boolean;
 }
 
 export const useDependenciesStore = defineStore('dependencies', () => {

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, type Ref, watch } from 'vue';
 import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
-import brandAuthLogin from '@/assets/images/auth/brand-auth-login.jpeg';
+import dataTableImg from '@/assets/images/data/data-table-img.png';
+import dataCircleImg from '@/assets/images/data/data-circle-img.jpeg';
 import { Icon } from '@iconify/vue';
 import { useI18n } from 'vue-i18n';
 import { useStatesStore } from '@/stores/app/states';
@@ -25,12 +26,18 @@ const searchStateSelected = useField('searchStateSelected');
 const searchMunicipalitySelected = useField('searchMunicipalitySelected');
 
 // Form for storing dependencies
-const { handleSubmit: handleStoreOrUpdateSubmit, resetForm } = useForm({validationSchema: dependencyStoreOrUpdateSchema(t)});
+const { handleSubmit: handleStoreOrUpdateSubmit, resetForm } = useForm({
+  validationSchema: dependencyStoreOrUpdateSchema(t),
+  initialValues: {
+    isActive: true,
+  },
+});
 const id = useField('id');
 const municipalityId = useField('municipalityId');
 const name = useField('name');
 const acronym = useField('acronym');
 const rfc = useField('rfc');
+const isActive = useField('isActive');
 
 // Header for the table
 const headers = ref([
@@ -45,7 +52,7 @@ const headers = ref([
 
 // Data
 const dependencies: Ref<any[]> = ref([]);
-const isDependencyStore = ref(-1);
+const isDependencyStore = ref(true);
 const states: Ref<any[]> = ref([]);
 const municipalities: Ref<any[]> = ref([]);
 const loading: Ref<boolean> = ref(false);
@@ -56,11 +63,16 @@ const dialogDelete = ref(false);
 
 // Arrow functions
 const formTitle = computed(() => {
-    return isDependencyStore.value === -1 ? t('ADD_NEW_ITEM_FIELD') : t('UPDATE_ITEM_FIELD');
+    return isDependencyStore.value ? t('ADD_NEW_ITEM_FIELD') : t('UPDATE_ITEM_FIELD');
 });
 
+const storeDependency = () => {
+  resetForm();
+  isDependencyStore.value = true;
+}
+
 const editDependency = (item: any) => {
-    isDependencyStore.value = dependencies.value.indexOf(item);
+    isDependencyStore.value = false;
     id.value.value = item.id;
     municipalityId.value.value = item.municipalityId;
     name.value.value = item.name;
@@ -77,6 +89,7 @@ const deleteDependency = (item: object) => {
 const close = () => {
     dialog.value = false;
     dialogDelete.value = false;
+    isDependencyStore.value = true;
     resetForm();
 };
 
@@ -163,7 +176,7 @@ watch(searchStateSelected.value, async (val) => {
                     <template v-slot:item.ITEM_IMAGE_HEADER="{ item }">
                         <div class="d-flex gap-3 align-center">
                             <div>
-                                <v-img :src="brandAuthLogin" height="55" width="55" class="rounded-circle" cover></v-img>
+                                <v-img :src="dataCircleImg" height="55" width="55" class="rounded-circle" cover></v-img>
                             </div>
                             <div>
                                 <h6 class="text-h6">{{ item.name }}</h6>
@@ -191,7 +204,7 @@ watch(searchStateSelected.value, async (val) => {
                                             hide-details
                                             class="mb-md-0 mb-3"
                                         />
-                                        <v-btn color="success" variant="flat" dark v-bind="props" @click="resetForm" >{{ $t('ADD_NEW_ITEM_FIELD') }}</v-btn>
+                                        <v-btn color="success" variant="flat" dark v-bind="props" @click="storeDependency" >{{ $t('ADD_NEW_ITEM_FIELD') }}</v-btn>
                                     </div>
                                 </template>
                                 <v-card>
@@ -215,6 +228,14 @@ watch(searchStateSelected.value, async (val) => {
                                         <v-text-field v-model="name.value.value" :label="$t('NAME_FIELD')" :error-messages="name.errorMessage.value"></v-text-field>
                                         <v-text-field v-model="acronym.value.value" :label="$t('ACRONYM_FIELD')" :error-messages="acronym.errorMessage.value"></v-text-field>
                                         <v-text-field v-model="rfc.value.value" :label="$t('RFC_FIELD')" :error-messages="rfc.errorMessage.value"></v-text-field>
+                                        <v-switch
+                                          v-model="isActive.value.value"
+                                          :label="$t('STATUS_FIELD')"
+                                          hide-details
+                                          :error-messages="isActive.errorMessage.value"
+                                          color="primary"
+                                          inset
+                                        ></v-switch>
                                       </div>
 
                                     <v-card-actions class="pa-4">
@@ -231,7 +252,7 @@ watch(searchStateSelected.value, async (val) => {
                                     <v-card-actions class="!tw-my-3">
                                         <v-spacer></v-spacer>
                                         <v-btn color="error" variant="flat" dark @click="close">{{ $t('CANCEL_FIELD') }}</v-btn>
-                                        <v-btn color="primary" variant="flat" dark @click="handleDeleteDependency">{{ $t('CONFIRM_FIELD') }}</v-btn>
+                                        <v-btn color="success" variant="flat" dark @click="handleDeleteDependency">{{ $t('CONFIRM_FIELD') }}</v-btn>
                                         <v-spacer></v-spacer>
                                     </v-card-actions>
                                 </v-card>
@@ -257,7 +278,7 @@ watch(searchStateSelected.value, async (val) => {
                         </div>
                     </template>
                     <template v-slot:no-data>
-                        <v-btn color="primary"> Reset </v-btn>
+                      <v-img :src="dataTableImg" class="tw-w-60 tw-h-auto tw-mx-auto" cover></v-img>
                     </template>
                 </v-data-table>
             </v-card>

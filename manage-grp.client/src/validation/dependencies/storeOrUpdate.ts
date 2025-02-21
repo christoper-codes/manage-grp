@@ -36,6 +36,9 @@ export const dependencyStoreOrUpdateSchema = (t: TranslateFunction) => ({
       }
 
       return true;
+  },
+  isActive(value: boolean) {
+    return true;
   }
 });
 

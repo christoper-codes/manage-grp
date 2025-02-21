@@ -1,159 +1,186 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, watch } from 'vue';
+import { computed, nextTick, onMounted, ref, type Ref, watch } from 'vue';
 import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
 import brandAuthLogin from '@/assets/images/auth/brand-auth-login.jpeg';
 import { Icon } from '@iconify/vue';
 import { useI18n } from 'vue-i18n';
+import { useStatesStore } from '@/stores/app/states';
+import { useMunicipalitiesStore } from '@/stores/app/municipalities';
+import { useDependenciesStore } from '@/stores/app/dependencies';
+import { dependencySearchSchema } from '@/validation/dependencies/search';
+import { dependencyStoreOrUpdateSchema } from '@/validation/dependencies/storeOrUpdate';
+import { useField, useForm } from 'vee-validate';
 
 // i18n translation
 const { t } = useI18n();
-const search = ref();
-const dialog = ref(false);
-const dialogDelete = ref(false);
+
+// Stores
+const statesStore = useStatesStore();
+const municipalitiesStore = useMunicipalitiesStore();
+const dependenciesStore = useDependenciesStore();
+
+// Form for searching dependencies
+const { handleSubmit: handleSearchSubmit } = useForm({ validationSchema: dependencySearchSchema(t) });
+const searchStateSelected = useField('searchStateSelected');
+const searchMunicipalitySelected = useField('searchMunicipalitySelected');
+
+// Form for storing dependencies
+const { handleSubmit: handleStoreOrUpdateSubmit, resetForm } = useForm({validationSchema: dependencyStoreOrUpdateSchema(t)});
+const id = useField('id');
+const municipalityId = useField('municipalityId');
+const name = useField('name');
+const acronym = useField('acronym');
+const rfc = useField('rfc');
+
+// Header for the table
 const headers = ref([
     { title: t('ITEM_IMAGE_HEADER'), key: 'ITEM_IMAGE_HEADER' },
-    { title: 'Product', key: 'product' },
-    { title: 'Date', key: 'date' },
-    { title: 'Status', key: 'status' },
-    { title: 'Price', key: 'price' },
-    { title: 'Actions', key: 'actions', sortable: false }
+    { title: t('MUNICIPALITY_HEADER') + ' ID', key: 'municipalityId' },
+    { title: t('ACRONYM_HEADER'), key: 'acronym' },
+    { title: t('NAME_HEADER'), key: 'name' },
+    { title: t('RFC_HEADER'), key: 'rfc' },
+    { title: t('STATUS_HEADER'), key: 'isActive' },
+    { title: t('ACTIONS_HEADER'), key: 'actions', sortable: false }
 ]);
-const productlist = ref([]);
-const editedIndex = ref(-1);
-const editedItem = ref({
-    product: '',
-    ITEM_IMAGE_HEADER: brandAuthLogin,
-    category: '',
-    date: '',
-    status: '',
-    price: ''
-});
-const defaultItem = ref({
-    product: '',
-    ITEM_IMAGE_HEADER: brandAuthLogin,
-    category: '',
-    date: '',
-    status: '',
-    price: ''
-});
-const formTitle = computed(() => {
-    return editedIndex.value === -1 ? 'New Item' : 'Edit Item';
-});
-function initialize() {
-    productlist.value = [
-        {
-            product: 'Curology Face wash',
-            category: 'Beauty',
-            ITEM_IMAGE_HEADER: brandAuthLogin,
-            date: 'Thu, Jan 12 2023',
-            status: 'Instock',
-            price: '$275'
-        },
-        {
-          product: 'Panel TV',
-          category: 'Electronics',
-          ITEM_IMAGE_HEADER: brandAuthLogin,
-          date: 'Thu, Jan 12 2023',
-          status: 'Out of Stock',
-          price: '$275'
-        },
-        {
-          product: 'Apple Watch',
-          category: 'Electronics',
-          ITEM_IMAGE_HEADER: brandAuthLogin,
-          date: 'Thu, Jan 12 2023',
-          status: 'Instock',
-          price: '$375'
-        }
-    ];
-}
-function editItem(item) {
-    editedIndex.value = productlist.value.indexOf(item);
-    editedItem.value = Object.assign({}, item);
-    dialog.value = true;
-}
-function deleteItem(item) {
-    editedIndex.value = productlist.value.indexOf(item);
-    editedItem.value = Object.assign({}, item);
-    dialogDelete.value = true;
-}
-function deleteItemConfirm() {
-    productlist.value.splice(editedIndex.value, 1);
-    closeDelete();
-}
-function close() {
-    dialog.value = false;
-    nextTick(() => {
-        editedItem.value = Object.assign({}, defaultItem.value);
-        editedIndex.value = -1;
-    });
-}
-function closeDelete() {
-    dialogDelete.value = false;
-    nextTick(() => {
-        editedItem.value = Object.assign({}, defaultItem.value);
-        editedIndex.value = -1;
-    });
-}
-function save() {
-    if (editedIndex.value > -1) {
-        Object.assign(productlist.value[editedIndex.value], editedItem.value);
-    } else {
-        productlist.value.push(editedItem.value);
-    }
-    close();
-}
-watch(dialog, (val) => {
-    val || close();
-});
-watch(dialogDelete, (val) => {
-    val || closeDelete();
-});
-initialize();
 
+// Data
+const dependencies: Ref<any[]> = ref([]);
+const isDependencyStore = ref(-1);
+const states: Ref<any[]> = ref([]);
+const municipalities: Ref<any[]> = ref([]);
+const loading: Ref<boolean> = ref(false);
+const search = ref();
+const dependecy: Ref<object> = ref({});
+const dialog = ref(false);
+const dialogDelete = ref(false);
+
+// Arrow functions
+const formTitle = computed(() => {
+    return isDependencyStore.value === -1 ? t('ADD_NEW_ITEM_FIELD') : t('UPDATE_ITEM_FIELD');
+});
+
+const editDependency = (item: any) => {
+    isDependencyStore.value = dependencies.value.indexOf(item);
+    id.value.value = item.id;
+    municipalityId.value.value = item.municipalityId;
+    name.value.value = item.name;
+    acronym.value.value = item.acronym;
+    rfc.value.value = item.rfc;
+    dialog.value = true;
+};
+
+const deleteDependency = (item: object) => {
+  dialogDelete.value = true;
+  dependecy.value = item;
+}
+
+const close = () => {
+    dialog.value = false;
+    dialogDelete.value = false;
+    resetForm();
+};
+
+const itemGenericProps = (item: any) => {
+  return {
+    title: item.name,
+    subtitle: item.abbreviation,
+  };
+};
+
+// Watchers, lifecycle hooks, and async functions
+const handleSearchDependencies = handleSearchSubmit(async (values: Record<string, any>) => {
+  await indexDependencies(values.searchMunicipalitySelected.id);
+});
+
+const indexDependencies = async (id:number) => {
+  dependencies.value = await dependenciesStore.dependenciesByMunicipality(id, loading, t);
+};
+
+const handleStoreOrUpdateDependency = handleStoreOrUpdateSubmit(async (values: Record<string, any>) => {
+  await dependenciesStore.storeOrUpdateDependency(values, loading, t, isDependencyStore.value);
+  await indexDependencies(values.municipalityId);
+  close();
+});
+
+const handleDeleteDependency = async () => {
+  await dependenciesStore.deleteDependency(dependecy.value.id, loading, t);
+  await indexDependencies(dependecy.value.municipalityId);
+  dependecy.value = {};
+  close();
+}
+
+onMounted(async () => {
+  states.value = await statesStore.index(loading, t);
+});
+
+watch(searchStateSelected.value, async (val) => {
+  if (val) {
+    municipalities.value = await municipalitiesStore.index(val.id, loading, t);
+  }
+});
 </script>
 
 <template>
     <div data-aos="fade-left" data-aos-duration="1500">
       <BaseBreadcrumb title="DEPENDENCIES"></BaseBreadcrumb>
+
+      <div class="tw-pt-7 tw-pb-1 tw-px-7 tw-rounded-xl tw-bg-container-bg tw-shadow-sm tw-w-full mb-8 tw-flex tw-items-center tw-gap-5">
+        <v-select
+              color="primary"
+              clearable
+              :label="$t('ACTIVE_STATES')"
+              v-model="searchStateSelected.value.value"
+              :item-props="itemGenericProps"
+              :items="states"
+              :error-messages="searchStateSelected.errorMessage.value"
+          ></v-select>
+        <v-select
+              color="primary"
+              clearable
+              :label="$t('ACTIVE_MUNICIPALITIES')"
+              v-model="searchMunicipalitySelected.value.value"
+              :item-props="itemGenericProps"
+              :items="municipalities"
+              :error-messages="searchMunicipalitySelected.errorMessage.value"
+          ></v-select>
+          <v-btn @click="handleSearchDependencies" :loading="loading" :disabled="loading" class="!tw-bg-gradient-to-r !tw-from-primary !tw-to-secondary !tw-text-white !tw-mb-6" variant="flat" size="large" dark>{{ $t('SEARCH_FIELD') + ' ' + $t('DEPENDENCIES') }}</v-btn>
+      </div>
+
     <v-row>
         <v-col cols="12">
             <v-card elevation="10">
                 <v-data-table
                     class=" rounded-md datatabels productlist"
                     :headers="headers"
-                    :items="productlist"
+                    :items="dependencies"
                     v-model:search="search"
                     items-per-page="5"
-                    item-value="product"
+                    item-value="name"
                     color="primary"
                     show-select
-                    :sort-by="[{ key: 'calories', order: 'asc' }]"
+                    :sort-by="[{ key: 'name', order: 'asc' }]"
                 >
                     <template v-slot:item.ITEM_IMAGE_HEADER="{ item }">
                         <div class="d-flex gap-3 align-center">
                             <div>
-                                <v-img :src="`${item.ITEM_IMAGE_HEADER}`" height="55" width="55" class="rounded-circle" cover></v-img>
+                                <v-img :src="brandAuthLogin" height="55" width="55" class="rounded-circle" cover></v-img>
                             </div>
                             <div>
-                                <h6 class="text-h6">{{ item.product }}</h6>
-                                <p class="textSecondary">{{ item.category }}</p>
+                                <h6 class="text-h6">{{ item.name }}</h6>
+                                <p class="textSecondary">{{ item.acronym }}</p>
                             </div>
                         </div>
                     </template>
-                    <template v-slot:item.status="{ item }">
+                    <template v-slot:item.isActive="{ item }">
                         <div class="d-flex gap-2 align-center">
-                            <Icon icon="carbon:dot-mark" v-if="item.status == 'Instock'" class="text-success" />
+                            <Icon icon="carbon:dot-mark" v-if="item.isActive" class="text-success" />
                             <Icon icon="carbon:dot-mark" v-else class="text-error" />
-                            {{ item.status }}
+                            {{ item.isActive ? $t('STATE_ACTIVE') : $t('STATE_INACTIVE') }}
                         </div>
-                    </template>
-                    <template v-slot:item.price="{ item }">
-                        <h6 class="text-h6">{{ item.price }}</h6>
                     </template>
                     <template v-slot:top>
                         <v-toolbar class="bg-surface" flat>
-                            <v-dialog v-model="dialog" max-width="500px">
+                            <v-dialog v-model="dialog" max-width="800px">
                                 <template v-slot:activator="{ props }">
                                     <div class="d-md-flex block justify-space-between w-100 pa-6 align-center">
                                         <v-text-field
@@ -164,55 +191,47 @@ initialize();
                                             hide-details
                                             class="mb-md-0 mb-3"
                                         />
-                                        <v-btn color="primary" variant="flat" dark v-bind="props">{{ $t('ADD_NEW_ITEM_FIELD') }}</v-btn>
+                                        <v-btn color="success" variant="flat" dark v-bind="props" @click="resetForm" >{{ $t('ADD_NEW_ITEM_FIELD') }}</v-btn>
                                     </div>
                                 </template>
                                 <v-card>
-                                    <v-card-title class="pa-4 bg-primary">
+                                    <v-card-title class="pa-4 !tw-bg-gradient-to-r !tw-from-primary !tw-to-secondary !tw-text-white">
                                         <span class="text-h5">{{ formTitle }}</span>
                                     </v-card-title>
 
-                                    <v-card-text>
-                                        <v-container class="px-0">
-                                            <v-row>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field v-model="editedItem.category" label="Category"></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field v-model="editedItem.product" label="Product name"></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field v-model="editedItem.date" label="Date"></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-select
-                                                        label="Select"
-                                                        v-model="editedItem.status"
-                                                        variant="outlined"
-                                                        :items="['Instock', 'Out of Stock']"
-                                                    ></v-select>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field v-model="editedItem.price" label="Price"></v-text-field>
-                                                </v-col>
-                                            </v-row>
-                                        </v-container>
-                                    </v-card-text>
+                                      <div class="tw-grid tw-grid-cols-2 tw-w-full tw-gap-5 tw-px-10 tw-pt-10">
+                                        <v-select
+                                          color="primary"
+                                          clearable
+                                          :label="$t('ACTIVE_MUNICIPALITIES')"
+                                          v-model="municipalityId.value.value"
+                                          :item-props="itemGenericProps"
+                                          :items="municipalities"
+                                          :item-value="'id'"
+                                          :error-messages="municipalityId.errorMessage.value"
+                                          :hint="$t('MUNICIPALITY_FIELD_NOTICE')"
+                                          persistent-hint
+                                        ></v-select>
+                                        <v-text-field v-model="name.value.value" :label="$t('NAME_FIELD')" :error-messages="name.errorMessage.value"></v-text-field>
+                                        <v-text-field v-model="acronym.value.value" :label="$t('ACRONYM_FIELD')" :error-messages="acronym.errorMessage.value"></v-text-field>
+                                        <v-text-field v-model="rfc.value.value" :label="$t('RFC_FIELD')" :error-messages="rfc.errorMessage.value"></v-text-field>
+                                      </div>
 
-                                    <v-card-actions>
-                                        <v-spacer></v-spacer>
-                                        <v-btn color="error" variant="flat" dark @click="close"> Cancel </v-btn>
-                                        <v-btn color="primary" variant="flat" dark @click="save"> Save </v-btn>
+                                    <v-card-actions class="pa-4">
+                                        <v-btn color="error" variant="flat" dark @click="close"> {{ $t('CANCEL_FIELD') }} </v-btn>
+                                        <v-btn color="success" :loading="loading" :disabled="loading" variant="flat" dark @click="handleStoreOrUpdateDependency"> {{ $t('SAVE_FIELD') }} </v-btn>
                                     </v-card-actions>
                                 </v-card>
                             </v-dialog>
-                            <v-dialog v-model="dialogDelete" max-width="500px">
+                            <v-dialog v-model="dialogDelete" max-width="600px">
                                 <v-card>
-                                    <v-card-title class="text-h5 text-center py-6">Are you sure you want to delete this item?</v-card-title>
-                                    <v-card-actions>
+                                    <v-card-title class="pa-4 !tw-bg-gradient-to-r !tw-from-primary !tw-to-secondary !tw-text-white !tw-mb-7">
+                                        <span class="tw-text-base tw-font-bold">{{ $t('DELETE_ITEM_NOTICE') }}</span>
+                                    </v-card-title>
+                                    <v-card-actions class="!tw-my-3">
                                         <v-spacer></v-spacer>
-                                        <v-btn color="error" variant="flat" dark @click="closeDelete">Cancel</v-btn>
-                                        <v-btn color="primary" variant="flat" dark @click="deleteItemConfirm">OK</v-btn>
+                                        <v-btn color="error" variant="flat" dark @click="close">{{ $t('CANCEL_FIELD') }}</v-btn>
+                                        <v-btn color="primary" variant="flat" dark @click="handleDeleteDependency">{{ $t('CONFIRM_FIELD') }}</v-btn>
                                         <v-spacer></v-spacer>
                                     </v-card-actions>
                                 </v-card>
@@ -226,19 +245,19 @@ initialize();
                                 height="20"
                                 class="text-primary cursor-pointer"
                                 size="small"
-                                @click="editItem(item)"
+                                @click="editDependency(item)"
                             />
                             <Icon
                                 icon="solar:trash-bin-minimalistic-linear"
                                 height="20"
                                 class="text-error cursor-pointer"
                                 size="small"
-                                @click="deleteItem(item)"
+                                @click="deleteDependency(item)"
                             />
                         </div>
                     </template>
                     <template v-slot:no-data>
-                        <v-btn color="primary" @click="initialize"> Reset </v-btn>
+                        <v-btn color="primary"> Reset </v-btn>
                     </template>
                 </v-data-table>
             </v-card>

@@ -22,5 +22,10 @@
 
     "MY_PROFILE": "Mi perfil",
     "MY_NOTES": "Mis notas",
-    "ACCOUNT_SETTINGS": "Configuración de la cuenta"
+    "ACCOUNT_SETTINGS": "Configuración de la cuenta",
+
+    "ACTIVE_STATES": "Estados activos",
+    "ACTIVE_MUNICIPALITIES": "Municipios activos",
+    "STATE_ACTIVE": "Activo",
+    "STATE_INACTIVE": "Inactivo"
 }

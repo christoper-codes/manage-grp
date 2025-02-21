@@ -20,10 +20,10 @@ const password = useField('password');
 const rememberMe = useField('rememberMe');
 const loading: Ref<boolean> = ref(false);
 const show: Ref<boolean> = ref(false);
-const auth = useAuthStore();
+const authStore = useAuthStore();
 
 const submit = handleSubmit((values: Record<string, any>) => {
-    auth.login(values, loading, t);
+    authStore.login(values, loading, t);
 });
 </script>
 

@@ -34,8 +34,8 @@ export const useAuthStore = defineStore('auth', () => {
       }
 
       error(t('ERROR_MESSAGE'));
-    } catch (error: any) {
-      error(error.response.data.message);
+    } catch (ex: any) {
+      error(ex.response.data.message || t('ERROR_MESSAGE'));
     } finally {
       loading.value = false;
     }

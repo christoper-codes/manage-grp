@@ -9,6 +9,7 @@ import esErrorsFieds from './es/errors-fields.json';
 import esPrivacyPolicy from './es/privacy-policy.json';
 import esToastify from './es/toastify.json';
 import esHeaders from './es/headers.json';
+import esNotice from './es/notice.json';
 
 import enAuth from './en/auth.json';
 import enCommon from './en/common.json';
@@ -18,6 +19,7 @@ import enErrorsFieds from './en/errors-fields.json';
 import enPrivacyPolicy from './en/privacy-policy.json';
 import enToastify from './en/toastify.json';
 import enHeaders from './en/headers.json';
+import enNotice from './en/notice.json';
 
 
 const messages = {
@@ -30,7 +32,8 @@ const messages = {
         ...esErrorsFieds,
         ...esPrivacyPolicy,
         ...esToastify,
-        ...esHeaders
+        ...esHeaders,
+        ...esNotice
     },
     en: {
       ...en,
@@ -41,7 +44,8 @@ const messages = {
       ...enErrorsFieds,
       ...enPrivacyPolicy,
       ...enToastify,
-      ...enHeaders
+      ...enHeaders,
+      ...enNotice
     }
 };
 

@@ -20,7 +20,7 @@ namespace manage_grp.Server.Models
 
         public string Rfc { get; set; }
 
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateHelper.GetTimeInTimeZone();
 
@@ -28,5 +28,17 @@ namespace manage_grp.Server.Models
 
         [JsonIgnore]
         public ICollection<BudgetaryKey>? BudgetaryKeys { get; set; } = new List<BudgetaryKey>();
+
+        [JsonIgnore]
+        public ICollection<TenderFundingSource>? TenderFundingSources { get; set; } = new List<TenderFundingSource>();
+
+        [JsonIgnore]
+        public ICollection<TenderType>? TenderTypes { get; set; } = new List<TenderType>();
+
+        [JsonIgnore]
+        public ICollection<TenderStatus>? TenderStatuses { get; set; } = new List<TenderStatus>();
+
+        [JsonIgnore]
+        public ICollection<TenderPriceType>? TenderPriceTypes  { get; set; } = new List<TenderPriceType>();
     }
 }

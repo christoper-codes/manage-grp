@@ -2,31 +2,31 @@ using FluentValidation;
 using FluentValidation.Results;
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Helpers;
-using manage_grp.Server.Services;
+using manage_grp.Server.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace repro_back.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ServiceTypeController : ControllerBase
+    public class AreaServiceTypeController : ControllerBase
     {
-        private readonly ServiceTypeService _serviceTypeService;
-        private readonly IValidator<ServiceTypeDto> _validator;
+        private readonly AreaServiceTypeService _areaServiceTypeService;
+        private readonly IValidator<AreaServiceTypeDto> _validator;
 
-        public ServiceTypeController(ServiceTypeService serviceTypeService, IValidator<ServiceTypeDto> validator)
+        public AreaServiceTypeController(AreaServiceTypeService areaServiceTypeService, IValidator<AreaServiceTypeDto> validator)
         {
-            _serviceTypeService = serviceTypeService;
+            _areaServiceTypeService = areaServiceTypeService;
             _validator = validator;
         }
 
-        // GET: api/ServiceTypes/Area/1
+        // GET: api/AreaServiceTypes/Area/1
         [HttpGet("Area/{areaId}")]
         public async Task<IActionResult> GetByAreaIdAsync(int areaId)
         {
             try
             {
-                return ApiResponse.SendSuccess("Tipos de servicios recuperados con éxito", await _serviceTypeService.GetByAreaIdAsync(areaId));
+                return ApiResponse.SendSuccess("Tipos de servicios recuperados con éxito", await _areaServiceTypeService.GetByAreaIdAsync(areaId));
             }
             catch (Exception ex)
             {
@@ -34,13 +34,13 @@ namespace repro_back.Controllers
             }
         }
 
-        // GET: api/ServiceTypes/5
+        // GET: api/AreaServiceTypes/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
             try
             {
-                return ApiResponse.SendSuccess("Tipos de servicio recuperado con éxito", await _serviceTypeService.GetByIdAsync(id));
+                return ApiResponse.SendSuccess("Tipos de servicio recuperado con éxito", await _areaServiceTypeService.GetByIdAsync(id));
             }
             catch (Exception ex)
             {
@@ -48,20 +48,20 @@ namespace repro_back.Controllers
             }
         }
 
-        // POST: api/ServiceTypes
+        // POST: api/AreaServiceTypes
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] ServiceTypeDto serviceTypeDto)
+        public async Task<IActionResult> CreateAsync([FromBody] AreaServiceTypeDto areaServiceTypeDto)
         {
             try
             {
-                ValidationResult validationResult = await _validator.ValidateAsync(serviceTypeDto);
+                ValidationResult validationResult = await _validator.ValidateAsync(areaServiceTypeDto);
 
                 if (!validationResult.IsValid)
                 {
                     return ApiResponse.SendError("Error en los datos enviados", validationResult.Errors, 400);
                 }
 
-                return ApiResponse.SendSuccess("Tipos de servicio registrado con éxito", await _serviceTypeService.CreateAsync(serviceTypeDto));
+                return ApiResponse.SendSuccess("Tipos de servicio registrado con éxito", await _areaServiceTypeService.CreateAsync(areaServiceTypeDto));
             }
             catch (Exception ex)
             {
@@ -69,15 +69,15 @@ namespace repro_back.Controllers
             }
         }
 
-        // PUT: api/ServiceTypes/5
+        // PUT: api/AreaServiceTypes/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAsync(int id, [FromBody] ServiceTypeDto serviceTypeDto)
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody] AreaServiceTypeDto areaServiceTypeDto)
         {
             try
             {
-                ValidationResult validationResult = await _validator.ValidateAsync(serviceTypeDto);
+                ValidationResult validationResult = await _validator.ValidateAsync(areaServiceTypeDto);
 
-                if (id != serviceTypeDto.Id)
+                if (id != areaServiceTypeDto.Id)
                 {
                     validationResult.Errors.Add(new ValidationFailure("Id", "El Id del tipo de servicio no coincide con el Id proporcionado en la URL"));
 
@@ -89,7 +89,7 @@ namespace repro_back.Controllers
                     return ApiResponse.SendError("Error en los datos enviados", validationResult.Errors, 400);
                 }
 
-                return ApiResponse.SendSuccess("Tipos de servicio actualizado exitosamente", await _serviceTypeService.UpdateAsync(id, serviceTypeDto));
+                return ApiResponse.SendSuccess("Tipos de servicio actualizado exitosamente", await _areaServiceTypeService.UpdateAsync(id, areaServiceTypeDto));
             }
             catch (Exception ex)
             {
@@ -97,13 +97,13 @@ namespace repro_back.Controllers
             }
         }
 
-        // DELETE: api/ServiceTypes/5
+        // DELETE: api/AreaServiceTypes/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             try
             {
-                await _serviceTypeService.DeleteAsync(id);
+                await _areaServiceTypeService.DeleteAsync(id);
 
                 return ApiResponse.SendSuccess("Tipos de servicio eliminado exitosamente", false);
             }

@@ -3,7 +3,7 @@
 using manage_grp.Server.Data.Contexts;
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Models;
-using manage_grp.Server.Repositories.Interfaces;
+using manage_grp.Server.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

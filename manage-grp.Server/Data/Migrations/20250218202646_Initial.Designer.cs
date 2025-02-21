@@ -12,7 +12,7 @@ using manage_grp.Server.Data.Contexts;
 namespace manage_grp.Server.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250218012817_Initial")]
+    [Migration("20250218202646_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -699,7 +699,6 @@ namespace manage_grp.Server.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Abbreviation")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -768,41 +767,6 @@ namespace manage_grp.Server.Data.Migrations
                     b.HasIndex("DependencyId");
 
                     b.ToTable("Positions");
-                });
-
-            modelBuilder.Entity("manage_grp.Server.Models.PriceType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DependencyId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DependencyId");
-
-                    b.ToTable("PriceTypes");
                 });
 
             modelBuilder.Entity("manage_grp.Server.Models.RefreshToken", b =>
@@ -1076,6 +1040,76 @@ namespace manage_grp.Server.Data.Migrations
                         .HasFilter("[ExternalStateId] IS NOT NULL");
 
                     b.ToTable("States");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.TenderFundingSource", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DependencyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DependencyId");
+
+                    b.ToTable("TenderFundingSources");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.TenderPriceType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DependencyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DependencyId");
+
+                    b.ToTable("TenderPriceTypes");
                 });
 
             modelBuilder.Entity("manage_grp.Server.Models.TenderStatus", b =>
@@ -1420,15 +1454,6 @@ namespace manage_grp.Server.Data.Migrations
                     b.Navigation("Dependency");
                 });
 
-            modelBuilder.Entity("manage_grp.Server.Models.PriceType", b =>
-                {
-                    b.HasOne("manage_grp.Server.Models.Dependency", "Dependency")
-                        .WithMany()
-                        .HasForeignKey("DependencyId");
-
-                    b.Navigation("Dependency");
-                });
-
             modelBuilder.Entity("manage_grp.Server.Models.RefreshToken", b =>
                 {
                     b.HasOne("manage_grp.Server.Models.User", "User")
@@ -1510,6 +1535,24 @@ namespace manage_grp.Server.Data.Migrations
                         .HasForeignKey("AreaId");
 
                     b.Navigation("Area");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.TenderFundingSource", b =>
+                {
+                    b.HasOne("manage_grp.Server.Models.Dependency", "Dependency")
+                        .WithMany()
+                        .HasForeignKey("DependencyId");
+
+                    b.Navigation("Dependency");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.TenderPriceType", b =>
+                {
+                    b.HasOne("manage_grp.Server.Models.Dependency", "Dependency")
+                        .WithMany()
+                        .HasForeignKey("DependencyId");
+
+                    b.Navigation("Dependency");
                 });
 
             modelBuilder.Entity("manage_grp.Server.Models.TenderStatus", b =>

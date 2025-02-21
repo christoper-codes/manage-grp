@@ -1,9 +1,8 @@
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Models;
-using manage_grp.Server.Repositories;
-using manage_grp.Server.Repositories.Interfaces;
+using manage_grp.Server.Domain.Interfaces;
 
-namespace manage_grp.Server.Services
+namespace manage_grp.Server.Domain.Services
 {
     public class DependencyService
     {
@@ -30,14 +29,7 @@ namespace manage_grp.Server.Services
         {
             try
             {
-                var dependency = await _dependencyRepository.GetByIdAsync(id);
-
-                if (dependency == null)
-                {
-                    throw new KeyNotFoundException();
-                }
-
-                return dependency;
+                return await _dependencyRepository.GetByIdAsync(id);
             }
             catch (Exception ex)
             {

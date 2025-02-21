@@ -1,9 +1,8 @@
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Models;
-using manage_grp.Server.Repositories;
-using manage_grp.Server.Repositories.Interfaces;
+using manage_grp.Server.Domain.Interfaces;
 
-namespace manage_grp.Server.Services
+namespace manage_grp.Server.Domain.Services
 {
     public class ResourceTypeService
     {
@@ -30,14 +29,7 @@ namespace manage_grp.Server.Services
         {
             try
             {
-                var resourceType = await _resourceTypeRepository.GetByIdAsync(id);
-
-                if (resourceType == null)
-                {
-                    throw new KeyNotFoundException();
-                }
-
-                return resourceType;
+                return await _resourceTypeRepository.GetByIdAsync(id);
             }
             catch (Exception ex)
             {

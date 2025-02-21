@@ -1,11 +1,7 @@
 using FluentValidation;
-using manage_grp.Server.Services;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using manage_grp.Server.Domain.Services;
-using manage_grp.Server.Models;
-using Microsoft.CodeAnalysis.Elfie.Serialization;
-using Microsoft.AspNetCore.Routing;
 
 namespace manage_grp.Server.Forms
 {
@@ -77,7 +73,7 @@ namespace manage_grp.Server.Forms
                 {
                     var municipality = await municipalityService.GetByIdAsync(MunicipalityId);
 
-                    return municipality == null;
+                    return municipality != null;
                 }
                 catch (KeyNotFoundException)
                 {
@@ -124,6 +120,101 @@ namespace manage_grp.Server.Forms
             }).WithMessage("El campo 'area' debe contener un valor válido.");
         }
 
+        public static IRuleBuilderOptions<T, int?> ValidateTenderFundingSourceIdField<T>(this IRuleBuilder<T, int?> ruleBuilder, TenderFundingSourceService tenderFundingSourceService)
+        {
+            return ruleBuilder.MustAsync(async (TenderFundingSourceId, cancellation) =>
+            {
+                if (!TenderFundingSourceId.HasValue) return true;
+
+                try
+                {
+                    var area = await tenderFundingSourceService.GetByIdAsync((int)TenderFundingSourceId);
+
+                    return area != null;
+                }
+                catch (KeyNotFoundException)
+                {
+                    return false;
+                }
+            }).WithMessage("El campo 'fuente de recurso' debe contener un valor válido.");
+        }
+
+        public static IRuleBuilderOptions<T, int?> ValidateAreaServiceTypeIdField<T>(this IRuleBuilder<T, int?> ruleBuilder, AreaServiceTypeService areaServiceTypeService)
+        {
+            return ruleBuilder.MustAsync(async (areaServiceId, cancellation) =>
+            {
+                if (!areaServiceId.HasValue) return true;
+
+                try
+                {
+                    var area = await areaServiceTypeService.GetByIdAsync((int)areaServiceId);
+
+                    return area != null;
+                }
+                catch (KeyNotFoundException)
+                {
+                    return false;
+                }
+            }).WithMessage("El campo 'Tipo de servicio' debe contener un valor válido.");
+        }
+
+        public static IRuleBuilderOptions<T, int?> ValidateTenderTypeIdField<T>(this IRuleBuilder<T, int?> ruleBuilder, TenderTypeService TenderTypeService)
+        {
+            return ruleBuilder.MustAsync(async (TenderTypeId, cancellation) =>
+            {
+                if (!TenderTypeId.HasValue) return true;
+
+                try
+                {
+                    var area = await TenderTypeService.GetByIdAsync((int)TenderTypeId);
+
+                    return area != null;
+                }
+                catch (KeyNotFoundException)
+                {
+                    return false;
+                }
+            }).WithMessage("El campo 'Tipo de licitacion' debe contener un valor válido.");
+        }
+
+        public static IRuleBuilderOptions<T, int?> ValidateTenderStatusIdField<T>(this IRuleBuilder<T, int?> ruleBuilder, TenderStatusService tenderStatusService)
+        {
+            return ruleBuilder.MustAsync(async (TenderStatusId, cancellation) =>
+            {
+                if (!TenderStatusId.HasValue) return true;
+
+                try
+                {
+                    var area = await tenderStatusService.GetByIdAsync((int)TenderStatusId);
+
+                    return area != null;
+                }
+                catch (KeyNotFoundException)
+                {
+                    return false;
+                }
+            }).WithMessage("El campo 'Tipo de status' debe contener un valor válido.");
+        }
+
+        public static IRuleBuilderOptions<T, int?> ValidateTenderPriceTypeIdField<T>(this IRuleBuilder<T, int?> ruleBuilder, TenderPriceTypeService tenderPriceTypeService)
+        {
+            return ruleBuilder.MustAsync(async (TenderPriceTypeId, cancellation) =>
+            {
+                if (!TenderPriceTypeId.HasValue) return true;
+
+                try
+                {
+                    var area = await tenderPriceTypeService.GetByIdAsync((int)TenderPriceTypeId);
+
+                    return area != null;
+                }
+                catch (KeyNotFoundException)
+                {
+                    return false;
+                }
+            }).WithMessage("El campo 'Tipo de precio' debe contener un valor válido.");
+        }
+
         public static IRuleBuilderOptions<T, int> ValidateContactIdField<T>(this IRuleBuilder<T, int> ruleBuilder, ContactService contactService)
         {
             return ruleBuilder.MustAsync(async (ContactId, cancellation) =>
@@ -149,7 +240,7 @@ namespace manage_grp.Server.Forms
                 {
                     var position = await positionService.GetByIdAsync(PositionId);
 
-                    return position == null;
+                    return position != null;
                 }
                 catch (KeyNotFoundException)
                 {
@@ -267,7 +358,7 @@ namespace manage_grp.Server.Forms
                 .Matches(@"^[A-ZÑ&]{3,4}\d{6}[A-Z\d]{3}$").WithMessage($"El campo '{fieldName}' debe tener una estructura válida de RFC.");
         }
 
-        public static IRuleBuilderOptions<T, string> ValidateEmailContactField<T>(this IRuleBuilder<T, string> ruleBuilder, ContactService contactService)
+        public static IRuleBuilderOptions<T, string> VerifyContactEmailFieldIsNotRegistered<T>(this IRuleBuilder<T, string> ruleBuilder, ContactService contactService)
         {
             return ruleBuilder
                 .NotEmpty().WithMessage("El correo electrónico es obligatorio.")
@@ -279,7 +370,7 @@ namespace manage_grp.Server.Forms
                     {
                         var position = await contactService.GetByEmailAsync(Email);
 
-                        return position != null;
+                        return position == null;
                     }
                     catch (KeyNotFoundException)
                     {
@@ -369,6 +460,14 @@ namespace manage_grp.Server.Forms
         {
             return ruleBuilder
                 .Matches($@"^\d{{{length}}}$").WithMessage($"El campo '{fieldName}' debe tener {length} caracteres.");
+        }
+
+        public static IRuleBuilderOptions<T, bool> ValidateBooleanField<T>(this IRuleBuilder<T, bool> ruleBuilder, string fieldName)
+        {
+            return ruleBuilder
+                .NotEmpty().WithMessage($"El campo '{fieldName}' no debe estar vacío.")
+                .NotNull().WithMessage($"El campo '{fieldName}' no debe ser nulo.")
+                .Must(value => IsValidBoolean(value)).WithMessage($"El campo '{fieldName}' debe ser un valor booleano ('true' o 'false').");
         }
 
         public static IRuleBuilderOptions<T, int> ValidateNumericIntField<T>(this IRuleBuilder<T, int> ruleBuilder, string fieldName, int? minValue = null, int? maxValue = null)
@@ -488,6 +587,19 @@ namespace manage_grp.Server.Forms
                 return lon >= -180 && lon <= 180;
             }
 
+            return false;
+        }
+
+        private static bool IsValidBoolean(object value)
+        {
+            if (value is bool)
+            {
+                return true;
+            }
+            if (value is string strValue)
+            {
+                return bool.TryParse(strValue, out _);
+            }
             return false;
         }
     }

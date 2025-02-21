@@ -1,11 +1,11 @@
 using FluentValidation;
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Forms;
-using manage_grp.Server.Services;
+using manage_grp.Server.Domain.Services;
 
-public class ServiceTypeDtoValidator : AbstractValidator<ServiceTypeDto>
+public class AreaServiceTypeDtoValidator : AbstractValidator<AreaServiceTypeDto>
 {
-    public ServiceTypeDtoValidator(AreaService areaService)
+    public AreaServiceTypeDtoValidator(AreaService areaService)
     {
         RuleFor(x => x.AreaId)
             .ValidateAreaIdField(areaService);
@@ -15,5 +15,8 @@ public class ServiceTypeDtoValidator : AbstractValidator<ServiceTypeDto>
 
         RuleFor(x => x.Description)
             .ValidateStringField("Descripción", 255);
+
+        RuleFor(x => x.IsActive)
+            .ValidateBooleanField("Estatus");
     }
 }

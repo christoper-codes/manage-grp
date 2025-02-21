@@ -3,23 +3,26 @@ using System.Text.Json.Serialization;
 
 namespace manage_grp.Server.Models
 {
-    public class PriceType
+    public class AreaServiceType
     {
         public int? Id { get; set; }
 
-        public int? DependencyId { get; set; }
+        public int? AreaId { get; set; }
 
         [JsonIgnore]
-        public Dependency? Dependency { get; set; }
+        public Area? Area { get; set; }
 
         public string Name { get; set; }
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateHelper.GetTimeInTimeZone();
 
         public DateTime UpdatedAt { get; set; } = DateHelper.GetTimeInTimeZone();
+
+        [JsonIgnore]
+        public ICollection<Tender>? Tenders { get; set; } = new List<Tender>();
     }
 }

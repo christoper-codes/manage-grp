@@ -1,7 +1,7 @@
 using FluentValidation;
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Forms;
-using manage_grp.Server.Services;
+using manage_grp.Server.Domain.Services;
 
 public class ResourceDistributionDtoValidator : AbstractValidator<ResourceDistributionDto>
 {
@@ -36,5 +36,8 @@ public class ResourceDistributionDtoValidator : AbstractValidator<ResourceDistri
 
         RuleFor(x => x.Observations)
             .ValidateStringField("Observaciones", 255);
+
+        RuleFor(x => x.IsActive)
+            .ValidateBooleanField("Estatus");
     }
 } 

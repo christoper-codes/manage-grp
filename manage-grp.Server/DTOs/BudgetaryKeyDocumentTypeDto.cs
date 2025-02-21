@@ -12,6 +12,6 @@ namespace manage_grp.Server.DTOs
 
         public bool Mandatory { get; set; }
 
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
     }
 }

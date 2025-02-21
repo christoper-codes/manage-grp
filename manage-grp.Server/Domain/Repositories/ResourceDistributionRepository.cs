@@ -1,10 +1,10 @@
 using manage_grp.Server.Data.Contexts;
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Models;
-using manage_grp.Server.Repositories.Interfaces;
+using manage_grp.Server.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace manage_grp.Server.Repositories
+namespace manage_grp.Server.Domain.Repositories
 {
     public class ResourceDistributionRepository : IResourceDistributionRepository
     {
@@ -32,6 +32,13 @@ namespace manage_grp.Server.Repositories
             _context.ResourceDistributions.Add(resourceDistribution);
 
             await _context.SaveChangesAsync();
+
+            await _context.Entry(resourceDistribution).Reference(t => t.Area).LoadAsync();
+
+            if (resourceDistribution.Area != null)
+            {
+                await _context.Entry(resourceDistribution.Area).Reference(ast => ast.Dependency).LoadAsync();
+            }
 
             return resourceDistribution;
         }

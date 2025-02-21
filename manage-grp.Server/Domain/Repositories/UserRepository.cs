@@ -1,11 +1,9 @@
 
 
+using manage_grp.Server.Domain.Services;
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Models;
-using manage_grp.Server.Repositories.Interfaces;
-using manage_grp.Server.Services;
 using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
 
 namespace manage_grp.Server.Domain.Interfaces
 {

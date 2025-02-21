@@ -7,5 +7,8 @@ namespace manage_grp.Server.Domain.Interfaces
         Task<IEnumerable<State>> GetAllAsync();
 
         Task<State?> GetByIdAsync(int id);
+
+        Task<IEnumerable<State>> CreateListAsync(List<State> states);
+
     }
 }

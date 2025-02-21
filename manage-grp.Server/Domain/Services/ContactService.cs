@@ -1,8 +1,8 @@
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Models;
-using manage_grp.Server.Repositories.Interfaces;
+using manage_grp.Server.Domain.Interfaces;
 
-namespace manage_grp.Server.Services
+namespace manage_grp.Server.Domain.Services
 {
     public class ContactService
     {
@@ -29,14 +29,7 @@ namespace manage_grp.Server.Services
         {
             try
             {
-                var contact = await _contactRepository.GetByEmailAsync(email);
-
-                if (contact == null)
-                {
-                    throw new KeyNotFoundException();
-                }
-
-                return contact;
+                return await _contactRepository.GetByEmailAsync(email);
             }
             catch (Exception ex)
             {
@@ -48,14 +41,7 @@ namespace manage_grp.Server.Services
         {
             try
             {
-                var contact = await _contactRepository.GetByIdAsync(id);
-
-                if (contact == null)
-                {
-                    throw new KeyNotFoundException();
-                }
-
-                return contact;
+                return await _contactRepository.GetByIdAsync(id);
             }
             catch (Exception ex)
             {

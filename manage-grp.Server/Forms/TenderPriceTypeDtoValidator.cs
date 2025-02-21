@@ -1,11 +1,11 @@
 using FluentValidation;
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Forms;
-using manage_grp.Server.Services;
+using manage_grp.Server.Domain.Services;
 
-public class PriceTypeDtoValidator : AbstractValidator<PriceTypeDto>
+public class TenderPriceTypeDtoValidator : AbstractValidator<TenderPriceTypeDto>
 {
-    public PriceTypeDtoValidator(DependencyService dependencyService)
+    public TenderPriceTypeDtoValidator(DependencyService dependencyService)
     {
         RuleFor(x => x.DependencyId)
             .ValidateDependencyIdField(dependencyService);
@@ -15,5 +15,8 @@ public class PriceTypeDtoValidator : AbstractValidator<PriceTypeDto>
 
         RuleFor(x => x.Description)
             .ValidateStringField("Descripción", 255);
+
+        RuleFor(x => x.IsActive)
+            .ValidateBooleanField("Estatus");
     }
 }

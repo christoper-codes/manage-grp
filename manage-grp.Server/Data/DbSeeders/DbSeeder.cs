@@ -1,9 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using manage_grp.Server.Models;
 using manage_grp.Server.Data.Contexts;
-using manage_grp.Server.Helpers;
 using System.Text.Json;
-using System.Xml.Linq;
 
 public static class DbSeeders
 {

@@ -7,6 +7,8 @@ namespace manage_grp.Server.DTOs
         public int? BudgetaryKeyDocumentTypeBudgetaryKeyId { get; set; }
 
         public int? ResourceDistributionDocumentTypeResourceDistributionId { get; internal set; }
+        
+        public int? TenderDocumentTypeTenderId { get; internal set; }
 
         public string Purpose { get; set; }
 
@@ -14,7 +16,7 @@ namespace manage_grp.Server.DTOs
 
         public int? Size { get; set; }
 
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
 
     }
 }

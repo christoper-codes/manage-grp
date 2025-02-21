@@ -1,8 +1,8 @@
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Models;
-using manage_grp.Server.Repositories.Interfaces;
+using manage_grp.Server.Domain.Interfaces;
 
-namespace manage_grp.Server.Services
+namespace manage_grp.Server.Domain.Services
 {
     public class TenderStatusService
     {
@@ -30,14 +30,7 @@ namespace manage_grp.Server.Services
         {
             try
             {
-                var tenderStatus = await _tenderStatusRepository.GetByIdAsync(id);
-
-                if (tenderStatus == null)
-                {
-                    throw new KeyNotFoundException();
-                }
-
-                return tenderStatus;
+                return await _tenderStatusRepository.GetByIdAsync(id);
             }
             catch (Exception ex)
             {

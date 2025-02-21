@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-
 namespace manage_grp.Server.DTOs
 {
     public class BudgetaryKeyDocumentTypeBudgetaryKeyDto
@@ -10,7 +8,7 @@ namespace manage_grp.Server.DTOs
 
         public int BudgetaryKeyDocumentTypeId { get; set; }
 
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
 
         public DocumentRequirementDto? DocumentRequirementDto { get; set; }
     }

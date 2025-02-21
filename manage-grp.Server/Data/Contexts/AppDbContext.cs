@@ -17,7 +17,7 @@ namespace manage_grp.Server.Data.Contexts
 
         public DbSet<Area> Areas { get; set; } 
 
-        public DbSet<ServiceType> ServiceTypes { get; set; } 
+        public DbSet<AreaServiceType> AreaServiceTypes { get; set; } 
 
         public DbSet<User> AspNetUsers { get; set; }
 
@@ -51,11 +51,21 @@ namespace manage_grp.Server.Data.Contexts
 
         public DbSet<ResourceDistributionDocumentTypeResourceDistribution> ResourceDistributionDocumentTypeResourceDistributions { get; set; }
 
+        public DbSet<TenderDocumentType> TenderDocumentTypes { get; set; }
+
         public DbSet<TenderType> TenderTypes { get; set; }
         
         public DbSet<TenderStatus> TenderStatuses { get; set; }
+
+        public DbSet<TenderFundingSource> TenderFundingSources { get; set; }
         
-        public DbSet<PriceType> PriceTypes { get; set; }
+        public DbSet<TenderPriceType> TenderPriceTypes { get; set; }
+        
+        public DbSet<Tender> Tenders { get; set; }
+
+        public DbSet<TenderDocumentTypeTender> TenderDocumentTypeTenders { get; set; }
+
+        public DbSet<ResourceDistributionTender> ResourceDistributionTenders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -135,6 +145,19 @@ namespace manage_grp.Server.Data.Contexts
                 .HasOne(bkdt => bkdt.ResourceDistributionDocumentType)
                 .WithMany(dt => dt.ResourceDistributionDocumentTypeResourceDistributions)
                 .HasForeignKey(bkdt => bkdt.ResourceDistributionDocumentTypeId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+
+            modelBuilder.Entity<TenderDocumentTypeTender>()
+                .HasOne(bkdt => bkdt.Tender)
+                .WithMany(bk => bk.TenderDocumentTypeTenders)
+                .HasForeignKey(bkdt => bkdt.TenderId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<TenderDocumentTypeTender>()
+                .HasOne(bkdt => bkdt.TenderDocumentType)
+                .WithMany(dt => dt.TenderDocumentTypeTenders)
+                .HasForeignKey(bkdt => bkdt.TenderDocumentTypeId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
 

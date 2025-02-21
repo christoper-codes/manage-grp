@@ -28,14 +28,20 @@ namespace manage_grp.Server.Domain.Services
         {
             try
             {
-                var state = await _stateRepository.GetByIdAsync(id);
+                return await _stateRepository.GetByIdAsync(id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
-                if (state == null)
-                {
-                    throw new KeyNotFoundException();
-                }
 
-                return state;
+        public async Task CreateListAsync(List<State> states)
+        {
+            try
+            {
+                await _stateRepository.CreateListAsync(states);
             }
             catch (Exception ex)
             {

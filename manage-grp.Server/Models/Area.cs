@@ -20,10 +20,13 @@ namespace manage_grp.Server.Models
 
         public string? Description { get; set; }
 
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateHelper.GetTimeInTimeZone();
 
         public DateTime UpdatedAt { get; set; } = DateHelper.GetTimeInTimeZone();
+
+        [JsonIgnore]
+        public ICollection<AreaServiceType>? AreaServiceTypes { get; set; } = new List<AreaServiceType>(); 
     }
 }

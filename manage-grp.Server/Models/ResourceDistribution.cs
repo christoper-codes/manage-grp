@@ -38,7 +38,7 @@ namespace manage_grp.Server.Models
 
         public string Observations { get; set; }
 
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateHelper.GetTimeInTimeZone();
 
@@ -46,5 +46,8 @@ namespace manage_grp.Server.Models
 
         [JsonIgnore]
         public ICollection<ResourceDistributionDocumentTypeResourceDistribution>? ResourceDistributionDocumentTypeResourceDistributions { get; set; } = new List<ResourceDistributionDocumentTypeResourceDistribution>();
+
+        [JsonIgnore]
+        public ICollection<ResourceDistributionTender>? ResourceDistributionTenders { get; set; } = new List<ResourceDistributionTender>();
     }
 }

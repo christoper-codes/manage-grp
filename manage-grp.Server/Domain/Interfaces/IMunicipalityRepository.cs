@@ -7,5 +7,7 @@ namespace manage_grp.Server.Domain.Interfaces
         Task<IEnumerable<Municipality>> GetByStateIdAsync(int stateId);
 
         Task<Municipality?> GetByIdAsync(int id);
+
+        Task<IEnumerable<Municipality>> CreateListAsync(List<Municipality> municipalities);
     }
 }

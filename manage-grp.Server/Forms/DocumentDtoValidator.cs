@@ -1,7 +1,7 @@
 using FluentValidation;
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Forms;
-using manage_grp.Server.Services;
+using manage_grp.Server.Domain.Services;
 
 public class DocumentDtoValidator : AbstractValidator<DocumentDto>
 {
@@ -21,5 +21,8 @@ public class DocumentDtoValidator : AbstractValidator<DocumentDto>
 
         RuleFor(x => x.Path)
             .ValidateStringField("Ruta de archivo", 255);
+
+        RuleFor(x => x.IsActive)
+            .ValidateBooleanField("Estatus");
     }
 }

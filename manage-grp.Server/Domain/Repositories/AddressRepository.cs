@@ -2,13 +2,13 @@
 
 using FluentValidation;
 using manage_grp.Server.Data.Contexts;
+using manage_grp.Server.Domain.Interfaces;
 using manage_grp.Server.DTOs;
 using manage_grp.Server.Models;
-using manage_grp.Server.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace manage_grp.Server.Repositories
+namespace manage_grp.Server.Domain.Repositories
 {
     public class AddressRepository : IAddressRepository
     {

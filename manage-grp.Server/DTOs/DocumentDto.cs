@@ -18,6 +18,6 @@ namespace manage_grp.Server.DTOs
 
         public string Path { get; set; }
 
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
     }
 }

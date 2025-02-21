@@ -28,14 +28,19 @@ namespace manage_grp.Server.Domain.Services
         {
             try
             {
-                var municipality = await _municipalityRepository.GetByIdAsync(id);
+                return await _municipalityRepository.GetByIdAsync(id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
-                if (municipality == null)
-                {
-                    throw new KeyNotFoundException();
-                }
-
-                return municipality;
+        public async Task CreateListAsync(List<Municipality> municipalities)
+        {
+            try
+            {
+                await _municipalityRepository.CreateListAsync(municipalities);
             }
             catch (Exception ex)
             {

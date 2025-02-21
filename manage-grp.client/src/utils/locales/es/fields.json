@@ -8,5 +8,21 @@
     "PASSWORD_FIELD": "Contraseña",
     "RECOVER_PASSWORD_FIELD": "Recuperar contraseña",
     "ADD_NEW_ITEM_FIELD": "Agregar nuevo elemento",
-    "SEARCH_FIELD": "Buscar"
+    "UPDATE_ITEM_FIELD": "Actualizar elemento",
+    "SEARCH_FIELD": "Buscar",
+    "MUNICIPALITY_FIELD": "Municipio",
+    "NAME_FIELD": "Nombre",
+    "ACRONYM_FIELD": "Acrónimo",
+    "RFC_FIELD": "RFC",
+    "STATUS_FIELD": "Estado",
+    "CREATED_AT_FIELD": "Creado en",
+    "SAVE_FIELD": "Guardar",
+    "CANCEL_FIELD": "Cancelar",
+    "DELETE_FIELD": "Eliminar",
+    "EDIT_FIELD": "Editar",
+    "VIEW_FIELD": "Ver",
+    "BACK_FIELD": "Atrás",
+    "NEXT_FIELD": "Siguiente",
+    "PREVIOUS_FIELD": "Anterior",
+    "CONFIRM_FIELD": "Confirmar"
 }

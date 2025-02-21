@@ -2,5 +2,6 @@
     "REQUIRED": "This field is required",
     "FIELD_LESS_THAN": "This field must be less than {count} characters",
     "INVALID_EMAIL": "Invalid email",
-    "INVALID_PASSWORD": "Invalid password"
+    "INVALID_PASSWORD": "Invalid password",
+    "INVALID_RFC": "Invalid RFC"
 }

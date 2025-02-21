@@ -178,6 +178,9 @@ builder.Services.AddScoped<TenderDocumentTypeTenderService>();
 builder.Services.AddScoped<IResourceDistributionTenderRepository, ResourceDistributionTenderRepository>();
 builder.Services.AddScoped<ResourceDistributionTenderService>();
 
+builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
+builder.Services.AddScoped<PermissionService>();
+
 builder.Services.AddScoped<IFileRepository, FileRepository>();
 builder.Services.AddScoped<FileService>();
 
@@ -199,7 +202,7 @@ var app = builder.Build();
 //using (var scope = app.Services.CreateScope())
 //{
 //    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-//    DbSeeders.Seed(dbContext);
+//    DbSeederExample.Seed(dbContext);
 //}
 
 

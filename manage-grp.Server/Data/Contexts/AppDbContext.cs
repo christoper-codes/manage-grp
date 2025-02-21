@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using manage_grp.Server.Data.DbSeeders;
 
 namespace manage_grp.Server.Data.Contexts
 {
@@ -67,8 +68,10 @@ namespace manage_grp.Server.Data.Contexts
 
         public DbSet<ResourceDistributionTender> ResourceDistributionTenders { get; set; }
 
+        public DbSet<Permission> Permissions { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        {            
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<State>()
@@ -159,6 +162,8 @@ namespace manage_grp.Server.Data.Contexts
                 .WithMany(dt => dt.TenderDocumentTypeTenders)
                 .HasForeignKey(bkdt => bkdt.TenderDocumentTypeId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            SeedPermissions.Seed(modelBuilder);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

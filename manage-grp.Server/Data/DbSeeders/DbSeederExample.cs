@@ -3,7 +3,7 @@ using manage_grp.Server.Models;
 using manage_grp.Server.Data.Contexts;
 using System.Text.Json;
 
-public static class DbSeeders
+public static class DbSeederExample
 {
     public static void Seed(AppDbContext context)
     {

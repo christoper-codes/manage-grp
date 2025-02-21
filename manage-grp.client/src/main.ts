@@ -31,7 +31,6 @@ import 'vue3-toastify/dist/index.css';
 
 // set preferred language
 const preferredLanguage = localStorage.getItem('preferredLanguage');
-console.log(preferredLanguage);
 const i18n = createI18n({
     legacy: false,
     locale: preferredLanguage || 'es',

@@ -6,5 +6,18 @@
     "RFC_HEADER": "RFC",
     "STATUS_HEADER": "Estado",
     "CREATED_AT_HEADER": "Creado en",
-    "ACTIONS_HEADER": "Acciones"
+    "ACTIONS_HEADER": "Acciones",
+    "DEPENDENCY_HEADER": "Dependencia",
+    "DESCRIPTION_HEADER": "Descripción",
+    "ABBREVIATION_HEADER": "Abreviatura",
+    "AREA_HEADER": "Área",
+    "POSITION_HEADER": "Puesto",
+    "FIRST_NAME_HEADER": "Nombre",
+    "MIDDLE_NAME_HEADER": "Segundo nombre",
+    "PATERNAL_LAST_NAME_HEADER": "Apellido paterno",
+    "MATERNAL_LAST_NAME_HEADER": "Apellido materno",
+    "EMAIL_HEADER": "Correo electrónico",
+    "PHONE_HEADER": "Teléfono",
+    "KEY_HEADER": "Clave",
+    "MANDATORY_HEADER": "Obligatorio"
 }

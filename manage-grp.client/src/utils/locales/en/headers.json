@@ -6,5 +6,18 @@
     "RFC_HEADER": "RFC",
     "STATUS_HEADER": "Status",
     "CREATED_AT_HEADER": "Created at",
-    "ACTIONS_HEADER": "Actions"
+    "ACTIONS_HEADER": "Actions",
+    "DEPENDENCY_HEADER": "Dependency",
+    "DESCRIPTION_HEADER": "Description",
+    "ABBREVIATION_HEADER": "Abbreviation",
+    "AREA_HEADER": "Area",
+    "POSITION_HEADER": "Position",
+    "FIRST_NAME_HEADER": "First name",
+    "MIDDLE_NAME_HEADER": "Middle name",
+    "PATERNAL_LAST_NAME_HEADER": "Paternal last name",
+    "MATERNAL_LAST_NAME_HEADER": "Maternal last name",
+    "EMAIL_HEADER": "Email address",
+    "PHONE_HEADER": "Phone",
+    "KEY_HEADER": "Key",
+    "MANDATORY_HEADER": "Mandatory"
 }

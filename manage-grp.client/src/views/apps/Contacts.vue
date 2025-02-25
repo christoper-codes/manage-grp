@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, type Ref, watch } from 'vue';
+import { computed, onMounted, ref, type Ref, watch } from 'vue';
 import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
-import FormModal from '@/components/maps/FormModal.vue';
 import dataTableImg from '@/assets/images/data/data-table-img.png';
 import dataCircleImg from '@/assets/images/data/data-circle-img.jpeg';
 import { Icon } from '@iconify/vue';
@@ -9,88 +8,118 @@ import { useI18n } from 'vue-i18n';
 import { useStatesStore } from '@/stores/app/states';
 import { useMunicipalitiesStore } from '@/stores/app/municipalities';
 import { useDependenciesStore } from '@/stores/app/dependencies';
-import { dependencySearchSchema } from '@/validation/dependencies/search';
-import { dependencyStoreOrUpdateSchema } from '@/validation/dependencies/storeOrUpdate';
+import { useAreasStore } from '@/stores/app/areas';
+import { usePositionsStore } from '@/stores/app/positions';
+import { contactSearchSchema } from '@/validation/contacts/search';
+import { contactStoreOrUpdateSchema } from '@/validation/contacts/storeOrUpdate';
 import { useField, useForm } from 'vee-validate';
+import { useContactsStore } from '@/stores/app/contacts';
+import { useDateFormat } from '@/composables/dateFormat';
 
 // i18n translation
 const { t } = useI18n();
+
+// Composables
+const { dateFormat } = useDateFormat();
 
 // Stores
 const statesStore = useStatesStore();
 const municipalitiesStore = useMunicipalitiesStore();
 const dependenciesStore = useDependenciesStore();
+const contactsStore = useContactsStore();
+const areasStore = useAreasStore();
+const positionsStore = usePositionsStore();
 
-// Form for searching dependencies
-const { handleSubmit: handleSearchSubmit } = useForm({ validationSchema: dependencySearchSchema(t) });
+// Form for searching contacts
+const { handleSubmit: handleSearchSubmit } = useForm({ validationSchema: contactSearchSchema(t) });
 const searchStateSelected = useField('searchStateSelected');
 const searchMunicipalitySelected = useField('searchMunicipalitySelected');
+const searchDependencySelected = useField('searchDependencySelected');
 
 // Form for storing dependencies
 const { handleSubmit: handleStoreOrUpdateSubmit, resetForm } = useForm({
-  validationSchema: dependencyStoreOrUpdateSchema(t),
+  validationSchema: contactStoreOrUpdateSchema(t),
   initialValues: {
     isActive: true,
   },
 });
 const id = useField('id');
-const municipalityId = useField('municipalityId');
-const name = useField('name');
-const acronym = useField('acronym');
-const rfc = useField('rfc');
+const dependencyId = useField('dependencyId');
+const areaId = useField('areaId');
+const positionId = useField('positionId');
+const firstName = useField('firstName');
+const middleName = useField('middleName');
+const paternalLastName = useField('paternalLastName');
+const maternalLastName = useField('maternalLastName');
+const email = useField('email');
+const phone = useField('phone');
 const isActive = useField('isActive');
 
 // Header for the table
 const headers = ref([
     { title: t('ITEM_IMAGE_HEADER'), key: 'ITEM_IMAGE_HEADER' },
-    { title: t('MUNICIPALITY_HEADER') + ' ID', key: 'municipalityId' },
-    { title: t('ACRONYM_HEADER'), key: 'acronym' },
-    { title: t('NAME_HEADER'), key: 'name' },
-    { title: t('RFC_HEADER'), key: 'rfc' },
+    { title: t('DEPENDENCY_HEADER') + ' ID', key: 'dependencyId' },
+    { title: t('AREA_HEADER') + ' ID', key: 'areaId' },
+    { title: t('POSITION_HEADER') + ' ID', key: 'positionId' },
+    { title: t('FIRST_NAME_HEADER'), key: 'firstName' },
+    { title: t('MIDDLE_NAME_HEADER'), key: 'middleName' },
+    { title: t('PATERNAL_LAST_NAME_HEADER'), key: 'paternalLastName' },
+    { title: t('MATERNAL_LAST_NAME_HEADER'), key: 'maternalLastName' },
+    { title: t('EMAIL_HEADER'), key: 'email' },
+    { title: t('PHONE_HEADER'), key: 'phone' },
     { title: t('STATUS_HEADER'), key: 'isActive' },
+    { title: t('CREATED_AT_HEADER'), key: 'createdAt' },
     { title: t('ACTIONS_HEADER'), key: 'actions', sortable: false }
 ]);
 
 // Data
 const dependencies: Ref<any[]> = ref([]);
-const isDependencyStore = ref(true);
+const isContactStore = ref(true);
 const states: Ref<any[]> = ref([]);
 const municipalities: Ref<any[]> = ref([]);
+const contacts: Ref<any[]> = ref([]);
+const areas: Ref<any[]> = ref([]);
+const positions: Ref<any[]> = ref([]);
 const loading: Ref<boolean> = ref(false);
 const search = ref();
-const dependecy: Ref<object> = ref({});
+const contact: Ref<object> = ref({});
 const dialog = ref(false);
 const dialogDelete = ref(false);
 
 // Arrow functions
 const formTitle = computed(() => {
-    return isDependencyStore.value ? t('ADD_NEW_ITEM_FIELD') : t('UPDATE_ITEM_FIELD');
+    return isContactStore.value ? t('ADD_NEW_ITEM_FIELD') : t('UPDATE_ITEM_FIELD');
 });
 
-const storeDependency = () => {
+const storeContact = () => {
   resetForm();
-  isDependencyStore.value = true;
+  isContactStore.value = true;
 }
 
-const editDependency = (item: any) => {
-    isDependencyStore.value = false;
+const editContatc = (item: any) => {
+    isContactStore.value = false;
     id.value.value = item.id;
-    municipalityId.value.value = item.municipalityId;
-    name.value.value = item.name;
-    acronym.value.value = item.acronym;
-    rfc.value.value = item.rfc;
+    dependencyId.value.value = item.dependencyId;
+    areaId.value.value = item.areaId;
+    positionId.value.value = item.positionId;
+    firstName.value.value = item.firstName;
+    middleName.value.value = item.middleName;
+    paternalLastName.value.value = item.paternalLastName;
+    maternalLastName.value.value = item.maternalLastName;
+    email.value.value = item.email;
+    phone.value.value = item.phone;
     dialog.value = true;
 };
 
-const deleteDependency = (item: object) => {
+const deleteContact = (item: object) => {
   dialogDelete.value = true;
-  dependecy.value = item;
+  contact.value = item;
 }
 
 const close = () => {
     dialog.value = false;
     dialogDelete.value = false;
-    isDependencyStore.value = true;
+    isContactStore.value = true;
     resetForm();
 };
 
@@ -102,24 +131,24 @@ const itemGenericProps = (item: any) => {
 };
 
 // Watchers, lifecycle hooks, and async functions
-const handleSearchDependencies = handleSearchSubmit(async (values: Record<string, any>) => {
-  await indexDependencies(values.searchMunicipalitySelected.id);
+const handleSearchContacts = handleSearchSubmit(async (values: Record<string, any>) => {
+  await indexContacts(values.searchDependencySelected.id);
 });
 
-const indexDependencies = async (id:number) => {
-  dependencies.value = await dependenciesStore.dependenciesByMunicipality(id, loading, t);
+const indexContacts = async (id:number) => {
+  contacts.value = await contactsStore.contactsByDependency(id, loading, t);
 };
 
-const handleStoreOrUpdateDependency = handleStoreOrUpdateSubmit(async (values: Record<string, any>) => {
-  await dependenciesStore.storeOrUpdateDependency(values, loading, t, isDependencyStore.value);
-  await indexDependencies(values.municipalityId);
+const handleStoreOrUpdateContact = handleStoreOrUpdateSubmit(async (values: Record<string, any>) => {
+  await contactsStore.storeOrUpdateContact(values, loading, t, isContactStore.value);
+  await indexContacts(values.dependencyId);
   close();
 });
 
-const handleDeleteDependency = async () => {
-  await dependenciesStore.deleteDependency(dependecy.value.id, loading, t);
-  await indexDependencies(dependecy.value.municipalityId);
-  dependecy.value = {};
+const handleDeleteContact = async () => {
+  await contactsStore.deleteContact(contact.value.id, loading, t);
+  await indexContacts(contact.value.dependencyId);
+  contact.value = {};
   close();
 }
 
@@ -132,12 +161,26 @@ watch(searchStateSelected.value, async (val) => {
     municipalities.value = await municipalitiesStore.index(val.id, loading, t);
   }
 });
+watch(searchMunicipalitySelected.value, async (val) => {
+  if (val) {
+    dependencies.value = await dependenciesStore.dependenciesByMunicipality(val.id, loading, t);
+  }
+});
+watch(dependencyId.value, async (val) => {
+  if (val) {
+    const [areasData, positionsData] = await Promise.all([
+        areasStore.areasByDependency(val, loading, t),
+        positionsStore.positionsByDependency(val, loading, t)
+    ]);
+    areas.value = areasData;
+    positions.value = positionsData;
+  }
+});
 </script>
 
 <template>
     <div data-aos="fade-left" data-aos-duration="1500">
-      <BaseBreadcrumb title="DEPENDENCIES"></BaseBreadcrumb>
-
+      <BaseBreadcrumb title="CONTACTS"></BaseBreadcrumb>
       <div class="tw-pt-7 tw-pb-1 tw-px-7 tw-rounded-xl tw-bg-container-bg tw-shadow-sm tw-w-full mb-8 tw-flex tw-items-center tw-gap-5">
         <v-select
               color="primary"
@@ -157,7 +200,16 @@ watch(searchStateSelected.value, async (val) => {
               :items="municipalities"
               :error-messages="searchMunicipalitySelected.errorMessage.value"
           ></v-select>
-          <v-btn @click="handleSearchDependencies" :loading="loading" :disabled="loading" class="!tw-bg-gradient-to-r !tw-from-primary !tw-to-secondary !tw-text-white !tw-mb-6" variant="flat" size="large" dark>{{ $t('SEARCH_FIELD') + ' ' + $t('DEPENDENCIES') }}</v-btn>
+          <v-select
+              color="primary"
+              clearable
+              :label="$t('ACTIVE_DEPENDENCIES')"
+              v-model="searchDependencySelected.value.value"
+              :item-props="itemGenericProps"
+              :items="dependencies"
+              :error-messages="searchDependencySelected.errorMessage.value"
+          ></v-select>
+          <v-btn @click="handleSearchContacts" :loading="loading" :disabled="loading" class="!tw-bg-gradient-to-r !tw-from-primary !tw-to-secondary !tw-text-white !tw-mb-6" variant="flat" size="large" dark>{{ $t('SEARCH_FIELD') + ' ' + $t('CONTACTS') }}</v-btn>
       </div>
 
     <v-row>
@@ -166,7 +218,7 @@ watch(searchStateSelected.value, async (val) => {
                 <v-data-table
                     class=" rounded-md datatabels productlist"
                     :headers="headers"
-                    :items="dependencies"
+                    :items="contacts"
                     v-model:search="search"
                     items-per-page="5"
                     item-value="name"
@@ -196,9 +248,8 @@ watch(searchStateSelected.value, async (val) => {
                         <v-toolbar class="bg-surface" flat>
                             <v-dialog v-model="dialog" max-width="800px">
                                 <template v-slot:activator="{ props }">
-                                    <div class="d-md-flex block justify-space-between w-100 pa-6 align-center tw-gap-5">
-                                        <v-text-field
-                                            clearable
+                                    <div class="d-md-flex block justify-space-between w-100 pa-6 align-center">
+                                        <v-text-field clearable
                                             v-model="search"
                                             append-inner-icon="mdi-magnify"
                                             :label="$t('SEARCH_FIELD')"
@@ -206,8 +257,7 @@ watch(searchStateSelected.value, async (val) => {
                                             hide-details
                                             class="mb-md-0 mb-3"
                                         />
-                                        <FormModal v-bind:dependencies="dependencies" />
-                                        <v-btn color="success" size="large" variant="flat" dark v-bind="props" @click="storeDependency" >{{ $t('ADD_NEW_ITEM_FIELD') }}</v-btn>
+                                        <v-btn color="success" variant="flat" size="large" dark v-bind="props" @click="storeContact" >{{ $t('ADD_NEW_ITEM_FIELD') }}</v-btn>
                                     </div>
                                 </template>
                                 <v-card>
@@ -219,18 +269,47 @@ watch(searchStateSelected.value, async (val) => {
                                         <v-select
                                           color="primary"
                                           clearable
-                                          :label="$t('ACTIVE_MUNICIPALITIES')"
-                                          v-model="municipalityId.value.value"
+                                          :label="$t('ACTIVE_DEPENDENCIES')"
+                                          v-model="dependencyId.value.value"
                                           :item-props="itemGenericProps"
-                                          :items="municipalities"
+                                          :items="dependencies"
                                           :item-value="'id'"
-                                          :error-messages="municipalityId.errorMessage.value"
-                                          :hint="$t('MUNICIPALITY_FIELD_NOTICE')"
+                                          :error-messages="dependencyId.errorMessage.value"
+                                          :hint="$t('DEPENDENCY_FIELD_NOTICE')"
                                           persistent-hint
                                         ></v-select>
-                                        <v-text-field clearable v-model="name.value.value" :label="$t('NAME_FIELD')" :error-messages="name.errorMessage.value"></v-text-field>
-                                        <v-text-field clearable v-model="acronym.value.value" :label="$t('ACRONYM_FIELD')" :error-messages="acronym.errorMessage.value"></v-text-field>
-                                        <v-text-field clearable v-model="rfc.value.value" :label="$t('RFC_FIELD')" :error-messages="rfc.errorMessage.value"></v-text-field>
+
+                                        <v-select
+                                          color="primary"
+                                          clearable
+                                          :label="$t('ACTIVE_AREAS_FIELD')"
+                                          v-model="areaId.value.value"
+                                          :items="areas"
+                                          :item-props="itemGenericProps"
+                                          :item-value="'id'"
+                                          :error-messages="areaId.errorMessage.value"
+                                          persistent-hint
+                                        ></v-select>
+
+                                        <v-select
+                                          color="primary"
+                                          clearable
+                                          :label="$t('ACTIVE_POSITIONS_FIELD')"
+                                          v-model="positionId.value.value"
+                                          :items="positions"
+                                          :item-props="itemGenericProps"
+                                          :item-value="'id'"
+                                          :error-messages="positionId.errorMessage.value"
+                                          persistent-hint
+                                        ></v-select>
+
+                                        <v-text-field clearable v-model="firstName.value.value" :label="$t('FIRST_NAME_FIELD')" :error-messages="firstName.errorMessage.value"></v-text-field>
+                                        <v-text-field clearable v-model="middleName.value.value" :label="$t('MIDDLE_NAME_FIELD')" :error-messages="middleName.errorMessage.value"></v-text-field>
+                                        <v-text-field clearable v-model="paternalLastName.value.value" :label="$t('PATERNAL_LAST_NAME_FIELD')" :error-messages="paternalLastName.errorMessage.value"></v-text-field>
+                                        <v-text-field clearable v-model="maternalLastName.value.value" :label="$t('MATERNAL_LAST_NAME_FIELD')" :error-messages="maternalLastName.errorMessage.value"></v-text-field>
+                                        <v-text-field clearable v-model="email.value.value" :label="$t('EMAIL_FIELD')" :error-messages="email.errorMessage.value"></v-text-field>
+                                        <v-text-field clearable v-model="phone.value.value" :label="$t('PHONE_FIELD')" :error-messages="phone.errorMessage.value"></v-text-field>
+
                                         <v-switch
                                           v-model="isActive.value.value"
                                           :label="$t('STATUS_FIELD')"
@@ -243,7 +322,7 @@ watch(searchStateSelected.value, async (val) => {
 
                                     <v-card-actions class="pa-4">
                                         <v-btn color="error" variant="flat" dark @click="close"> {{ $t('CANCEL_FIELD') }} </v-btn>
-                                        <v-btn color="success" :loading="loading" :disabled="loading" variant="flat" dark @click="handleStoreOrUpdateDependency"> {{ $t('SAVE_FIELD') }} </v-btn>
+                                        <v-btn color="success" :loading="loading" :disabled="loading" variant="flat" dark @click="handleStoreOrUpdateContact"> {{ $t('SAVE_FIELD') }} </v-btn>
                                     </v-card-actions>
                                 </v-card>
                             </v-dialog>
@@ -255,12 +334,15 @@ watch(searchStateSelected.value, async (val) => {
                                     <v-card-actions class="!tw-my-3">
                                         <v-spacer></v-spacer>
                                         <v-btn color="error" variant="flat" dark @click="close">{{ $t('CANCEL_FIELD') }}</v-btn>
-                                        <v-btn color="success" variant="flat" dark @click="handleDeleteDependency">{{ $t('CONFIRM_FIELD') }}</v-btn>
+                                        <v-btn color="success" variant="flat" dark @click="handleDeleteContact">{{ $t('CONFIRM_FIELD') }}</v-btn>
                                         <v-spacer></v-spacer>
                                     </v-card-actions>
                                 </v-card>
                             </v-dialog>
                         </v-toolbar>
+                    </template>
+                    <template v-slot:item.createdAt="{ item }">
+                        <span>{{ dateFormat(item.createdAt) }}</span>
                     </template>
                     <template v-slot:item.actions="{ item }">
                         <div class="d-flex gap-3">
@@ -269,14 +351,14 @@ watch(searchStateSelected.value, async (val) => {
                                 height="20"
                                 class="text-primary cursor-pointer"
                                 size="small"
-                                @click="editDependency(item)"
+                                @click="editContatc(item)"
                             />
                             <Icon
                                 icon="solar:trash-bin-minimalistic-linear"
                                 height="20"
                                 class="text-error cursor-pointer"
                                 size="small"
-                                @click="deleteDependency(item)"
+                                @click="deleteContact(item)"
                             />
                         </div>
                     </template>

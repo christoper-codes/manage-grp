@@ -27,7 +27,7 @@ const AuthRoutes = {
           name: 'policy-privacy',
           path: 'policy-privacy',
           component: () => import('@/views/legal/privacyPolicy.vue')
-        }
+        },
     ]
 };
 

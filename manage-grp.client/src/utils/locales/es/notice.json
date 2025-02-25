@@ -1,4 +1,8 @@
 {
     "MUNICIPALITY_FIELD_NOTICE": "Se debe seleccionar un estado para obtener los municipios activos",
-    "DELETE_ITEM_NOTICE": "¿Estás seguro de que deseas eliminar este elemento?"
+    "DELETE_ITEM_NOTICE": "¿Estás seguro de que deseas eliminar este elemento?",
+    "DEPENDENCY_FIELD_NOTICE": "Se debe seleccionar un municipio para obtener las dependencias activas",
+    "ADDRESS_ITEM_NOTICE": "Para obtener los datos de la dirección automáticamente se debe seleccionar un lugar en el mapa",
+    "DEPENDENCY_ADDRESS_ITEM_NOTICE": "Para habilitar las acciones de dirección se deben buscar dependencias basadas en un municipio",
+    "NO_DEPENDENCIES_FOUND_NOTICE": "No se encontraron dependencias para el municipio seleccionado"
 }

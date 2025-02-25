@@ -28,14 +28,39 @@ const sidebarItem: menu[] = [
         ]
     },
     {
-        header: 'apps',
+        header: 'APPS',
         id: 1,
         children: [
             {
                 title: 'DEPENDENCIES',
-                icon: 'ticker-star-outline',
+                icon: 'align-vertical-spacing-line-duotone',
                 to: '/apps/tickets'
             },
+            {
+                title: 'AREAS',
+                icon: 'settings-minimalistic-line-duotone',
+                to: '/apps/areas'
+            },
+            {
+                title: 'POSITIONS',
+                icon: 'sticker-smile-circle-2-line-duotone',
+                to: '/apps/positions'
+            },
+            {
+              title: 'CONTACTS',
+              icon: 'chat-round-like-linear',
+              to: '/apps/contacts'
+            },
+            {
+              title: 'ADDRESSES',
+              icon: 'transmission-line-duotone',
+              to: '/apps/addresses'
+            },
+            {
+              title: 'BUDGETARY_KEY_DOCUMENT_TYPES',
+              icon: 'chart-square-broken',
+              to: '/apps/budgetary-key-document-types'
+            }
         ]
     },
 

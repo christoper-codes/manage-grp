@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, type Ref, watch } from 'vue';
+import { computed, onMounted, ref, type Ref, watch } from 'vue';
 import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
-import FormModal from '@/components/maps/FormModal.vue';
 import dataTableImg from '@/assets/images/data/data-table-img.png';
 import dataCircleImg from '@/assets/images/data/data-circle-img.jpeg';
 import { Icon } from '@iconify/vue';
@@ -9,88 +8,97 @@ import { useI18n } from 'vue-i18n';
 import { useStatesStore } from '@/stores/app/states';
 import { useMunicipalitiesStore } from '@/stores/app/municipalities';
 import { useDependenciesStore } from '@/stores/app/dependencies';
-import { dependencySearchSchema } from '@/validation/dependencies/search';
-import { dependencyStoreOrUpdateSchema } from '@/validation/dependencies/storeOrUpdate';
+import { positionsSearchSchema } from '@/validation/positions/search';
+import { positionStoreOrUpdateSchema } from '@/validation/positions/storeOrUpdate';
 import { useField, useForm } from 'vee-validate';
+import { usePositionsStore } from '@/stores/app/positions';
+import { useDateFormat } from '@/composables/dateFormat';
 
 // i18n translation
 const { t } = useI18n();
+
+// Composables
+const { dateFormat } = useDateFormat();
 
 // Stores
 const statesStore = useStatesStore();
 const municipalitiesStore = useMunicipalitiesStore();
 const dependenciesStore = useDependenciesStore();
+const positionsStore = usePositionsStore();
 
-// Form for searching dependencies
-const { handleSubmit: handleSearchSubmit } = useForm({ validationSchema: dependencySearchSchema(t) });
+// Form for searching positions
+const { handleSubmit: handleSearchSubmit } = useForm({ validationSchema: positionsSearchSchema(t) });
 const searchStateSelected = useField('searchStateSelected');
 const searchMunicipalitySelected = useField('searchMunicipalitySelected');
+const searchDependencySelected = useField('searchDependencySelected');
 
-// Form for storing dependencies
+// Form for storing positions
 const { handleSubmit: handleStoreOrUpdateSubmit, resetForm } = useForm({
-  validationSchema: dependencyStoreOrUpdateSchema(t),
+  validationSchema: positionStoreOrUpdateSchema(t),
   initialValues: {
     isActive: true,
   },
 });
 const id = useField('id');
-const municipalityId = useField('municipalityId');
+const dependencyId = useField('dependencyId');
 const name = useField('name');
-const acronym = useField('acronym');
-const rfc = useField('rfc');
+const abbreviation = useField('abbreviation');
+const description = useField('description');
 const isActive = useField('isActive');
 
 // Header for the table
 const headers = ref([
     { title: t('ITEM_IMAGE_HEADER'), key: 'ITEM_IMAGE_HEADER' },
-    { title: t('MUNICIPALITY_HEADER') + ' ID', key: 'municipalityId' },
-    { title: t('ACRONYM_HEADER'), key: 'acronym' },
+    { title: t('DEPENDENCY_HEADER') + ' ID', key: 'dependencyId' },
+    { title: t('ABBREVIATION_HEADER'), key: 'abbreviation' },
     { title: t('NAME_HEADER'), key: 'name' },
-    { title: t('RFC_HEADER'), key: 'rfc' },
+    { title: t('DESCRIPTION_HEADER'), key: 'description' },
     { title: t('STATUS_HEADER'), key: 'isActive' },
+    { title: t('CREATED_AT_HEADER'), key: 'createdAt' },
     { title: t('ACTIONS_HEADER'), key: 'actions', sortable: false }
 ]);
 
 // Data
 const dependencies: Ref<any[]> = ref([]);
-const isDependencyStore = ref(true);
+const isPositionStore = ref(true);
 const states: Ref<any[]> = ref([]);
 const municipalities: Ref<any[]> = ref([]);
+const positions: Ref<any[]> = ref([]);
 const loading: Ref<boolean> = ref(false);
 const search = ref();
-const dependecy: Ref<object> = ref({});
+const position: Ref<object> = ref({});
 const dialog = ref(false);
 const dialogDelete = ref(false);
 
 // Arrow functions
 const formTitle = computed(() => {
-    return isDependencyStore.value ? t('ADD_NEW_ITEM_FIELD') : t('UPDATE_ITEM_FIELD');
+    return isPositionStore.value ? t('ADD_NEW_ITEM_FIELD') : t('UPDATE_ITEM_FIELD');
 });
 
-const storeDependency = () => {
+const storePosition = () => {
   resetForm();
-  isDependencyStore.value = true;
+  isPositionStore.value = true;
 }
 
-const editDependency = (item: any) => {
-    isDependencyStore.value = false;
+const editPosition = (item: any) => {
+    isPositionStore.value = false;
     id.value.value = item.id;
-    municipalityId.value.value = item.municipalityId;
+    dependencyId.value.value = item.dependencyId;
     name.value.value = item.name;
-    acronym.value.value = item.acronym;
-    rfc.value.value = item.rfc;
+    abbreviation.value.value = item.abbreviation;
+    description.value.value = item.description;
     dialog.value = true;
 };
 
-const deleteDependency = (item: object) => {
+const deletePosition = (item: object) => {
   dialogDelete.value = true;
-  dependecy.value = item;
+  position.value = item;
 }
 
 const close = () => {
     dialog.value = false;
     dialogDelete.value = false;
-    isDependencyStore.value = true;
+    isPositionStore.value = true;
     resetForm();
 };
 
@@ -102,24 +110,24 @@ const itemGenericProps = (item: any) => {
 };
 
 // Watchers, lifecycle hooks, and async functions
-const handleSearchDependencies = handleSearchSubmit(async (values: Record<string, any>) => {
-  await indexDependencies(values.searchMunicipalitySelected.id);
+const handleSearchPositions = handleSearchSubmit(async (values: Record<string, any>) => {
+  await indexPositions(values.searchDependencySelected.id);
 });
 
-const indexDependencies = async (id:number) => {
-  dependencies.value = await dependenciesStore.dependenciesByMunicipality(id, loading, t);
+const indexPositions = async (id:number) => {
+  positions.value = await positionsStore.positionsByDependency(id, loading, t);
 };
 
-const handleStoreOrUpdateDependency = handleStoreOrUpdateSubmit(async (values: Record<string, any>) => {
-  await dependenciesStore.storeOrUpdateDependency(values, loading, t, isDependencyStore.value);
-  await indexDependencies(values.municipalityId);
+const handleStoreOrUpdatePosition = handleStoreOrUpdateSubmit(async (values: Record<string, any>) => {
+  await positionsStore.storeOrUpdatePosition(values, loading, t, isPositionStore.value);
+  await indexPositions(values.dependencyId);
   close();
 });
 
-const handleDeleteDependency = async () => {
-  await dependenciesStore.deleteDependency(dependecy.value.id, loading, t);
-  await indexDependencies(dependecy.value.municipalityId);
-  dependecy.value = {};
+const handleDeletePosition = async () => {
+  await positionsStore.deletePosition(position.value.id, loading, t);
+  await indexPositions(position.value.dependencyId);
+  position.value = {};
   close();
 }
 
@@ -132,12 +140,16 @@ watch(searchStateSelected.value, async (val) => {
     municipalities.value = await municipalitiesStore.index(val.id, loading, t);
   }
 });
+watch(searchMunicipalitySelected.value, async (val) => {
+  if (val) {
+    dependencies.value = await dependenciesStore.dependenciesByMunicipality(val.id, loading, t);
+  }
+});
 </script>
 
 <template>
     <div data-aos="fade-left" data-aos-duration="1500">
-      <BaseBreadcrumb title="DEPENDENCIES"></BaseBreadcrumb>
-
+      <BaseBreadcrumb title="POSITIONS"></BaseBreadcrumb>
       <div class="tw-pt-7 tw-pb-1 tw-px-7 tw-rounded-xl tw-bg-container-bg tw-shadow-sm tw-w-full mb-8 tw-flex tw-items-center tw-gap-5">
         <v-select
               color="primary"
@@ -157,7 +169,16 @@ watch(searchStateSelected.value, async (val) => {
               :items="municipalities"
               :error-messages="searchMunicipalitySelected.errorMessage.value"
           ></v-select>
-          <v-btn @click="handleSearchDependencies" :loading="loading" :disabled="loading" class="!tw-bg-gradient-to-r !tw-from-primary !tw-to-secondary !tw-text-white !tw-mb-6" variant="flat" size="large" dark>{{ $t('SEARCH_FIELD') + ' ' + $t('DEPENDENCIES') }}</v-btn>
+          <v-select
+              color="primary"
+              clearable
+              :label="$t('ACTIVE_DEPENDENCIES')"
+              v-model="searchDependencySelected.value.value"
+              :item-props="itemGenericProps"
+              :items="dependencies"
+              :error-messages="searchDependencySelected.errorMessage.value"
+          ></v-select>
+          <v-btn @click="handleSearchPositions" :loading="loading" :disabled="loading" class="!tw-bg-gradient-to-r !tw-from-primary !tw-to-secondary !tw-text-white !tw-mb-6" variant="flat" size="large" dark>{{ $t('SEARCH_FIELD') + ' ' + $t('POSITIONS') }}</v-btn>
       </div>
 
     <v-row>
@@ -166,7 +187,7 @@ watch(searchStateSelected.value, async (val) => {
                 <v-data-table
                     class=" rounded-md datatabels productlist"
                     :headers="headers"
-                    :items="dependencies"
+                    :items="positions"
                     v-model:search="search"
                     items-per-page="5"
                     item-value="name"
@@ -181,7 +202,7 @@ watch(searchStateSelected.value, async (val) => {
                             </div>
                             <div>
                                 <h6 class="text-h6">{{ item.name }}</h6>
-                                <p class="textSecondary">{{ item.acronym }}</p>
+                                <p class="textSecondary">{{ item.abbreviation }}</p>
                             </div>
                         </div>
                     </template>
@@ -196,7 +217,7 @@ watch(searchStateSelected.value, async (val) => {
                         <v-toolbar class="bg-surface" flat>
                             <v-dialog v-model="dialog" max-width="800px">
                                 <template v-slot:activator="{ props }">
-                                    <div class="d-md-flex block justify-space-between w-100 pa-6 align-center tw-gap-5">
+                                    <div class="d-md-flex block justify-space-between w-100 pa-6 align-center">
                                         <v-text-field
                                             clearable
                                             v-model="search"
@@ -206,8 +227,7 @@ watch(searchStateSelected.value, async (val) => {
                                             hide-details
                                             class="mb-md-0 mb-3"
                                         />
-                                        <FormModal v-bind:dependencies="dependencies" />
-                                        <v-btn color="success" size="large" variant="flat" dark v-bind="props" @click="storeDependency" >{{ $t('ADD_NEW_ITEM_FIELD') }}</v-btn>
+                                        <v-btn color="success" variant="flat" size="large" dark v-bind="props" @click="storePosition" >{{ $t('ADD_NEW_ITEM_FIELD') }}</v-btn>
                                     </div>
                                 </template>
                                 <v-card>
@@ -219,18 +239,28 @@ watch(searchStateSelected.value, async (val) => {
                                         <v-select
                                           color="primary"
                                           clearable
-                                          :label="$t('ACTIVE_MUNICIPALITIES')"
-                                          v-model="municipalityId.value.value"
+                                          :label="$t('ACTIVE_DEPENDENCIES')"
+                                          v-model="dependencyId.value.value"
                                           :item-props="itemGenericProps"
-                                          :items="municipalities"
+                                          :items="dependencies"
                                           :item-value="'id'"
-                                          :error-messages="municipalityId.errorMessage.value"
-                                          :hint="$t('MUNICIPALITY_FIELD_NOTICE')"
+                                          :error-messages="dependencyId.errorMessage.value"
+                                          :hint="$t('DEPENDENCY_FIELD_NOTICE')"
                                           persistent-hint
                                         ></v-select>
-                                        <v-text-field clearable v-model="name.value.value" :label="$t('NAME_FIELD')" :error-messages="name.errorMessage.value"></v-text-field>
-                                        <v-text-field clearable v-model="acronym.value.value" :label="$t('ACRONYM_FIELD')" :error-messages="acronym.errorMessage.value"></v-text-field>
-                                        <v-text-field clearable v-model="rfc.value.value" :label="$t('RFC_FIELD')" :error-messages="rfc.errorMessage.value"></v-text-field>
+                                        <v-text-field clearable v-model="abbreviation.value.value" :label="$t('ABBREVIATION_FIELD')" :error-messages="abbreviation.errorMessage.value"></v-text-field>
+                                        <v-text-field clearable v-model="name.value.value" :label="$t('NAME_FIELD')" :error-messages="name.errorMessage.value" class="!tw-w-full !tw-col-span-2"></v-text-field>
+                                        <v-textarea
+                                            class="!tw-w-full !tw-col-span-2"
+                                            :label="$t('DESCRIPTION_FIELD')"
+                                            row-height="30"
+                                            color="primary"
+                                            clearable
+                                            rows="3"
+                                            auto-grow
+                                            v-model="description.value.value"
+                                            :error-messages="description.errorMessage.value"
+                                        ></v-textarea>
                                         <v-switch
                                           v-model="isActive.value.value"
                                           :label="$t('STATUS_FIELD')"
@@ -243,7 +273,7 @@ watch(searchStateSelected.value, async (val) => {
 
                                     <v-card-actions class="pa-4">
                                         <v-btn color="error" variant="flat" dark @click="close"> {{ $t('CANCEL_FIELD') }} </v-btn>
-                                        <v-btn color="success" :loading="loading" :disabled="loading" variant="flat" dark @click="handleStoreOrUpdateDependency"> {{ $t('SAVE_FIELD') }} </v-btn>
+                                        <v-btn color="success" :loading="loading" :disabled="loading" variant="flat" dark @click="handleStoreOrUpdatePosition"> {{ $t('SAVE_FIELD') }} </v-btn>
                                     </v-card-actions>
                                 </v-card>
                             </v-dialog>
@@ -255,12 +285,15 @@ watch(searchStateSelected.value, async (val) => {
                                     <v-card-actions class="!tw-my-3">
                                         <v-spacer></v-spacer>
                                         <v-btn color="error" variant="flat" dark @click="close">{{ $t('CANCEL_FIELD') }}</v-btn>
-                                        <v-btn color="success" variant="flat" dark @click="handleDeleteDependency">{{ $t('CONFIRM_FIELD') }}</v-btn>
+                                        <v-btn color="success" variant="flat" dark @click="handleDeletePosition">{{ $t('CONFIRM_FIELD') }}</v-btn>
                                         <v-spacer></v-spacer>
                                     </v-card-actions>
                                 </v-card>
                             </v-dialog>
                         </v-toolbar>
+                    </template>
+                    <template v-slot:item.createdAt="{ item }">
+                        <span>{{ dateFormat(item.createdAt) }}</span>
                     </template>
                     <template v-slot:item.actions="{ item }">
                         <div class="d-flex gap-3">
@@ -269,14 +302,14 @@ watch(searchStateSelected.value, async (val) => {
                                 height="20"
                                 class="text-primary cursor-pointer"
                                 size="small"
-                                @click="editDependency(item)"
+                                @click="editPosition(item)"
                             />
                             <Icon
                                 icon="solar:trash-bin-minimalistic-linear"
                                 height="20"
                                 class="text-error cursor-pointer"
                                 size="small"
-                                @click="deleteDependency(item)"
+                                @click="deletePosition(item)"
                             />
                         </div>
                     </template>

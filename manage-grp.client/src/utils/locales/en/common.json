@@ -27,5 +27,11 @@
     "ACTIVE_STATES": "Active States",
     "ACTIVE_MUNICIPALITIES": "Active Municipalities",
     "STATE_ACTIVE": "Active",
-    "STATE_INACTIVE": "Inactive"
+    "STATE_INACTIVE": "Inactive",
+    "ACTIVE_AREAS": "Active Areas",
+    "ACTIVE_DEPENDENCIES": "Active Dependencies",
+
+    "STREET": "Street",
+    "SATELLITE": "Satellite",
+    "ADD": "Add"
 }

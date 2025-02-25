@@ -10,6 +10,7 @@ const BLUE_THEME: ThemeTypes = {
     colors: {
         primary: '#635BFF',
         secondary: '#16CDC7',
+        third: '#ec4899',
         info: '#46caeb',
         success: '#22c55e',
         warning: '#ffd648',

@@ -1,5 +1,8 @@
 {
     "MUNICIPALITY_FIELD_NOTICE": "A state must be selected to obtain the active municipalities",
-    "DELETE_ITEM_NOTICE": "Are you sure you want to delete this item?"
-
+    "DELETE_ITEM_NOTICE": "Are you sure you want to delete this item?",
+    "DEPENDENCY_FIELD_NOTICE": "A municipality must be selected to obtain the active dependencies",
+    "ADDRESS_ITEM_NOTICE": "To obtain the address data automatically, a place on the map must be selected",
+    "DEPENDENCY_ADDRESS_ITEM_NOTICE": "To enable address actions, dependencies based on a municipality must be searched",
+    "NO_DEPENDENCIES_FOUND_NOTICE": "No dependencies found for the selected municipality"
 }

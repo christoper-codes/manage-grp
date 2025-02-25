@@ -3,5 +3,6 @@
     "FIELD_LESS_THAN": "Este campo debe tener menos de {count} caracteres",
     "INVALID_EMAIL": "Correo electrónico inválido",
     "INVALID_PASSWORD": "Contraseña inválida",
-    "INVALID_RFC": "RFC inválido"
+    "INVALID_RFC": "RFC inválido",
+    "INVALID_PHONE": "Número de teléfono inválido"
 }

@@ -1,7 +1,10 @@
 <script setup >
 import { Icon } from '@iconify/vue';
-const props = defineProps({
-    title: String,
+defineProps({
+    title: {
+        type: String,
+        required: true
+    }
 });
 </script>
 

@@ -2,6 +2,11 @@
     "DASHBOARD": "DASHBOARD",
     "DASHBOARD_DESC": "Administration",
     "DEPENDENCIES": "Dependencies",
+    "AREAS": "Areas",
+    "ADDRESSES": "Addresses",
+    "POSITIONS": "Positions",
+    "CONTACTS": "Contacts",
+    "BUDGETARY_KEY_DOCUMENT_TYPES": "Budgetary Key Document Types",
 
     "USER_PROFILE": "User Profile"
 }

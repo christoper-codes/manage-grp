@@ -10,6 +10,7 @@ export default {
       colors: {
         'primary': 'rgb(var(--v-theme-primary))',
         'secondary': 'rgb(var(--v-theme-secondary))',
+        'third': 'rgb(var(--v-theme-third))',
         'info': 'rgb(var(--v-theme-info))',
         'success': 'rgb(var(--v-theme-success))',
         'warning': 'rgb(var(--v-theme-warning))',

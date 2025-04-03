@@ -9,18 +9,24 @@
     <PackageJsonScriptsPreview Condition="$(PackageJsonScriptsPreview) == ''">vite preview --port 5050</PackageJsonScriptsPreview>
     <PackageJsonScriptsTypecheck Condition="$(PackageJsonScriptsTypecheck) == ''">vue-tsc --noEmit</PackageJsonScriptsTypecheck>
     <PackageJsonScriptsLint Condition="$(PackageJsonScriptsLint) == ''">eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore</PackageJsonScriptsLint>
+    <PackageJsonDependenciesFullcalendarCore Condition="$(PackageJsonDependenciesFullcalendarCore) == ''">6.1.10</PackageJsonDependenciesFullcalendarCore>
+    <PackageJsonDependenciesFullcalendarDaygrid Condition="$(PackageJsonDependenciesFullcalendarDaygrid) == ''">6.1.10</PackageJsonDependenciesFullcalendarDaygrid>
+    <PackageJsonDependenciesFullcalendarInteraction Condition="$(PackageJsonDependenciesFullcalendarInteraction) == ''">6.1.10</PackageJsonDependenciesFullcalendarInteraction>
+    <PackageJsonDependenciesFullcalendarTimegrid Condition="$(PackageJsonDependenciesFullcalendarTimegrid) == ''">6.1.10</PackageJsonDependenciesFullcalendarTimegrid>
+    <PackageJsonDependenciesFullcalendarVue3 Condition="$(PackageJsonDependenciesFullcalendarVue3) == ''">6.1.10</PackageJsonDependenciesFullcalendarVue3>
     <PackageJsonDependenciesIconifyVue Condition="$(PackageJsonDependenciesIconifyVue) == ''">4.1.1</PackageJsonDependenciesIconifyVue>
     <PackageJsonDependenciesTiptapExtensionTextStyle Condition="$(PackageJsonDependenciesTiptapExtensionTextStyle) == ''">^2.8.0</PackageJsonDependenciesTiptapExtensionTextStyle>
     <PackageJsonDependenciesTiptapPm Condition="$(PackageJsonDependenciesTiptapPm) == ''">2.7.4</PackageJsonDependenciesTiptapPm>
     <PackageJsonDependenciesTiptapStarterKit Condition="$(PackageJsonDependenciesTiptapStarterKit) == ''">2.7.4</PackageJsonDependenciesTiptapStarterKit>
     <PackageJsonDependenciesTiptapVue3 Condition="$(PackageJsonDependenciesTiptapVue3) == ''">2.7.4</PackageJsonDependenciesTiptapVue3>
     <PackageJsonDependenciesTypesAos Condition="$(PackageJsonDependenciesTypesAos) == ''">3.0.7</PackageJsonDependenciesTypesAos>
-    <PackageJsonDependenciesAos Condition="$(PackageJsonDependenciesAos) == ''">2.3.4</PackageJsonDependenciesAos>
+    <PackageJsonDependenciesAos Condition="$(PackageJsonDependenciesAos) == ''">^2.3.4</PackageJsonDependenciesAos>
     <PackageJsonDependenciesApexcharts Condition="$(PackageJsonDependenciesApexcharts) == ''">3.45.2</PackageJsonDependenciesApexcharts>
     <PackageJsonDependenciesAxios Condition="$(PackageJsonDependenciesAxios) == ''">1.6.7</PackageJsonDependenciesAxios>
     <PackageJsonDependenciesAxiosMockAdapter Condition="$(PackageJsonDependenciesAxiosMockAdapter) == ''">1.22.0</PackageJsonDependenciesAxiosMockAdapter>
     <PackageJsonDependenciesChance Condition="$(PackageJsonDependenciesChance) == ''">1.1.12</PackageJsonDependenciesChance>
     <PackageJsonDependenciesDateFns Condition="$(PackageJsonDependenciesDateFns) == ''">3.6.0</PackageJsonDependenciesDateFns>
+    <PackageJsonDependenciesLeaflet Condition="$(PackageJsonDependenciesLeaflet) == ''">^1.9.4</PackageJsonDependenciesLeaflet>
     <PackageJsonDependenciesLodash Condition="$(PackageJsonDependenciesLodash) == ''">^4.17.21</PackageJsonDependenciesLodash>
     <PackageJsonDependenciesMaska Condition="$(PackageJsonDependenciesMaska) == ''">^1.5.0</PackageJsonDependenciesMaska>
     <PackageJsonDependenciesMoment Condition="$(PackageJsonDependenciesMoment) == ''">^2.30.1</PackageJsonDependenciesMoment>
@@ -41,17 +47,14 @@
     <PackageJsonDependenciesVue3Carousel Condition="$(PackageJsonDependenciesVue3Carousel) == ''">0.3.1</PackageJsonDependenciesVue3Carousel>
     <PackageJsonDependenciesVue3PerfectScrollbar Condition="$(PackageJsonDependenciesVue3PerfectScrollbar) == ''">1.6.1</PackageJsonDependenciesVue3PerfectScrollbar>
     <PackageJsonDependenciesVue3PrintNb Condition="$(PackageJsonDependenciesVue3PrintNb) == ''">0.1.4</PackageJsonDependenciesVue3PrintNb>
+    <PackageJsonDependenciesVue3Toastify Condition="$(PackageJsonDependenciesVue3Toastify) == ''">^0.2.8</PackageJsonDependenciesVue3Toastify>
     <PackageJsonDependenciesVuedraggable Condition="$(PackageJsonDependenciesVuedraggable) == ''">2.24.3</PackageJsonDependenciesVuedraggable>
     <PackageJsonDependenciesVuetify Condition="$(PackageJsonDependenciesVuetify) == ''">3.7.1</PackageJsonDependenciesVuetify>
     <PackageJsonDependenciesYup Condition="$(PackageJsonDependenciesYup) == ''">1.4.0</PackageJsonDependenciesYup>
-    <PackageJsonDependenciesFullcalendarCore Condition="$(PackageJsonDependenciesFullcalendarCore) == ''">6.1.10</PackageJsonDependenciesFullcalendarCore>
-    <PackageJsonDependenciesFullcalendarDaygrid Condition="$(PackageJsonDependenciesFullcalendarDaygrid) == ''">6.1.10</PackageJsonDependenciesFullcalendarDaygrid>
-    <PackageJsonDependenciesFullcalendarInteraction Condition="$(PackageJsonDependenciesFullcalendarInteraction) == ''">6.1.10</PackageJsonDependenciesFullcalendarInteraction>
-    <PackageJsonDependenciesFullcalendarTimegrid Condition="$(PackageJsonDependenciesFullcalendarTimegrid) == ''">6.1.10</PackageJsonDependenciesFullcalendarTimegrid>
-    <PackageJsonDependenciesFullcalendarVue3 Condition="$(PackageJsonDependenciesFullcalendarVue3) == ''">6.1.10</PackageJsonDependenciesFullcalendarVue3>
     <PackageJsonDevdependenciesMdiFont Condition="$(PackageJsonDevdependenciesMdiFont) == ''">7.4.47</PackageJsonDevdependenciesMdiFont>
     <PackageJsonDevdependenciesRushstackEslintPatch Condition="$(PackageJsonDevdependenciesRushstackEslintPatch) == ''">1.7.2</PackageJsonDevdependenciesRushstackEslintPatch>
     <PackageJsonDevdependenciesTypesChance Condition="$(PackageJsonDevdependenciesTypesChance) == ''">^1.1.6</PackageJsonDevdependenciesTypesChance>
+    <PackageJsonDevdependenciesTypesLeaflet Condition="$(PackageJsonDevdependenciesTypesLeaflet) == ''">^1.9.16</PackageJsonDevdependenciesTypesLeaflet>
     <PackageJsonDevdependenciesTypesLodash Condition="$(PackageJsonDevdependenciesTypesLodash) == ''">^4.14.202</PackageJsonDevdependenciesTypesLodash>
     <PackageJsonDevdependenciesTypesNode Condition="$(PackageJsonDevdependenciesTypesNode) == ''">20.11.17</PackageJsonDevdependenciesTypesNode>
     <PackageJsonDevdependenciesVitejsPluginVue Condition="$(PackageJsonDevdependenciesVitejsPluginVue) == ''">5.0.4</PackageJsonDevdependenciesVitejsPluginVue>
@@ -64,11 +67,12 @@
     <PackageJsonDevdependenciesPrettier Condition="$(PackageJsonDevdependenciesPrettier) == ''">3.2.5</PackageJsonDevdependenciesPrettier>
     <PackageJsonDevdependenciesSass Condition="$(PackageJsonDevdependenciesSass) == ''">1.70.0</PackageJsonDevdependenciesSass>
     <PackageJsonDevdependenciesSassLoader Condition="$(PackageJsonDevdependenciesSassLoader) == ''">14.1.0</PackageJsonDevdependenciesSassLoader>
+    <PackageJsonDevdependenciesTailwindcss Condition="$(PackageJsonDevdependenciesTailwindcss) == ''">^3.4.17</PackageJsonDevdependenciesTailwindcss>
     <PackageJsonDevdependenciesTypescript Condition="$(PackageJsonDevdependenciesTypescript) == ''">^5.3.3</PackageJsonDevdependenciesTypescript>
     <PackageJsonDevdependenciesVite Condition="$(PackageJsonDevdependenciesVite) == ''">5.4.8</PackageJsonDevdependenciesVite>
+    <PackageJsonDevdependenciesVitePluginVueDevtools Condition="$(PackageJsonDevdependenciesVitePluginVueDevtools) == ''">^7.7.0</PackageJsonDevdependenciesVitePluginVueDevtools>
     <PackageJsonDevdependenciesVueCliPluginVuetify Condition="$(PackageJsonDevdependenciesVueCliPluginVuetify) == ''">2.5.8</PackageJsonDevdependenciesVueCliPluginVuetify>
     <PackageJsonDevdependenciesVueTsc Condition="$(PackageJsonDevdependenciesVueTsc) == ''">^2.1.6</PackageJsonDevdependenciesVueTsc>
     <PackageJsonDevdependenciesVuetifyLoader Condition="$(PackageJsonDevdependenciesVuetifyLoader) == ''">1.9.2</PackageJsonDevdependenciesVuetifyLoader>
-    <PackageJsonDevdependenciesVitePluginVueDevtools Condition="$(PackageJsonDevdependenciesVitePluginVueDevtools) == ''">^7.7.0</PackageJsonDevdependenciesVitePluginVueDevtools>
   </PropertyGroup>
 </Project>

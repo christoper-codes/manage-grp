@@ -1,18 +1,21 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, type Ref, watch } from 'vue';
-import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
-import dataTableImg from '@/assets/images/data/data-table-img.png';
 import dataCircleImg from '@/assets/images/data/data-circle-img.jpeg';
-import { Icon } from '@iconify/vue';
+import dataTableImg from '@/assets/images/data/data-table-img.png';
+import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
 import { useI18n } from 'vue-i18n';
-import { useStatesStore } from '@/stores/app/states';
-import { useMunicipalitiesStore } from '@/stores/app/municipalities';
-import { useDependenciesStore } from '@/stores/app/dependencies';
-import { budgetaryKeyDocumentTypeSearchSchema } from '@/validation/budgetaryKeyDocumentType/search';
-import { budgetaryKeyDocumentTypeStoreOrUpdateSchema } from '@/validation/budgetaryKeyDocumentType/storeOrUpdate';
 import { useField, useForm } from 'vee-validate';
-import { useBudgetaryKeyDocumentTypeStore } from '@/stores/app/budgetaryKeyDocumentType';
+import { resourceDistributionDocumentTypeSearchSchema } from '@/validation/resourceDistributionDocumentType/search';
+import { useMunicipalitiesStore } from '@/stores/app/municipalities';
+import { resourceDistributionDocumentTypeStoreOrUpdateSchema } from '@/validation/resourceDistributionDocumentType/storeOrUpdate';
+
+import { useStatesStore } from '@/stores/app/states';
+import { useDependenciesStore } from '@/stores/app/dependencies';
+import { useRecourceDistributionDocumentTypeStore } from '@/stores/app/resourceDistributionDocumentType';
 import { useDateFormat } from '@/composables/dateFormat';
+
+
+
 
 // i18n translation
 const { t } = useI18n();
@@ -20,29 +23,34 @@ const { t } = useI18n();
 // Composables
 const { dateFormat } = useDateFormat();
 
-// Stores
+//Stores
 const statesStore = useStatesStore();
 const municipalitiesStore = useMunicipalitiesStore();
 const dependenciesStore = useDependenciesStore();
-const budgetaryKeyDocumentTypeStore = useBudgetaryKeyDocumentTypeStore();
+const resoruceDistributionDocumentTypeStore = useRecourceDistributionDocumentTypeStore();
 
-// Form for searching budgetaryKeyDocumentType
-const { handleSubmit: handleSearchSubmit } = useForm({ validationSchema: budgetaryKeyDocumentTypeSearchSchema(t) });
+
+
+
+// Form for searching resourcedistributiondocumentstypes
+const { handleSubmit: handleSearchSubmit } = useForm({ validationSchema: resourceDistributionDocumentTypeSearchSchema(t) });
 const searchStateSelected = useField('searchStateSelected');
 const searchMunicipalitySelected = useField('searchMunicipalitySelected');
-const searchDependencySelected = useField('searchDependitemGenericPropsencySelected');
+const searchDependencySelected = useField('searchDependencySelected');
 
-// Form for storing budgetaryKeyDocumentType
+// Form for storing resourceDistributionDocumentType
 const { handleSubmit: handleStoreOrUpdateSubmit, resetForm } = useForm({
-  validationSchema: budgetaryKeyDocumentTypeStoreOrUpdateSchema(t),
+  validationSchema: resourceDistributionDocumentTypeStoreOrUpdateSchema(t),
   initialValues: {
     isActive: true,
     mandatory: true
   },
 });
+
+
 const id = useField('id');
 const dependencyId = useField('dependencyId');
-const key = useField('key');
+const name = useField('name');
 const mandatory = useField('mandatory');
 const description = useField('description');
 const isActive = useField('isActive');
@@ -51,7 +59,7 @@ const isActive = useField('isActive');
 const headers = ref([
     { title: t('ITEM_IMAGE_HEADER'), key: 'ITEM_IMAGE_HEADER' },
     { title: t('DEPENDENCY_HEADER') + ' ID', key: 'dependencyId' },
-    { title: t('KEY_HEADER') + ' ID', key: 'key' },
+    { title: t('NAME_HEADER'), key: 'name' },
     { title: t('DESCRIPTION_HEADER'), key: 'description' },
     { title: t('STATUS_HEADER'), key: 'isActive' },
     { title: t('MANDATORY_HEADER'), key: 'mandatory' },
@@ -59,77 +67,40 @@ const headers = ref([
     { title: t('ACTIONS_HEADER'), key: 'actions', sortable: false }
 ]);
 
-// Data
-const dependencies: Ref<any[]> = ref([]);
-const isbudgetaryKeyDocumentTypeStore = ref(true);
-const states: Ref<any[]> = ref([]);
-const municipalities: Ref<any[]> = ref([]);
-const budgetaryKeyDocumentTypes: Ref<any[]> = ref([]);
-const loading: Ref<boolean> = ref(false);
+
+//DATA
 const search = ref();
-const budgetaryKeyDocumentType: Ref<object> = ref({});
+const dependencies: Ref<any[]> = ref([]);
+const municipalities: Ref<any[]> = ref([]);
+const loading: Ref<boolean> = ref(false);
 const dialog = ref(false);
+const isResourceDistributionDocumentTypeStore = ref(true);
+const states: Ref<any[]> = ref([]);
+const resourceDistributionDocumentTypes: Ref<any[]> = ref([]);
+const resourceDistributionDocumentType: Ref<object> = ref({});
 const dialogDelete = ref(false);
 
-// Arrow functions
-const formTitle = computed(() => {
-    return isbudgetaryKeyDocumentTypeStore.value ? t('ADD_NEW_ITEM_FIELD') : t('UPDATE_ITEM_FIELD');
+
+// Watchers,
+const handleSearchResourceDistributionDocumentTypes = handleSearchSubmit(async (values: Record<string, any>) => {
+  await indexResourceDistributionDocumentType(values.searchDependencySelected.id);
 });
-
-const storePosition = () => {
-  resetForm();
-  isbudgetaryKeyDocumentTypeStore.value = true;
-}
-
-const editPosition = (item: any) => {
-    isbudgetaryKeyDocumentTypeStore.value = false;
-    id.value.value = item.id;
-    dependencyId.value.value = item.dependencyId;
-    key.value.value = item.key;
-    mandatory.value.value = item.mandatory;
-    description.value.value = item.description;
-    dialog.value = true;
-};
-
-const deletePosition = (item: object) => {
-  dialogDelete.value = true;
-  budgetaryKeyDocumentType.value = item;
-}
-
-const close = () => {
-    dialog.value = false;
-    dialogDelete.value = false;
-    isbudgetaryKeyDocumentTypeStore.value = true;
-    resetForm();
-};
-
-const itemGenericProps = (item: any) => {
-  return {
-    title: item.name,
-    subtitle: item.abbreviation,
-  };
-};
-
-// Watchers, lifecycle hooks, and async functions
-const handleSearchBudgetaryKeyDocumentTypes = handleSearchSubmit(async (values: Record<string, any>) => {
-  await indexBudgetaryKeyDocumentTypes(values.searchDependencySelected.id);
-});
-
-const indexBudgetaryKeyDocumentTypes = async (id:number) => {
-  budgetaryKeyDocumentTypes.value = await budgetaryKeyDocumentTypeStore.budgetaryKeyDocumentTypeByDependency(id, loading, t);
-  console.log(budgetaryKeyDocumentTypes.value);
-};
 
 const handleStoreOrUpdateBudgetaryKeyDocumentType = handleStoreOrUpdateSubmit(async (values: Record<string, any>) => {
-  await budgetaryKeyDocumentTypeStore.storeOrUpdatebudgetaryKeyDocumentType(values, loading, t, isbudgetaryKeyDocumentTypeStore.value);
-  await indexBudgetaryKeyDocumentTypes(values.dependencyId);
+  await resoruceDistributionDocumentTypeStore.storeOrUpdateResourceDistributionDocumentType(values, loading, t, isResourceDistributionDocumentTypeStore.value);
+  await indexResourceDistributionDocumentType(values.dependencyId);
   close();
 });
 
+const indexResourceDistributionDocumentType = async (id:number) => {
+resourceDistributionDocumentTypes.value = await resoruceDistributionDocumentTypeStore.resourceDistributionDocumentTypeByDependency(id, loading, t);
+  console.log(resourceDistributionDocumentTypes.value);
+};
+
 const handleDeleteBudgetaryKeyDocumentType = async () => {
-  await budgetaryKeyDocumentTypeStore.deletebudgetaryKeyDocumentType(budgetaryKeyDocumentType.value.id, loading, t);
-  await indexBudgetaryKeyDocumentTypes(budgetaryKeyDocumentType.value.dependencyId);
-  budgetaryKeyDocumentType.value = {};
+  await resoruceDistributionDocumentTypeStore.deleteResourceDistributionDocumentType(resourceDistributionDocumentType.value.id, loading, t);
+  await indexResourceDistributionDocumentType(resourceDistributionDocumentType.value.dependencyId);
+  resourceDistributionDocumentType.value = {};
   close();
 }
 
@@ -137,21 +108,71 @@ onMounted(async () => {
   states.value = await statesStore.index(loading, t);
 });
 
+
 watch(searchStateSelected.value, async (val) => {
   if (val) {
     municipalities.value = await municipalitiesStore.index(val.id, loading, t);
   }
 });
+
 watch(searchMunicipalitySelected.value, async (val) => {
   if (val) {
     dependencies.value = await dependenciesStore.dependenciesByMunicipality(val.id, loading, t);
   }
 });
+
+onMounted(async () => {
+  states.value = await statesStore.index(loading, t);
+});
+
+//ARRAY FUCTIONS
+
+const formTitle = computed(() => {
+    return isResourceDistributionDocumentTypeStore.value ? t('ADD_NEW_ITEM_FIELD') : t('UPDATE_ITEM_FIELD');
+});
+const storePosition = () => {
+  resetForm();
+  isResourceDistributionDocumentTypeStore.value = true;
+}
+const itemGenericProps = (item: any) => {
+  return {
+    title: item.name,
+    subtitle: item.abbreviation,
+  };
+};
+
+
+const editPosition = (item: any) => {
+    isResourceDistributionDocumentTypeStore.value = false;
+    id.value.value = item.id;
+    dependencyId.value.value = item.dependencyId;
+    name.value.value = item.name;
+    mandatory.value.value = item.mandatory;
+    description.value.value = item.description;
+    dialog.value = true;
+};
+
+const deletePosition = (item: object) => {
+  dialogDelete.value = true;
+  resourceDistributionDocumentType.value = item;
+}
+
+const close = () => {
+    dialog.value = false;
+    //dialogDelete.value = false;
+    isResourceDistributionDocumentTypeStore.value = true;
+    resetForm();
+};
+
+
+
+
+
 </script>
 
 <template>
     <div data-aos="fade-left" data-aos-duration="1500">
-      <BaseBreadcrumb title="BUDGETARY_KEY_DOCUMENT_TYPES"></BaseBreadcrumb>
+      <BaseBreadcrumb title="RESOURCE_DISTRIBUTION_DOCUMENT_TYPES"></BaseBreadcrumb>
       <div class="tw-pt-7 tw-pb-1 tw-px-7 tw-rounded-xl tw-bg-container-bg tw-shadow-sm tw-w-full mb-8 tw-flex tw-items-center tw-gap-5">
         <v-select
               color="primary"
@@ -180,8 +201,9 @@ watch(searchMunicipalitySelected.value, async (val) => {
               :items="dependencies"
               :error-messages="searchDependencySelected.errorMessage.value"
           ></v-select>
-          <v-btn @click="handleSearchBudgetaryKeyDocumentTypes" :loading="loading" :disabled="loading" class="!tw-bg-gradient-to-r !tw-from-primary !tw-to-secondary !tw-text-white !tw-mb-6" variant="flat" size="large" dark>{{ $t('SEARCH_FIELD') + ' ' + $t('BUDGETARY_KEY_DOCUMENT_TYPES') }}</v-btn>
-      </div>
+          <v-btn @click="handleSearchResourceDistributionDocumentTypes" :loading="loading" :disabled="loading" class="!tw-bg-gradient-to-r !tw-from-primary !tw-to-secondary !tw-text-white !tw-mb-6" variant="flat" size="large" dark>{{ $t('SEARCH_FIELD') + ' ' + $t('RESOURCE_DISTRIBUTION_DOCUMENT_TYPES') }}</v-btn>
+        </div>
+    </div>
 
     <v-row>
         <v-col cols="12">
@@ -189,7 +211,7 @@ watch(searchMunicipalitySelected.value, async (val) => {
                 <v-data-table
                     class=" rounded-md datatabels productlist"
                     :headers="headers"
-                    :items="budgetaryKeyDocumentTypes"
+                    :items="resourceDistributionDocumentTypes"
                     v-model:search="search"
                     items-per-page="5"
                     item-value="key"
@@ -213,6 +235,13 @@ watch(searchMunicipalitySelected.value, async (val) => {
                             <Icon icon="carbon:dot-mark" v-if="item.isActive" class="text-success" />
                             <Icon icon="carbon:dot-mark" v-else class="text-error" />
                             {{ item.isActive ? $t('STATE_ACTIVE') : $t('STATE_INACTIVE') }}
+                        </div>
+                    </template>
+                    <template v-slot:item.mandatory="{ item }">
+                        <div class="d-flex gap-2 align-center">
+                            <Icon icon="carbon:dot-mark" v-if="item.mandatory" class="text-success" />
+                            <Icon icon="carbon:dot-mark" v-else class="text-error" />
+                            {{ item.mandatory ? $t('STATE_ACTIVE') : $t('STATE_INACTIVE') }}
                         </div>
                     </template>
                     <template v-slot:top>
@@ -250,7 +279,7 @@ watch(searchMunicipalitySelected.value, async (val) => {
                                           :hint="$t('DEPENDENCY_FIELD_NOTICE')"
                                           persistent-hint
                                         ></v-select>
-                                        <v-text-field clearable v-model="key.value.value" :label="$t('KEY_FIELD')" :error-messages="key.errorMessage.value"></v-text-field>
+                                        <v-text-field clearable v-model="name.value.value" :label="$t('NAME_HEADER')" :error-messages="name.errorMessage.value"></v-text-field>
                                         <v-textarea
                                             class="!tw-w-full !tw-col-span-2"
                                             :label="$t('DESCRIPTION_FIELD')"
@@ -301,6 +330,7 @@ watch(searchMunicipalitySelected.value, async (val) => {
                             </v-dialog>
                         </v-toolbar>
                     </template>
+
                     <template v-slot:item.createdAt="{ item }">
                         <span>{{ dateFormat(item.createdAt) }}</span>
                     </template>
@@ -329,5 +359,5 @@ watch(searchMunicipalitySelected.value, async (val) => {
             </v-card>
         </v-col>
     </v-row>
-    </div>
+
 </template>

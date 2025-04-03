@@ -3,14 +3,31 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace manage_grp.Server.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Initialmigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Permissions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Entity = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Action = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AllowedHierarchyLevels = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Permissions", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "States",
                 columns: table => new
@@ -946,6 +963,97 @@ namespace manage_grp.Server.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Permissions",
+                columns: new[] { "Id", "Action", "AllowedHierarchyLevels", "Entity" },
+                values: new object[,]
+                {
+                    { 1, "Read", "[\"State\"]", "Municipality" },
+                    { 2, "Create", "[\"State\"]", "Municipality" },
+                    { 3, "Update", "[\"State\"]", "Municipality" },
+                    { 4, "Delete", "[\"State\"]", "Municipality" },
+                    { 5, "Read", "[\"Municipality\"]", "Dependency" },
+                    { 6, "Create", "[\"Municipality\"]", "Dependency" },
+                    { 7, "Update", "[\"Municipality\"]", "Dependency" },
+                    { 8, "Delete", "[\"Municipality\"]", "Dependency" },
+                    { 9, "Read", "[\"Dependency\"]", "Area" },
+                    { 10, "Create", "[\"Dependency\"]", "Area" },
+                    { 11, "Update", "[\"Dependency\"]", "Area" },
+                    { 12, "Delete", "[\"Dependency\"]", "Area" },
+                    { 13, "Read", "[\"Area\"]", "AreaServiceType" },
+                    { 14, "Create", "[\"Area\"]", "AreaServiceType" },
+                    { 15, "Update", "[\"Area\"]", "AreaServiceType" },
+                    { 16, "Delete", "[\"Area\"]", "AreaServiceType" },
+                    { 17, "Read", "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]", "User" },
+                    { 18, "Create", "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]", "User" },
+                    { 19, "Update", "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]", "User" },
+                    { 20, "Delete", "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]", "User" },
+                    { 21, "Read", "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]", "Role" },
+                    { 22, "Create", "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]", "Role" },
+                    { 23, "Update", "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]", "Role" },
+                    { 24, "Delete", "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]", "Role" },
+                    { 25, "Read", "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]", "Position" },
+                    { 26, "Create", "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]", "Position" },
+                    { 27, "Update", "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]", "Position" },
+                    { 28, "Delete", "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]", "Position" },
+                    { 29, "Read", "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]", "Contact" },
+                    { 30, "Create", "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]", "Contact" },
+                    { 31, "Update", "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]", "Contact" },
+                    { 32, "Delete", "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]", "Contact" },
+                    { 33, "Read", "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]", "Address" },
+                    { 34, "Create", "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]", "Address" },
+                    { 35, "Update", "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]", "Address" },
+                    { 36, "Delete", "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]", "Address" },
+                    { 37, "Read", "[\"Dependency\"]", "BudgetaryKeyDocumentType" },
+                    { 38, "Create", "[\"Dependency\"]", "BudgetaryKeyDocumentType" },
+                    { 39, "Update", "[\"Dependency\"]", "BudgetaryKeyDocumentType" },
+                    { 40, "Delete", "[\"Dependency\"]", "BudgetaryKeyDocumentType" },
+                    { 41, "Read", "[\"Dependency\"]", "BudgetKeyDefault" },
+                    { 42, "Create", "[\"Dependency\"]", "BudgetKeyDefault" },
+                    { 43, "Update", "[\"Dependency\"]", "BudgetKeyDefault" },
+                    { 44, "Delete", "[\"Dependency\"]", "BudgetKeyDefault" },
+                    { 45, "Read", "[\"Dependency\"]", "BudgetaryKey" },
+                    { 46, "Create", "[\"Dependency\"]", "BudgetaryKey" },
+                    { 47, "Update", "[\"Dependency\"]", "BudgetaryKey" },
+                    { 48, "Delete", "[\"Dependency\"]", "BudgetaryKey" },
+                    { 49, "Read", "[\"Dependency\"]", "ResourceDistributionDocumentType" },
+                    { 50, "Create", "[\"Dependency\"]", "ResourceDistributionDocumentType" },
+                    { 51, "Update", "[\"Dependency\"]", "ResourceDistributionDocumentType" },
+                    { 52, "Delete", "[\"Dependency\"]", "ResourceDistributionDocumentType" },
+                    { 53, "Read", "[\"Dependency\"]", "ResourceType" },
+                    { 54, "Create", "[\"Dependency\"]", "ResourceType" },
+                    { 55, "Update", "[\"Dependency\"]", "ResourceType" },
+                    { 56, "Delete", "[\"Dependency\"]", "ResourceType" },
+                    { 57, "Read", "[\"Dependency\"]", "ResourceDistribution" },
+                    { 58, "Create", "[\"Dependency\"]", "ResourceDistribution" },
+                    { 59, "Update", "[\"Dependency\"]", "ResourceDistribution" },
+                    { 60, "Delete", "[\"Dependency\"]", "ResourceDistribution" },
+                    { 61, "Read", "[\"Dependency\"]", "TenderType" },
+                    { 62, "Create", "[\"Dependency\"]", "TenderType" },
+                    { 63, "Update", "[\"Dependency\"]", "TenderType" },
+                    { 64, "Delete", "[\"Dependency\"]", "TenderType" },
+                    { 65, "Read", "[\"Dependency\"]", "TenderFundingSource" },
+                    { 66, "Create", "[\"Dependency\"]", "TenderFundingSource" },
+                    { 67, "Update", "[\"Dependency\"]", "TenderFundingSource" },
+                    { 68, "Delete", "[\"Dependency\"]", "TenderFundingSource" },
+                    { 69, "Read", "[\"Dependency\"]", "TenderStatus" },
+                    { 70, "Create", "[\"Dependency\"]", "TenderStatus" },
+                    { 71, "Update", "[\"Dependency\"]", "TenderStatus" },
+                    { 72, "Delete", "[\"Dependency\"]", "TenderStatus" },
+                    { 73, "Read", "[\"Dependency\"]", "TenderPriceType" },
+                    { 74, "Create", "[\"Dependency\"]", "TenderPriceType" },
+                    { 75, "Update", "[\"Dependency\"]", "TenderPriceType" },
+                    { 76, "Delete", "[\"Dependency\"]", "TenderPriceType" },
+                    { 77, "Read", "[\"Dependency\"]", "TenderDocumentType" },
+                    { 78, "Create", "[\"Dependency\"]", "TenderDocumentType" },
+                    { 79, "Update", "[\"Dependency\"]", "TenderDocumentType" },
+                    { 80, "Delete", "[\"Dependency\"]", "TenderDocumentType" },
+                    { 81, "Read", "[\"Dependency\"]", "Tender" },
+                    { 82, "Create", "[\"Dependency\"]", "Tender" },
+                    { 83, "Update", "[\"Dependency\"]", "Tender" },
+                    { 84, "Delete", "[\"Dependency\"]", "Tender" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_DependencyId",
                 table: "Addresses",
@@ -1267,6 +1375,9 @@ namespace manage_grp.Server.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Documents");
+
+            migrationBuilder.DropTable(
+                name: "Permissions");
 
             migrationBuilder.DropTable(
                 name: "RefreshTokens");

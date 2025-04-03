@@ -60,6 +60,16 @@ const sidebarItem: menu[] = [
               title: 'BUDGETARY_KEY_DOCUMENT_TYPES',
               icon: 'chart-square-broken',
               to: '/apps/budgetary-key-document-types'
+            },
+            {
+                title: 'RESOURCE_DISTRIBUTION_DOCUMENT_TYPES',
+                icon: 'file-text-outline',
+                to: '/apps/resource-distribution-document-types'
+            },
+            {
+                title: 'TENDER_DOCUMENT_TYPES',
+                icon: 'file-outline',
+                to: '/apps/tender-document-types'
             }
         ]
     },

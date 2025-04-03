@@ -8,11 +8,13 @@ import { useI18n } from 'vue-i18n';
 import { useStatesStore } from '@/stores/app/states';
 import { useMunicipalitiesStore } from '@/stores/app/municipalities';
 import { useDependenciesStore } from '@/stores/app/dependencies';
-import { budgetaryKeyDocumentTypeSearchSchema } from '@/validation/budgetaryKeyDocumentType/search';
-import { budgetaryKeyDocumentTypeStoreOrUpdateSchema } from '@/validation/budgetaryKeyDocumentType/storeOrUpdate';
 import { useField, useForm } from 'vee-validate';
-import { useBudgetaryKeyDocumentTypeStore } from '@/stores/app/budgetaryKeyDocumentType';
+import { tenderDocumentTypeSearchSchema } from '@/validation/tenderDocumentType/search';
+import { tenderDocumentTypeStoreOrUpdateSchema } from '@/validation/tenderDocumentType/storeOrUpdate';
+import { useTenderDocumentTypeStore } from '@/stores/app/tenderDocumentType';
 import { useDateFormat } from '@/composables/dateFormat';
+
+
 
 // i18n translation
 const { t } = useI18n();
@@ -20,89 +22,26 @@ const { t } = useI18n();
 // Composables
 const { dateFormat } = useDateFormat();
 
+
 // Stores
 const statesStore = useStatesStore();
 const municipalitiesStore = useMunicipalitiesStore();
 const dependenciesStore = useDependenciesStore();
-const budgetaryKeyDocumentTypeStore = useBudgetaryKeyDocumentTypeStore();
+const tenderDocumentTypeStore = useTenderDocumentTypeStore();
 
-// Form for searching budgetaryKeyDocumentType
-const { handleSubmit: handleSearchSubmit } = useForm({ validationSchema: budgetaryKeyDocumentTypeSearchSchema(t) });
+
+
+
+
+// Form for searching tenderDocumentType
+const { handleSubmit: handleSearchSubmit } = useForm({ validationSchema: tenderDocumentTypeSearchSchema(t) });
 const searchStateSelected = useField('searchStateSelected');
 const searchMunicipalitySelected = useField('searchMunicipalitySelected');
-const searchDependencySelected = useField('searchDependitemGenericPropsencySelected');
+const searchDependencySelected = useField('searchDependencySelected');
 
-// Form for storing budgetaryKeyDocumentType
-const { handleSubmit: handleStoreOrUpdateSubmit, resetForm } = useForm({
-  validationSchema: budgetaryKeyDocumentTypeStoreOrUpdateSchema(t),
-  initialValues: {
-    isActive: true,
-    mandatory: true
-  },
-});
-const id = useField('id');
-const dependencyId = useField('dependencyId');
-const key = useField('key');
-const mandatory = useField('mandatory');
-const description = useField('description');
-const isActive = useField('isActive');
 
-// Header for the table
-const headers = ref([
-    { title: t('ITEM_IMAGE_HEADER'), key: 'ITEM_IMAGE_HEADER' },
-    { title: t('DEPENDENCY_HEADER') + ' ID', key: 'dependencyId' },
-    { title: t('KEY_HEADER') + ' ID', key: 'key' },
-    { title: t('DESCRIPTION_HEADER'), key: 'description' },
-    { title: t('STATUS_HEADER'), key: 'isActive' },
-    { title: t('MANDATORY_HEADER'), key: 'mandatory' },
-    { title: t('CREATED_AT_HEADER'), key: 'createdAt' },
-    { title: t('ACTIONS_HEADER'), key: 'actions', sortable: false }
-]);
 
-// Data
-const dependencies: Ref<any[]> = ref([]);
-const isbudgetaryKeyDocumentTypeStore = ref(true);
-const states: Ref<any[]> = ref([]);
-const municipalities: Ref<any[]> = ref([]);
-const budgetaryKeyDocumentTypes: Ref<any[]> = ref([]);
-const loading: Ref<boolean> = ref(false);
-const search = ref();
-const budgetaryKeyDocumentType: Ref<object> = ref({});
-const dialog = ref(false);
-const dialogDelete = ref(false);
-
-// Arrow functions
-const formTitle = computed(() => {
-    return isbudgetaryKeyDocumentTypeStore.value ? t('ADD_NEW_ITEM_FIELD') : t('UPDATE_ITEM_FIELD');
-});
-
-const storePosition = () => {
-  resetForm();
-  isbudgetaryKeyDocumentTypeStore.value = true;
-}
-
-const editPosition = (item: any) => {
-    isbudgetaryKeyDocumentTypeStore.value = false;
-    id.value.value = item.id;
-    dependencyId.value.value = item.dependencyId;
-    key.value.value = item.key;
-    mandatory.value.value = item.mandatory;
-    description.value.value = item.description;
-    dialog.value = true;
-};
-
-const deletePosition = (item: object) => {
-  dialogDelete.value = true;
-  budgetaryKeyDocumentType.value = item;
-}
-
-const close = () => {
-    dialog.value = false;
-    dialogDelete.value = false;
-    isbudgetaryKeyDocumentTypeStore.value = true;
-    resetForm();
-};
-
+//ARROW FUNCTIONS
 const itemGenericProps = (item: any) => {
   return {
     title: item.name,
@@ -110,28 +49,86 @@ const itemGenericProps = (item: any) => {
   };
 };
 
-// Watchers, lifecycle hooks, and async functions
-const handleSearchBudgetaryKeyDocumentTypes = handleSearchSubmit(async (values: Record<string, any>) => {
-  await indexBudgetaryKeyDocumentTypes(values.searchDependencySelected.id);
+const formTitle = computed(() => {
+    return isTenderDocumentTypeStore.value ? t('ADD_NEW_ITEM_FIELD') : t('UPDATE_ITEM_FIELD');
 });
 
-const indexBudgetaryKeyDocumentTypes = async (id:number) => {
-  budgetaryKeyDocumentTypes.value = await budgetaryKeyDocumentTypeStore.budgetaryKeyDocumentTypeByDependency(id, loading, t);
-  console.log(budgetaryKeyDocumentTypes.value);
+
+const storePosition = () => {
+  resetForm();
+  isTenderDocumentTypeStore.value = true;
+}
+
+const editPosition = (item: any) => {
+    isTenderDocumentTypeStore.value = false;
+    id.value.value = item.id;
+    dependencyId.value.value = item.dependencyId;
+    name.value.value = item.name;
+    mandatory.value.value = item.mandatory;
+    description.value.value = item.description;
+    dialog.value = true;
 };
 
-const handleStoreOrUpdateBudgetaryKeyDocumentType = handleStoreOrUpdateSubmit(async (values: Record<string, any>) => {
-  await budgetaryKeyDocumentTypeStore.storeOrUpdatebudgetaryKeyDocumentType(values, loading, t, isbudgetaryKeyDocumentTypeStore.value);
-  await indexBudgetaryKeyDocumentTypes(values.dependencyId);
-  close();
-});
-
-const handleDeleteBudgetaryKeyDocumentType = async () => {
-  await budgetaryKeyDocumentTypeStore.deletebudgetaryKeyDocumentType(budgetaryKeyDocumentType.value.id, loading, t);
-  await indexBudgetaryKeyDocumentTypes(budgetaryKeyDocumentType.value.dependencyId);
-  budgetaryKeyDocumentType.value = {};
-  close();
+const deletePosition = (item: object) => {
+  dialogDelete.value = true;
+  tenderDocumentType.value = item;
 }
+
+const close = () => {
+    dialog.value = false;
+    dialogDelete.value = false;
+    isTenderDocumentTypeStore.value = true;
+    resetForm();
+};
+
+
+
+//DATA
+const tenderDocumentType: Ref<object> = ref({});
+const dialogDelete = ref(false);
+const isTenderDocumentTypeStore = ref(true);
+const loading: Ref<boolean> = ref(false);
+const dependencies: Ref<any[]> = ref([]);
+const states: Ref<any[]> = ref([]);
+const municipalities: Ref<any[]> = ref([]);
+const tenderDocumentTypes: Ref<any[]> = ref([]);
+const search = ref();
+const dialog = ref(false);
+
+
+// Form for storing tenderDocumentType
+const { handleSubmit: handleStoreOrUpdateSubmit, resetForm } = useForm({
+  validationSchema: tenderDocumentTypeStoreOrUpdateSchema(t),
+  initialValues: {
+    isActive: true,
+    mandatory: true
+  },
+});
+const id = useField('id');
+const dependencyId = useField('dependencyId');
+const name = useField('name');
+const mandatory = useField('mandatory');
+const description = useField('description');
+const isActive = useField('isActive');
+
+
+
+
+
+// Header for the table
+const headers = ref([
+    { title: t('ITEM_IMAGE_HEADER'), key: 'ITEM_IMAGE_HEADER' },
+    { title: t('DEPENDENCY_HEADER') + ' ID', key: 'dependencyId' },
+    { title: t('NAME_HEADER'), key: 'name' },
+    { title: t('DESCRIPTION_HEADER'), key: 'description' },
+    { title: t('STATUS_HEADER'), key: 'isActive' },
+    { title: t('MANDATORY_HEADER'), key: 'mandatory' },
+    { title: t('CREATED_AT_HEADER'), key: 'createdAt' },
+    { title: t('ACTIONS_HEADER'), key: 'actions', sortable: false }
+]);
+
+
+// Watchers, lifecycle hooks, and async functions
 
 onMounted(async () => {
   states.value = await statesStore.index(loading, t);
@@ -147,12 +144,37 @@ watch(searchMunicipalitySelected.value, async (val) => {
     dependencies.value = await dependenciesStore.dependenciesByMunicipality(val.id, loading, t);
   }
 });
+
+
+const handleSearchTenderDocumentTypes = handleSearchSubmit(async (values: Record<string, any>) => {
+  await indexTenderDocumentTypes(values.searchDependencySelected.id);
+});
+
+const indexTenderDocumentTypes = async (id:number) => {
+    tenderDocumentTypes.value = await tenderDocumentTypeStore.tenderDocumentTypeByDependency(id, loading, t);
+};
+
+const handleStoreOrUpdateTenderDocumentType = handleStoreOrUpdateSubmit(async (values: Record<string, any>) => {
+  await tenderDocumentTypeStore.storeOrUpdateTenderDocumentType(values, loading, t, isTenderDocumentTypeStore.value);
+  await indexTenderDocumentTypes(values.dependencyId);
+  close();
+});
+
+const handleDeleteTenderDocumentType = async () => {
+  await tenderDocumentTypeStore.deleteTenderDocumentType(tenderDocumentType.value.id, loading, t);
+  await indexTenderDocumentTypes(tenderDocumentType.value.dependencyId);
+  tenderDocumentType.value = {};
+  close();
+}
 </script>
 
+
+
 <template>
+
     <div data-aos="fade-left" data-aos-duration="1500">
-      <BaseBreadcrumb title="BUDGETARY_KEY_DOCUMENT_TYPES"></BaseBreadcrumb>
-      <div class="tw-pt-7 tw-pb-1 tw-px-7 tw-rounded-xl tw-bg-container-bg tw-shadow-sm tw-w-full mb-8 tw-flex tw-items-center tw-gap-5">
+        <BaseBreadcrumb title="TENDER_DOCUMENT_TYPES"></BaseBreadcrumb>
+        <div class="tw-pt-7 tw-pb-1 tw-px-7 tw-rounded-xl tw-bg-container-bg tw-shadow-sm tw-w-full mb-8 tw-flex tw-items-center tw-gap-5">
         <v-select
               color="primary"
               clearable
@@ -180,16 +202,16 @@ watch(searchMunicipalitySelected.value, async (val) => {
               :items="dependencies"
               :error-messages="searchDependencySelected.errorMessage.value"
           ></v-select>
-          <v-btn @click="handleSearchBudgetaryKeyDocumentTypes" :loading="loading" :disabled="loading" class="!tw-bg-gradient-to-r !tw-from-primary !tw-to-secondary !tw-text-white !tw-mb-6" variant="flat" size="large" dark>{{ $t('SEARCH_FIELD') + ' ' + $t('BUDGETARY_KEY_DOCUMENT_TYPES') }}</v-btn>
+          <v-btn @click="handleSearchTenderDocumentTypes" :loading="loading" :disabled="loading" class="!tw-bg-gradient-to-r !tw-from-primary !tw-to-secondary !tw-text-white !tw-mb-6" variant="flat" size="large" dark>{{ $t('SEARCH_FIELD') + ' ' + $t('TENDER_DOCUMENT_TYPES') }}</v-btn>
       </div>
 
-    <v-row>
+      <v-row>
         <v-col cols="12">
             <v-card elevation="10">
                 <v-data-table
                     class=" rounded-md datatabels productlist"
                     :headers="headers"
-                    :items="budgetaryKeyDocumentTypes"
+                    :items="tenderDocumentTypes"
                     v-model:search="search"
                     items-per-page="5"
                     item-value="key"
@@ -215,6 +237,15 @@ watch(searchMunicipalitySelected.value, async (val) => {
                             {{ item.isActive ? $t('STATE_ACTIVE') : $t('STATE_INACTIVE') }}
                         </div>
                     </template>
+
+                    <template v-slot:item.mandatory="{ item }">
+                        <div class="d-flex gap-2 align-center">
+                            <Icon icon="carbon:dot-mark" v-if="item.mandatory" class="text-success" />
+                            <Icon icon="carbon:dot-mark" v-else class="text-error" />
+                            {{ item.mandatory ? $t('STATE_ACTIVE') : $t('STATE_INACTIVE') }}
+                        </div>
+                    </template>
+                    
                     <template v-slot:top>
                         <v-toolbar class="bg-surface" flat>
                             <v-dialog v-model="dialog" max-width="800px">
@@ -250,7 +281,7 @@ watch(searchMunicipalitySelected.value, async (val) => {
                                           :hint="$t('DEPENDENCY_FIELD_NOTICE')"
                                           persistent-hint
                                         ></v-select>
-                                        <v-text-field clearable v-model="key.value.value" :label="$t('KEY_FIELD')" :error-messages="key.errorMessage.value"></v-text-field>
+                                        <v-text-field clearable v-model="name.value.value" :label="$t('NAME_FIELD')" :error-messages="name.errorMessage.value"></v-text-field>
                                         <v-textarea
                                             class="!tw-w-full !tw-col-span-2"
                                             :label="$t('DESCRIPTION_FIELD')"
@@ -282,7 +313,7 @@ watch(searchMunicipalitySelected.value, async (val) => {
 
                                     <v-card-actions class="pa-4">
                                         <v-btn color="error" variant="flat" dark @click="close"> {{ $t('CANCEL_FIELD') }} </v-btn>
-                                        <v-btn color="success" :loading="loading" :disabled="loading" variant="flat" dark @click="handleStoreOrUpdateBudgetaryKeyDocumentType"> {{ $t('SAVE_FIELD') }} </v-btn>
+                                        <v-btn color="success" :loading="loading" :disabled="loading" variant="flat" dark @click="handleStoreOrUpdateTenderDocumentType"> {{ $t('SAVE_FIELD') }} </v-btn>
                                     </v-card-actions>
                                 </v-card>
                             </v-dialog>
@@ -294,7 +325,7 @@ watch(searchMunicipalitySelected.value, async (val) => {
                                     <v-card-actions class="!tw-my-3">
                                         <v-spacer></v-spacer>
                                         <v-btn color="error" variant="flat" dark @click="close">{{ $t('CANCEL_FIELD') }}</v-btn>
-                                        <v-btn color="success" variant="flat" dark @click="handleDeleteBudgetaryKeyDocumentType">{{ $t('CONFIRM_FIELD') }}</v-btn>
+                                        <v-btn color="success" variant="flat" dark @click="handleDeleteTenderDocumentType">{{ $t('CONFIRM_FIELD') }}</v-btn>
                                         <v-spacer></v-spacer>
                                     </v-card-actions>
                                 </v-card>

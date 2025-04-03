@@ -37,6 +37,16 @@ const MainRoutes = {
           name: 'budgetary-key-document-types',
           path: '/apps/budgetary-key-document-types',
           component: () => import('@/views/apps/BudgetaryKeyDocumentTypes.vue')
+        },
+        {
+          name: 'resource-distribution-document-types',
+          path: '/apps/resource-distribution-document-types',
+          component: () => import('@/views/apps/ResourceDistributionDocumentTypes.vue')
+        },
+        {
+          name: 'tender-document-types',
+          path: '/apps/tender-document-types',
+          component: () => import('@/views/apps/TenderDocumentTypes.vue')
         }
     ]
 };

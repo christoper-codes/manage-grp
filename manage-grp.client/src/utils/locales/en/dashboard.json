@@ -7,6 +7,7 @@
     "POSITIONS": "Positions",
     "CONTACTS": "Contacts",
     "BUDGETARY_KEY_DOCUMENT_TYPES": "Budgetary Key Document Types",
-
+    "RESOURCE_DISTRIBUTION_DOCUMENT_TYPES": "Resource Distribution Document Types",
+    "TENDER_DOCUMENT_TYPES": "Tender Document Types",
     "USER_PROFILE": "User Profile"
 }

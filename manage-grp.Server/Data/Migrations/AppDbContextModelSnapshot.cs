@@ -249,7 +249,7 @@ namespace manage_grp.Server.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DependencyId")
+                    b.Property<int?>("DependencyId")
                         .HasColumnType("int");
 
                     b.Property<int>("ExteriorNumber")
@@ -333,6 +333,40 @@ namespace manage_grp.Server.Data.Migrations
                     b.HasIndex("DependencyId");
 
                     b.ToTable("Areas");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.AreaServiceType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AreaId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AreaId");
+
+                    b.ToTable("AreaServiceTypes");
                 });
 
             modelBuilder.Entity("manage_grp.Server.Models.BudgetKeyDefault", b =>
@@ -671,6 +705,9 @@ namespace manage_grp.Server.Data.Migrations
                     b.Property<int?>("Size")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TenderDocumentTypeTenderId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -683,6 +720,10 @@ namespace manage_grp.Server.Data.Migrations
                     b.HasIndex("ResourceDistributionDocumentTypeResourceDistributionId")
                         .IsUnique()
                         .HasFilter("[ResourceDistributionDocumentTypeResourceDistributionId] IS NOT NULL");
+
+                    b.HasIndex("TenderDocumentTypeTenderId")
+                        .IsUnique()
+                        .HasFilter("[TenderDocumentTypeTenderId] IS NOT NULL");
 
                     b.ToTable("DocumentRequirements");
                 });
@@ -726,6 +767,621 @@ namespace manage_grp.Server.Data.Migrations
                     b.HasIndex("StateId");
 
                     b.ToTable("Municipalities");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.Permission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.PrimitiveCollection<string>("AllowedHierarchyLevels")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Entity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Permissions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"State\"]",
+                            Entity = "Municipality"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"State\"]",
+                            Entity = "Municipality"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"State\"]",
+                            Entity = "Municipality"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"State\"]",
+                            Entity = "Municipality"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Municipality\"]",
+                            Entity = "Dependency"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Municipality\"]",
+                            Entity = "Dependency"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Municipality\"]",
+                            Entity = "Dependency"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Municipality\"]",
+                            Entity = "Dependency"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "Area"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "Area"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "Area"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "Area"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Area\"]",
+                            Entity = "AreaServiceType"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Area\"]",
+                            Entity = "AreaServiceType"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Area\"]",
+                            Entity = "AreaServiceType"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Area\"]",
+                            Entity = "AreaServiceType"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "User"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "User"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "User"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "User"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Role"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Role"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Role"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Role"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Position"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Position"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Position"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Position"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Contact"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Contact"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Contact"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Contact"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Address"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Address"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Address"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Address"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetaryKeyDocumentType"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetaryKeyDocumentType"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetaryKeyDocumentType"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetaryKeyDocumentType"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetKeyDefault"
+                        },
+                        new
+                        {
+                            Id = 42,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetKeyDefault"
+                        },
+                        new
+                        {
+                            Id = 43,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetKeyDefault"
+                        },
+                        new
+                        {
+                            Id = 44,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetKeyDefault"
+                        },
+                        new
+                        {
+                            Id = 45,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetaryKey"
+                        },
+                        new
+                        {
+                            Id = 46,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetaryKey"
+                        },
+                        new
+                        {
+                            Id = 47,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetaryKey"
+                        },
+                        new
+                        {
+                            Id = 48,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetaryKey"
+                        },
+                        new
+                        {
+                            Id = 49,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceDistributionDocumentType"
+                        },
+                        new
+                        {
+                            Id = 50,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceDistributionDocumentType"
+                        },
+                        new
+                        {
+                            Id = 51,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceDistributionDocumentType"
+                        },
+                        new
+                        {
+                            Id = 52,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceDistributionDocumentType"
+                        },
+                        new
+                        {
+                            Id = 53,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceType"
+                        },
+                        new
+                        {
+                            Id = 54,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceType"
+                        },
+                        new
+                        {
+                            Id = 55,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceType"
+                        },
+                        new
+                        {
+                            Id = 56,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceType"
+                        },
+                        new
+                        {
+                            Id = 57,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceDistribution"
+                        },
+                        new
+                        {
+                            Id = 58,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceDistribution"
+                        },
+                        new
+                        {
+                            Id = 59,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceDistribution"
+                        },
+                        new
+                        {
+                            Id = 60,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceDistribution"
+                        },
+                        new
+                        {
+                            Id = 61,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderType"
+                        },
+                        new
+                        {
+                            Id = 62,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderType"
+                        },
+                        new
+                        {
+                            Id = 63,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderType"
+                        },
+                        new
+                        {
+                            Id = 64,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderType"
+                        },
+                        new
+                        {
+                            Id = 65,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderFundingSource"
+                        },
+                        new
+                        {
+                            Id = 66,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderFundingSource"
+                        },
+                        new
+                        {
+                            Id = 67,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderFundingSource"
+                        },
+                        new
+                        {
+                            Id = 68,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderFundingSource"
+                        },
+                        new
+                        {
+                            Id = 69,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderStatus"
+                        },
+                        new
+                        {
+                            Id = 70,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderStatus"
+                        },
+                        new
+                        {
+                            Id = 71,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderStatus"
+                        },
+                        new
+                        {
+                            Id = 72,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderStatus"
+                        },
+                        new
+                        {
+                            Id = 73,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderPriceType"
+                        },
+                        new
+                        {
+                            Id = 74,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderPriceType"
+                        },
+                        new
+                        {
+                            Id = 75,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderPriceType"
+                        },
+                        new
+                        {
+                            Id = 76,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderPriceType"
+                        },
+                        new
+                        {
+                            Id = 77,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderDocumentType"
+                        },
+                        new
+                        {
+                            Id = 78,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderDocumentType"
+                        },
+                        new
+                        {
+                            Id = 79,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderDocumentType"
+                        },
+                        new
+                        {
+                            Id = 80,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderDocumentType"
+                        },
+                        new
+                        {
+                            Id = 81,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "Tender"
+                        },
+                        new
+                        {
+                            Id = 82,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "Tender"
+                        },
+                        new
+                        {
+                            Id = 83,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "Tender"
+                        },
+                        new
+                        {
+                            Id = 84,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "Tender"
+                        });
                 });
 
             modelBuilder.Entity("manage_grp.Server.Models.Position", b =>
@@ -932,6 +1588,38 @@ namespace manage_grp.Server.Data.Migrations
                     b.ToTable("ResourceDistributionDocumentTypeResourceDistributions");
                 });
 
+            modelBuilder.Entity("manage_grp.Server.Models.ResourceDistributionTender", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ResourceDistributionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TenderId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResourceDistributionId");
+
+                    b.HasIndex("TenderId");
+
+                    b.ToTable("ResourceDistributionTenders");
+                });
+
             modelBuilder.Entity("manage_grp.Server.Models.ResourceType", b =>
                 {
                     b.Property<int>("Id")
@@ -965,41 +1653,6 @@ namespace manage_grp.Server.Data.Migrations
                     b.HasIndex("DependencyId");
 
                     b.ToTable("ResourceTypes");
-                });
-
-            modelBuilder.Entity("manage_grp.Server.Models.ServiceType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("AreaId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AreaId");
-
-                    b.ToTable("ServiceTypes");
                 });
 
             modelBuilder.Entity("manage_grp.Server.Models.State", b =>
@@ -1037,6 +1690,140 @@ namespace manage_grp.Server.Data.Migrations
                         .HasFilter("[ExternalStateId] IS NOT NULL");
 
                     b.ToTable("States");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.Tender", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AreaServiceTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Observation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PublicationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("TenderFundingSourceId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TenderPriceTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TenderStatusId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TenderTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("Uuid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AreaServiceTypeId");
+
+                    b.HasIndex("TenderFundingSourceId");
+
+                    b.HasIndex("TenderPriceTypeId");
+
+                    b.HasIndex("TenderStatusId");
+
+                    b.HasIndex("TenderTypeId");
+
+                    b.ToTable("Tenders");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.TenderDocumentType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DependencyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Mandatory")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DependencyId");
+
+                    b.ToTable("TenderDocumentTypes");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.TenderDocumentTypeTender", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TenderDocumentTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TenderId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenderDocumentTypeId");
+
+                    b.HasIndex("TenderId");
+
+                    b.ToTable("TenderDocumentTypeTenders");
                 });
 
             modelBuilder.Entity("manage_grp.Server.Models.TenderFundingSource", b =>
@@ -1290,9 +2077,7 @@ namespace manage_grp.Server.Data.Migrations
                 {
                     b.HasOne("manage_grp.Server.Models.Dependency", "Dependency")
                         .WithMany()
-                        .HasForeignKey("DependencyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DependencyId");
 
                     b.Navigation("Dependency");
                 });
@@ -1306,6 +2091,15 @@ namespace manage_grp.Server.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Dependency");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.AreaServiceType", b =>
+                {
+                    b.HasOne("manage_grp.Server.Models.Area", "Area")
+                        .WithMany("AreaServiceTypes")
+                        .HasForeignKey("AreaId");
+
+                    b.Navigation("Area");
                 });
 
             modelBuilder.Entity("manage_grp.Server.Models.BudgetKeyDefault", b =>
@@ -1424,9 +2218,15 @@ namespace manage_grp.Server.Data.Migrations
                         .WithOne("DocumentRequirement")
                         .HasForeignKey("manage_grp.Server.Models.DocumentRequirement", "ResourceDistributionDocumentTypeResourceDistributionId");
 
+                    b.HasOne("manage_grp.Server.Models.TenderDocumentTypeTender", "TenderDocumentTypeTender")
+                        .WithOne("DocumentRequirement")
+                        .HasForeignKey("manage_grp.Server.Models.DocumentRequirement", "TenderDocumentTypeTenderId");
+
                     b.Navigation("BudgetaryKeyDocumentTypeBudgetaryKey");
 
                     b.Navigation("ResourceDistributionDocumentTypeResourceDistribution");
+
+                    b.Navigation("TenderDocumentTypeTender");
                 });
 
             modelBuilder.Entity("manage_grp.Server.Models.Municipality", b =>
@@ -1514,6 +2314,25 @@ namespace manage_grp.Server.Data.Migrations
                     b.Navigation("ResourceDistributionDocumentType");
                 });
 
+            modelBuilder.Entity("manage_grp.Server.Models.ResourceDistributionTender", b =>
+                {
+                    b.HasOne("manage_grp.Server.Models.ResourceDistribution", "ResourceDistribution")
+                        .WithMany("ResourceDistributionTenders")
+                        .HasForeignKey("ResourceDistributionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("manage_grp.Server.Models.Tender", "Tender")
+                        .WithMany("ResourceDistributionTenders")
+                        .HasForeignKey("TenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ResourceDistribution");
+
+                    b.Navigation("Tender");
+                });
+
             modelBuilder.Entity("manage_grp.Server.Models.ResourceType", b =>
                 {
                     b.HasOne("manage_grp.Server.Models.Dependency", "Dependency")
@@ -1525,19 +2344,73 @@ namespace manage_grp.Server.Data.Migrations
                     b.Navigation("Dependency");
                 });
 
-            modelBuilder.Entity("manage_grp.Server.Models.ServiceType", b =>
+            modelBuilder.Entity("manage_grp.Server.Models.Tender", b =>
                 {
-                    b.HasOne("manage_grp.Server.Models.Area", "Area")
-                        .WithMany()
-                        .HasForeignKey("AreaId");
+                    b.HasOne("manage_grp.Server.Models.AreaServiceType", "AreaServiceType")
+                        .WithMany("Tenders")
+                        .HasForeignKey("AreaServiceTypeId");
 
-                    b.Navigation("Area");
+                    b.HasOne("manage_grp.Server.Models.TenderFundingSource", "TenderFundingSource")
+                        .WithMany()
+                        .HasForeignKey("TenderFundingSourceId");
+
+                    b.HasOne("manage_grp.Server.Models.TenderPriceType", "TenderPriceType")
+                        .WithMany()
+                        .HasForeignKey("TenderPriceTypeId");
+
+                    b.HasOne("manage_grp.Server.Models.TenderStatus", "TenderStatus")
+                        .WithMany()
+                        .HasForeignKey("TenderStatusId");
+
+                    b.HasOne("manage_grp.Server.Models.TenderType", "TenderType")
+                        .WithMany()
+                        .HasForeignKey("TenderTypeId");
+
+                    b.Navigation("AreaServiceType");
+
+                    b.Navigation("TenderFundingSource");
+
+                    b.Navigation("TenderPriceType");
+
+                    b.Navigation("TenderStatus");
+
+                    b.Navigation("TenderType");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.TenderDocumentType", b =>
+                {
+                    b.HasOne("manage_grp.Server.Models.Dependency", "Dependency")
+                        .WithMany()
+                        .HasForeignKey("DependencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Dependency");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.TenderDocumentTypeTender", b =>
+                {
+                    b.HasOne("manage_grp.Server.Models.TenderDocumentType", "TenderDocumentType")
+                        .WithMany("TenderDocumentTypeTenders")
+                        .HasForeignKey("TenderDocumentTypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("manage_grp.Server.Models.Tender", "Tender")
+                        .WithMany("TenderDocumentTypeTenders")
+                        .HasForeignKey("TenderId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Tender");
+
+                    b.Navigation("TenderDocumentType");
                 });
 
             modelBuilder.Entity("manage_grp.Server.Models.TenderFundingSource", b =>
                 {
                     b.HasOne("manage_grp.Server.Models.Dependency", "Dependency")
-                        .WithMany()
+                        .WithMany("TenderFundingSources")
                         .HasForeignKey("DependencyId");
 
                     b.Navigation("Dependency");
@@ -1546,7 +2419,7 @@ namespace manage_grp.Server.Data.Migrations
             modelBuilder.Entity("manage_grp.Server.Models.TenderPriceType", b =>
                 {
                     b.HasOne("manage_grp.Server.Models.Dependency", "Dependency")
-                        .WithMany()
+                        .WithMany("TenderPriceTypes")
                         .HasForeignKey("DependencyId");
 
                     b.Navigation("Dependency");
@@ -1555,7 +2428,7 @@ namespace manage_grp.Server.Data.Migrations
             modelBuilder.Entity("manage_grp.Server.Models.TenderStatus", b =>
                 {
                     b.HasOne("manage_grp.Server.Models.Dependency", "Dependency")
-                        .WithMany()
+                        .WithMany("TenderStatuses")
                         .HasForeignKey("DependencyId");
 
                     b.Navigation("Dependency");
@@ -1564,7 +2437,7 @@ namespace manage_grp.Server.Data.Migrations
             modelBuilder.Entity("manage_grp.Server.Models.TenderType", b =>
                 {
                     b.HasOne("manage_grp.Server.Models.Dependency", "Dependency")
-                        .WithMany()
+                        .WithMany("TenderTypes")
                         .HasForeignKey("DependencyId");
 
                     b.Navigation("Dependency");
@@ -1612,6 +2485,16 @@ namespace manage_grp.Server.Data.Migrations
                     b.Navigation("State");
                 });
 
+            modelBuilder.Entity("manage_grp.Server.Models.Area", b =>
+                {
+                    b.Navigation("AreaServiceTypes");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.AreaServiceType", b =>
+                {
+                    b.Navigation("Tenders");
+                });
+
             modelBuilder.Entity("manage_grp.Server.Models.BudgetaryKey", b =>
                 {
                     b.Navigation("BudgetaryKeyDocumentTypeBudgetaryKeys");
@@ -1630,6 +2513,14 @@ namespace manage_grp.Server.Data.Migrations
             modelBuilder.Entity("manage_grp.Server.Models.Dependency", b =>
                 {
                     b.Navigation("BudgetaryKeys");
+
+                    b.Navigation("TenderFundingSources");
+
+                    b.Navigation("TenderPriceTypes");
+
+                    b.Navigation("TenderStatuses");
+
+                    b.Navigation("TenderTypes");
                 });
 
             modelBuilder.Entity("manage_grp.Server.Models.Municipality", b =>
@@ -1640,6 +2531,8 @@ namespace manage_grp.Server.Data.Migrations
             modelBuilder.Entity("manage_grp.Server.Models.ResourceDistribution", b =>
                 {
                     b.Navigation("ResourceDistributionDocumentTypeResourceDistributions");
+
+                    b.Navigation("ResourceDistributionTenders");
                 });
 
             modelBuilder.Entity("manage_grp.Server.Models.ResourceDistributionDocumentType", b =>
@@ -1655,6 +2548,23 @@ namespace manage_grp.Server.Data.Migrations
             modelBuilder.Entity("manage_grp.Server.Models.State", b =>
                 {
                     b.Navigation("Municipalities");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.Tender", b =>
+                {
+                    b.Navigation("ResourceDistributionTenders");
+
+                    b.Navigation("TenderDocumentTypeTenders");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.TenderDocumentType", b =>
+                {
+                    b.Navigation("TenderDocumentTypeTenders");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.TenderDocumentTypeTender", b =>
+                {
+                    b.Navigation("DocumentRequirement");
                 });
 #pragma warning restore 612, 618
         }

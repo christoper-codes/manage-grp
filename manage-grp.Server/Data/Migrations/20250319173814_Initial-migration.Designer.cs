@@ -12,8 +12,8 @@ using manage_grp.Server.Data.Contexts;
 namespace manage_grp.Server.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250221031912_Initial")]
-    partial class Initial
+    [Migration("20250319173814_Initial-migration")]
+    partial class Initialmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -770,6 +770,621 @@ namespace manage_grp.Server.Data.Migrations
                     b.HasIndex("StateId");
 
                     b.ToTable("Municipalities");
+                });
+
+            modelBuilder.Entity("manage_grp.Server.Models.Permission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.PrimitiveCollection<string>("AllowedHierarchyLevels")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Entity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Permissions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"State\"]",
+                            Entity = "Municipality"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"State\"]",
+                            Entity = "Municipality"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"State\"]",
+                            Entity = "Municipality"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"State\"]",
+                            Entity = "Municipality"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Municipality\"]",
+                            Entity = "Dependency"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Municipality\"]",
+                            Entity = "Dependency"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Municipality\"]",
+                            Entity = "Dependency"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Municipality\"]",
+                            Entity = "Dependency"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "Area"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "Area"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "Area"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "Area"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Area\"]",
+                            Entity = "AreaServiceType"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Area\"]",
+                            Entity = "AreaServiceType"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Area\"]",
+                            Entity = "AreaServiceType"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Area\"]",
+                            Entity = "AreaServiceType"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "User"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "User"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "User"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "User"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Role"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Role"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Role"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Role"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Position"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Position"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Position"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Position"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Contact"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Contact"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Contact"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Contact"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Address"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Address"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Address"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"State\",\"Municipality\",\"Dependency\",\"Area\"]",
+                            Entity = "Address"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetaryKeyDocumentType"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetaryKeyDocumentType"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetaryKeyDocumentType"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetaryKeyDocumentType"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetKeyDefault"
+                        },
+                        new
+                        {
+                            Id = 42,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetKeyDefault"
+                        },
+                        new
+                        {
+                            Id = 43,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetKeyDefault"
+                        },
+                        new
+                        {
+                            Id = 44,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetKeyDefault"
+                        },
+                        new
+                        {
+                            Id = 45,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetaryKey"
+                        },
+                        new
+                        {
+                            Id = 46,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetaryKey"
+                        },
+                        new
+                        {
+                            Id = 47,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetaryKey"
+                        },
+                        new
+                        {
+                            Id = 48,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "BudgetaryKey"
+                        },
+                        new
+                        {
+                            Id = 49,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceDistributionDocumentType"
+                        },
+                        new
+                        {
+                            Id = 50,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceDistributionDocumentType"
+                        },
+                        new
+                        {
+                            Id = 51,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceDistributionDocumentType"
+                        },
+                        new
+                        {
+                            Id = 52,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceDistributionDocumentType"
+                        },
+                        new
+                        {
+                            Id = 53,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceType"
+                        },
+                        new
+                        {
+                            Id = 54,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceType"
+                        },
+                        new
+                        {
+                            Id = 55,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceType"
+                        },
+                        new
+                        {
+                            Id = 56,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceType"
+                        },
+                        new
+                        {
+                            Id = 57,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceDistribution"
+                        },
+                        new
+                        {
+                            Id = 58,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceDistribution"
+                        },
+                        new
+                        {
+                            Id = 59,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceDistribution"
+                        },
+                        new
+                        {
+                            Id = 60,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "ResourceDistribution"
+                        },
+                        new
+                        {
+                            Id = 61,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderType"
+                        },
+                        new
+                        {
+                            Id = 62,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderType"
+                        },
+                        new
+                        {
+                            Id = 63,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderType"
+                        },
+                        new
+                        {
+                            Id = 64,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderType"
+                        },
+                        new
+                        {
+                            Id = 65,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderFundingSource"
+                        },
+                        new
+                        {
+                            Id = 66,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderFundingSource"
+                        },
+                        new
+                        {
+                            Id = 67,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderFundingSource"
+                        },
+                        new
+                        {
+                            Id = 68,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderFundingSource"
+                        },
+                        new
+                        {
+                            Id = 69,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderStatus"
+                        },
+                        new
+                        {
+                            Id = 70,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderStatus"
+                        },
+                        new
+                        {
+                            Id = 71,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderStatus"
+                        },
+                        new
+                        {
+                            Id = 72,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderStatus"
+                        },
+                        new
+                        {
+                            Id = 73,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderPriceType"
+                        },
+                        new
+                        {
+                            Id = 74,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderPriceType"
+                        },
+                        new
+                        {
+                            Id = 75,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderPriceType"
+                        },
+                        new
+                        {
+                            Id = 76,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderPriceType"
+                        },
+                        new
+                        {
+                            Id = 77,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderDocumentType"
+                        },
+                        new
+                        {
+                            Id = 78,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderDocumentType"
+                        },
+                        new
+                        {
+                            Id = 79,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderDocumentType"
+                        },
+                        new
+                        {
+                            Id = 80,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "TenderDocumentType"
+                        },
+                        new
+                        {
+                            Id = 81,
+                            Action = "Read",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "Tender"
+                        },
+                        new
+                        {
+                            Id = 82,
+                            Action = "Create",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "Tender"
+                        },
+                        new
+                        {
+                            Id = 83,
+                            Action = "Update",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "Tender"
+                        },
+                        new
+                        {
+                            Id = 84,
+                            Action = "Delete",
+                            AllowedHierarchyLevels = "[\"Dependency\"]",
+                            Entity = "Tender"
+                        });
                 });
 
             modelBuilder.Entity("manage_grp.Server.Models.Position", b =>

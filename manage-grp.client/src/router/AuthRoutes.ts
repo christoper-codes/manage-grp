@@ -28,6 +28,11 @@ const AuthRoutes = {
           path: 'policy-privacy',
           component: () => import('@/views/legal/privacyPolicy.vue')
         },
+        {
+            name: 'sign-up',
+            path: 'sign-up',
+            component: () => import('@/views/authentication/SignUp.vue')
+        },
     ]
 };
 

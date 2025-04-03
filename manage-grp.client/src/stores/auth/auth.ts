@@ -2,6 +2,7 @@ import axios from "axios";
 import { defineStore } from "pinia";
 import { useRouter } from "vue-router";
 import { error } from "@/utils/toast/Error";
+import { values } from "lodash";
 
 interface LoginValues {
   email: string;
@@ -41,9 +42,32 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  const signUp = async (values: any, loading:{value: boolean}, t: any) => { 
+    loading.value = true;
+    try {
+      const response = await axios.post('/api/Users/Register', values);
+
+      if(response.status === 200){
+        localStorage.setItem('jwtTokens', JSON.stringify(response.data.data.jwtTokens));
+        localStorage.setItem('user', JSON.stringify(response.data.data.user));
+        localStorage.setItem('roles', JSON.stringify(response.data.data.roles || ['member', 'admin', 'superadmin']));
+        router.push({ name: 'dashboard' });
+        return;
+      }
+
+      error(t('ERROR_MESSAGE'));
+    } catch (ex: any) {
+      error(ex.response.data.message || t('ERROR_MESSAGE'));
+    } finally {
+      loading.value = false;
+    }
+
+  }
+
   return {
     isAuthenticated,
     roles,
-    login
+    login,
+    signUp
   }
 })

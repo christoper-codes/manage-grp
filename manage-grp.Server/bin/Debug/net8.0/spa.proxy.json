@@ -3,7 +3,7 @@
 "ServerUrl": "https://localhost:50232",
 "RedirectUrl": "",
 "LaunchCommand": "npm run dev",
-"WorkingDirectory": "C:\\Users\\Admin\\source\\job\\manage-grp\\manage-grp.Server\\..\\manage-grp.client",
+"WorkingDirectory": "C:\\Users\\ricardo\\Proyectos .NET\\manage-grp\\manage-grp.Server\\..\\manage-grp.client",
 "MaxTimeoutInSeconds": "120",
 "KeepRunning": "false"
 }

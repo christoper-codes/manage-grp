@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "ig3CpYjkN2t00B2i6jpgWpaJ/WNBlaYqG0RM3aiQ8sY=",
+  "Hash": "0JdrEtlop6LoXfMdAzN7/jw/FGKVM7taF4nKAf1hJSo=",
   "Source": "manage-grp.Server",
   "BasePath": "_content/manage-grp.Server",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "C:\\Users\\Admin\\source\\job\\manage-grp\\manage-grp.client\\manage-grp.client.esproj",
+      "Identity": "C:\\Users\\ricardo\\Proyectos .NET\\manage-grp\\manage-grp.client\\manage-grp.client.esproj",
       "Version": 2,
       "Source": "manage-grp.client",
       "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",

@@ -152,6 +152,7 @@ const handleSearchTenderDocumentTypes = handleSearchSubmit(async (values: Record
 
 const indexTenderDocumentTypes = async (id:number) => {
     tenderDocumentTypes.value = await tenderDocumentTypeStore.tenderDocumentTypeByDependency(id, loading, t);
+    console.log(tenderDocumentTypes.value)
 };
 
 const handleStoreOrUpdateTenderDocumentType = handleStoreOrUpdateSubmit(async (values: Record<string, any>) => {

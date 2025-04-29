@@ -19,7 +19,7 @@
     "EMAIL_HEADER": "Correo electrónico",
     "PHONE_HEADER": "Teléfono",
     "KEY_HEADER": "Clave",
-    "MANDATORY_HEADER": "Obligatorio"
-
-
+    "MANDATORY_HEADER": "Obligatorio",
+    "SOCIAL_REASON_HEADER":"Razón social",
+    "CORPORATE_PURPOSE_HEADER":"Objeto social"
 }

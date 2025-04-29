@@ -47,7 +47,12 @@ const MainRoutes = {
           name: 'tender-document-types',
           path: '/apps/tender-document-types',
           component: () => import('@/views/apps/TenderDocumentTypes.vue')
-        }
+        },
+        {
+          name: 'providers',
+          path: '/apps/providers',
+          component: () => import('@/views/apps/Providers.vue')
+      },
     ]
 };
 

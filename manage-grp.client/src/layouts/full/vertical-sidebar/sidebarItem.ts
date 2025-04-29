@@ -70,6 +70,11 @@ const sidebarItem: menu[] = [
                 title: 'TENDER_DOCUMENT_TYPES',
                 icon: 'file-outline',
                 to: '/apps/tender-document-types'
+            },
+            {
+                title: 'PROVIDERS',
+                icon: 'chart-square-broken',
+                to: '/apps/providers'
             }
         ]
     },

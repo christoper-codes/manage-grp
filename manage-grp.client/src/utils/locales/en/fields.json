@@ -51,5 +51,6 @@
     "MATERNAL_LAST_NAME_FIELD": "Maternal last name",
     "PHONE_FIELD": "Phone",
     "MANDATORY_FIELD": "Mandatory",
-    "KEY_FIELD": "Key"
+    "KEY_FIELD": "Key",
+    "LEARN_FIELD": "Information"
 }

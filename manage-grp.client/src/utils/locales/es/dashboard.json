@@ -9,5 +9,7 @@
     "BUDGETARY_KEY_DOCUMENT_TYPES": "Tipos de documento de clave presupuestaria",
     "RESOURCE_DISTRIBUTION_DOCUMENT_TYPES": "Tipos de documento de distribucion de recursos",
     "TENDER_DOCUMENT_TYPES": "Tipos de documento de licitación",
-    "USER_PROFILE": "Perfil de usuario"
+    "USER_PROFILE": "Perfil de usuario",
+    "PROVIDERS": "Empresas",
+    "SELECT_ADDRESS_IN_THE_MAP":"Selecciona la dirección en el mapa"
 }

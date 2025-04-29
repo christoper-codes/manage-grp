@@ -116,6 +116,7 @@ const handleSearchAreas = handleSearchSubmit(async (values: Record<string, any>)
 
 const indexAreas = async (id:number) => {
   areas.value = await areasStore.areasByDependency(id, loading, t);
+  console.log(areas.value)
 };
 
 const handleStoreOrUpdateArea = handleStoreOrUpdateSubmit(async (values: Record<string, any>) => {

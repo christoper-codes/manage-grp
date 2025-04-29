@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("manage-grp.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0cf1b5d43b973408ad7456ce67cadba8bb04db63")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+28004c61dc85e435b8a8bb455ec5f4f7a54723a0")]
 [assembly: System.Reflection.AssemblyProductAttribute("manage-grp.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("manage-grp.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

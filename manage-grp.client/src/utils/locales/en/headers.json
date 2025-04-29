@@ -19,5 +19,7 @@
     "EMAIL_HEADER": "Email address",
     "PHONE_HEADER": "Phone",
     "KEY_HEADER": "Key",
-    "MANDATORY_HEADER": "Mandatory"
+    "MANDATORY_HEADER": "Mandatory",
+    "SOCIAL_REASON_HEADER":"Social reason",
+    "CORPORATE_PURPOSE_HEADER":"Corporate purpose"
 }
